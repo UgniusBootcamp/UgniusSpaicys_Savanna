@@ -1,5 +1,6 @@
-﻿using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces;
+﻿using SavannaApp.Data.Constants;
+using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Interfaces.Game;
 
 namespace SavannaApp.Data.Entities
 {
@@ -11,28 +12,50 @@ namespace SavannaApp.Data.Entities
 
         public Map(int height, int width)
         {
+            if (width < 0 || height < 0)
+                throw new ArgumentException("Invalid");
+
+
             Height = height;
             Width = width;
-            _map = new Animal[Height, Width];
+            _map = new Animal[height, width];
         }
 
         public void SetAnimal(Animal animal)
         {
-            int x = animal.X;
-            int y = animal.Y;
+            int x = animal.Position.X;
+            int y = animal.Position.Y;
 
-            if (x < 0 || y < 0 || x >= Height || y >= Width)
+            if (x < 0 || y < 0 || x >= Width || y >= Height)
                 throw new ArgumentException("Invalid Position");
 
-            _map[animal.X, animal.Y] = animal;
+            _map[y, x] = animal;
         }
 
         public Animal GetAnimal(int x, int y) 
         {
-            if (x < 0 || y < 0 || x >= Height || y >= Width)
+            if (x < 0 || y < 0 || x >= Width || y >= Height)
                 throw new ArgumentException("Invalid Position");
 
-            return _map[x, y];
+            return _map[y, x];
+        }
+
+        public List<Animal> Animals
+        {
+            get
+            {
+                List<Animal> animals = new List<Animal>();
+                for (int y = 0; y < Height; y++)
+                {
+                    for (int x = 0; x < Width; x++)
+                    {
+                        var animal = _map[y, x];
+
+                        if (animal != null) animals.Add(animal);
+                    }
+                }
+                return animals;
+            }
         }
     }
 }

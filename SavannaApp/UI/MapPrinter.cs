@@ -1,5 +1,5 @@
 ﻿using SavannaApp.Data.Constants;
-using SavannaApp.Data.Interfaces;
+using SavannaApp.Data.Interfaces.Game;
 
 namespace SavannaApp.UI
 {
@@ -17,13 +17,13 @@ namespace SavannaApp.UI
             Console.Write(header);
             Console.SetCursorPosition(xOffset, yOffset);
             Console.Write(GameConstants.MapCorner + new string(GameConstants.MapHorizontalBorder, map.Width) + GameConstants.MapCorner);
-            for (int i = 0; i < map.Height; i++)
+            for (int y = 0; y < map.Height; y++)
             {
                 Console.SetCursorPosition(xOffset, ++yOffset);
                 Console.Write(GameConstants.MapVerticalBorder);
-                for (int j = 0; j < map.Width; j++)
+                for (int x = 0; x < map.Width; x++)
                 {
-                    var animal = map.GetAnimal(i, j);
+                    var animal = map.GetAnimal(x, y);
                     Console.Write(animal != null ? animal.Name : "·"); ;
                 }
                 Console.Write(GameConstants.MapVerticalBorder);

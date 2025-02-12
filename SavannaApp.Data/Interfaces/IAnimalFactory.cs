@@ -7,14 +7,8 @@ using SavannaApp.Data.Entities.Animals;
 
 namespace SavannaApp.Data.Interfaces
 {
-    public interface IMap
+    public interface IAnimalFactory
     {
-        int Height { get; }
-        int Width { get; }
-        Animal[,] _map { get; }
-
-        public void SetAnimal(Animal animal);
-
-        public Animal GetAnimal(int x, int y);
+        Animal CreateAnimal(Type animalType, int x, int y);
     }
 }
