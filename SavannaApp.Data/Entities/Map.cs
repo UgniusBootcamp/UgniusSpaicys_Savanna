@@ -1,5 +1,4 @@
-﻿using SavannaApp.Data.Constants;
-using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces.Game;
 
 namespace SavannaApp.Data.Entities
@@ -8,7 +7,7 @@ namespace SavannaApp.Data.Entities
     {
         public int Height { get; private set; }
         public int Width { get; private set; }
-        public Animal[,] _map { get; private set; }
+        public List<Animal> Animals { get; private set; } = new List<Animal>();
 
         public Map(int height, int width)
         {
@@ -18,7 +17,6 @@ namespace SavannaApp.Data.Entities
 
             Height = height;
             Width = width;
-            _map = new Animal[height, width];
         }
 
         public void SetAnimal(Animal animal)
@@ -26,36 +24,28 @@ namespace SavannaApp.Data.Entities
             int x = animal.Position.X;
             int y = animal.Position.Y;
 
-            if (x < 0 || y < 0 || x >= Width || y >= Height)
+            if (x < 0 || y < 0 || x >= Width || y >= Height || Animals.Any(a => a.Position.X == x && a.Position.Y == y))
                 throw new ArgumentException("Invalid Position");
 
-            _map[y, x] = animal;
+            Animals.Add(animal);
         }
 
-        public Animal GetAnimal(int x, int y) 
+        public Animal? GetAnimal(int x, int y) 
         {
             if (x < 0 || y < 0 || x >= Width || y >= Height)
                 throw new ArgumentException("Invalid Position");
 
-            return _map[y, x];
+            return Animals.FirstOrDefault(a => a.Position.X == x && a.Position.Y == y);
         }
 
-        public List<Animal> Animals
+        public bool IsPositionValid(int x, int y)
         {
-            get
-            {
-                List<Animal> animals = new List<Animal>();
-                for (int y = 0; y < Height; y++)
-                {
-                    for (int x = 0; x < Width; x++)
-                    {
-                        var animal = _map[y, x];
+            return !(x < 0 || y < 0 || x >= Width || y >= Height || Animals.Any(a => a.Position.X == x && a.Position.Y == y));
+        }
 
-                        if (animal != null) animals.Add(animal);
-                    }
-                }
-                return animals;
-            }
+        public void RemoveAnimal(Animal animal)
+        {
+            Animals.Remove(animal);
         }
     }
 }

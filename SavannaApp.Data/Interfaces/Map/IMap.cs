@@ -11,12 +11,15 @@ namespace SavannaApp.Data.Interfaces.Game
     {
         int Height { get; }
         int Width { get; }
-        Animal[,] _map { get; }
 
         public List<Animal> Animals { get; }
 
         public void SetAnimal(Animal animal);
 
-        public Animal GetAnimal(int x, int y);
+        public Animal? GetAnimal(int x, int y);
+
+        public bool IsPositionValid(int x, int y);
+
+        public void RemoveAnimal(Animal animal);
     }
 }

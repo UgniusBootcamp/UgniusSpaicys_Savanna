@@ -5,6 +5,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Entities.MovementStrategies;
 using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Factory
@@ -13,14 +14,15 @@ namespace SavannaApp.Data.Factory
     {
         private int _id = 1;
         public AnimalFactory() { }
+
         public Animal CreateAnimal(Type animalType, int x, int y) 
         {
             switch (animalType)
             {
                 case Type t when t == typeof(Lion):
-                    return new Lion(_id++, x, y, "L", 3, 5);
+                    return new Lion(_id++, x, y, "L", 3, 5, new HunterMovement());
                 case Type t when t == typeof(Antelope):
-                    return new Antelope(_id++, x, y, "A", 5, 2);
+                    return new Antelope(_id++, x, y, "A", 5, 2, new RandomMovement());
                 default:
                     throw new ArgumentException("Unknown animal type to create", nameof(animalType));
             }

@@ -6,7 +6,7 @@ namespace SavannaApp.Data.Util
 {
     public class AnimalCreationService(IAnimalFactory animalFactory) : IAnimalCreationService
     {
-        private readonly Random random = new Random();
+        private readonly Random _random = new Random();
 
         public void CreateAnimal(Type animalType, IMap map)
         {
@@ -26,16 +26,12 @@ namespace SavannaApp.Data.Util
             int x;
             int y;
 
-            Animal? animal = null;
-
             do
             {
-                x = random.Next(0, map.Width);
-                y = random.Next(0, map.Height);
+                x = _random.Next(0, map.Width);
+                y = _random.Next(0, map.Height);
 
-                animal = map.GetAnimal(x, y);
-
-            } while (animal != null);
+            } while (!map.IsPositionValid(x,y));
 
             return new Position(x, y);
         }

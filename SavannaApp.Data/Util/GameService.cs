@@ -25,8 +25,16 @@ namespace SavannaApp.Data.Util
         {
             while (_isRunning) 
             {
+                var animalsList = map.Animals.ToList();
+
+                foreach (var animal in animalsList) 
+                {
+                    animal.Move(map);
+                    Thread.Sleep(10);
+                }
 
                 Print();
+
                 Thread.Sleep(1000);
             }
         }
