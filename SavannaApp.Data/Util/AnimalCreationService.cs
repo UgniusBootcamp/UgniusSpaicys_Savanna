@@ -8,15 +8,15 @@ namespace SavannaApp.Data.Util
     {
         private readonly Random _random = new Random();
 
-        public void CreateAnimal(Type animalType, IMap map)
+        public Animal? CreateAnimal(Type animalType, IMap map)
         {
             var newPosition = GetRandomFreePlaceOnMap(map);
 
-            if (newPosition == null) return;
+            if (newPosition == null) return null;
 
             var newAnimal = animalFactory.CreateAnimal(animalType, newPosition.X, newPosition.Y);
 
-            map.SetAnimal(newAnimal);
+            return newAnimal;
         }
 
         private Position? GetRandomFreePlaceOnMap(IMap map)

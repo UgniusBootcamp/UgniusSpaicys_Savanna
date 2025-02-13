@@ -10,12 +10,18 @@ namespace SavannaApp.Data.Entities.Animals
         public string Name { get; } = name;
         public int Speed { get; } = speed;
         public int Vision { get; } = vision;
+        public bool IsAlive { get; private set; } = true;
         public Position Position { get; } = new Position(x, y);
         private IMovement _movement { get; set; } = movement;
 
         public double DistanceTo(int x, int y)
         {
             return Math.Max(Math.Abs(Position.X - x), Math.Abs(Position.Y - y));
+        }
+
+        public void Death()
+        {
+            IsAlive = false;
         }
 
         public Position GetBestFreeSpace(Animal other, IMap map)

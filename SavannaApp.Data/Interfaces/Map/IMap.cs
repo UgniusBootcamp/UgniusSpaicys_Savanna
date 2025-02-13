@@ -20,6 +20,6 @@ namespace SavannaApp.Data.Interfaces.Game
 
         public bool IsPositionValid(int x, int y);
 
-        public void RemoveAnimal(Animal animal);
+        public void RemoveDeadAnimals();
     }
 }

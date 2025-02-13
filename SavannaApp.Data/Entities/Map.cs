@@ -43,9 +43,9 @@ namespace SavannaApp.Data.Entities
             return !(x < 0 || y < 0 || x >= Width || y >= Height || Animals.Any(a => a.Position.X == x && a.Position.Y == y));
         }
 
-        public void RemoveAnimal(Animal animal)
+        public void RemoveDeadAnimals()
         {
-            Animals.Remove(animal);
+            Animals.RemoveAll(a => !a.IsAlive);
         }
     }
 }

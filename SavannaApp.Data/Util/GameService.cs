@@ -9,6 +9,7 @@ namespace SavannaApp.Data.Util
     {
         private IMap map = null!;
         private bool _isRunning = false;
+        private readonly object _lock = new object();
         public void Execute()
         {
             map = mapCreator.CreateMap();
@@ -25,12 +26,17 @@ namespace SavannaApp.Data.Util
         {
             while (_isRunning) 
             {
-                var animalsList = map.Animals.ToList();
 
-                foreach (var animal in animalsList) 
+                var animals = map.Animals.ToList();
+
+                foreach (var animal in animals) 
                 {
                     animal.Move(map);
-                    Thread.Sleep(10);
+                }
+
+                lock (_lock)
+                {
+                    map.RemoveDeadAnimals();
                 }
 
                 Print();
@@ -44,6 +50,18 @@ namespace SavannaApp.Data.Util
             mapPrinter.PrintMap("Welcome to Savanna", map);
         }
 
+        private void CreateAnimal(Type animalType)
+        {
+            var animal = animalCreationService.CreateAnimal(animalType, map);
+
+            if (animal == null) return;
+
+            lock (_lock) 
+            {
+                map.SetAnimal(animal);
+            }
+        }
+
         private void ListenForKeyPress()
         {
             while (_isRunning)
@@ -54,10 +72,10 @@ namespace SavannaApp.Data.Util
                     switch (key)
                     {
                         case ConsoleKey.L:
-                            animalCreationService.CreateAnimal(typeof(Lion), map);
+                            CreateAnimal(typeof(Lion));
                             break;
                         case ConsoleKey.A:
-                            animalCreationService.CreateAnimal(typeof(Antelope), map);
+                            CreateAnimal(typeof(Antelope));
                             break;
                     }
                 }

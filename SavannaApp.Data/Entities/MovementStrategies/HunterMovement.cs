@@ -16,13 +16,13 @@ namespace SavannaApp.Data.Entities.MovementStrategies
 
             if (!antelopes.Any()) return false;
 
-            var antelopeToCatch = antelopes.Order().First();
+            var antelopeToCatch = antelopes.OrderBy(a => animal.DistanceTo(a.Position.X, a.Position.Y)).First();
 
             if (animal.DistanceTo(antelopeToCatch.Position.X, antelopeToCatch.Position.Y) <= animal.Speed)
             {
                 int x = antelopeToCatch.Position.X;
                 int y = antelopeToCatch.Position.Y;
-                map.RemoveAnimal(antelopeToCatch);
+                antelopeToCatch.Death();
 
                 animal.Position.X = x; animal.Position.Y = y;
             }
