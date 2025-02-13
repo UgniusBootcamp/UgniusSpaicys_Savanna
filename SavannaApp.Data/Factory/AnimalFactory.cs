@@ -22,7 +22,7 @@ namespace SavannaApp.Data.Factory
                 case Type t when t == typeof(Lion):
                     return new Lion(_id++, x, y, "L", 3, 5, new HunterMovement());
                 case Type t when t == typeof(Antelope):
-                    return new Antelope(_id++, x, y, "A", 5, 2, new RandomMovement());
+                    return new Antelope(_id++, x, y, "A", 5, 10, new PrayMovement());
                 default:
                     throw new ArgumentException("Unknown animal type to create", nameof(animalType));
             }

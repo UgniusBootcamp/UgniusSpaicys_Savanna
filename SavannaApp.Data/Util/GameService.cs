@@ -29,9 +29,15 @@ namespace SavannaApp.Data.Util
 
                 var animals = map.Animals.ToList();
 
-                foreach (var animal in animals) 
+                foreach (var antelope in animals.Where(a => a is Antelope))
                 {
-                    animal.Move(map);
+                    antelope.Move(map);
+                }
+
+
+                foreach (var lion in animals.Where(a => a is Lion))
+                {
+                    lion.Move(map);
                 }
 
                 lock (_lock)

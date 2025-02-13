@@ -28,7 +28,7 @@ namespace SavannaApp.Data.Entities.MovementStrategies
             }
             else
             {
-                var bestPosition = animal.GetBestFreeSpace(antelopeToCatch, map);
+                var bestPosition = animal.GetBestFreeSpace(antelopeToCatch, map, (close, far) => close < far);
 
 
                 animal.Position.X = bestPosition.X;
