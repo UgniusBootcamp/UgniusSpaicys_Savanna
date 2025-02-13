@@ -27,7 +27,7 @@ namespace SavannaApp.Data.Entities.MovementStrategies
             int y = pray.Position.Y;
 
             Position BestPosition = new Position(x, y);
-            double bestDistanceFromAllAnimal = hunters.Sum(h => h.DistanceTo(pray.Position.X, pray.Position.Y));
+            double bestDistanceFromAllAnimal = double.MinValue;
 
             int startX = Math.Max(0, x - pray.Speed);
             int endX = Math.Min(map.Width - 1, x + pray.Speed);
