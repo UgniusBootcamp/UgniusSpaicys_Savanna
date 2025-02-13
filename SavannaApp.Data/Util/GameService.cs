@@ -53,7 +53,10 @@ namespace SavannaApp.Data.Util
 
         private void Print()
         {
-            mapPrinter.PrintMap("Welcome to Savanna", map);
+            var antelopesCount = map.Animals.Where(a => a is Antelope).Count();
+            var lionsCount = map.Animals.Where(l => l is Lion).Count();
+
+            mapPrinter.PrintMap($"Antelopes - {antelopesCount} | Lions - {lionsCount}", map);
         }
 
         private void CreateAnimal(Type animalType)

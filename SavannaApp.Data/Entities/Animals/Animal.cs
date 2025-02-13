@@ -24,40 +24,6 @@ namespace SavannaApp.Data.Entities.Animals
             IsAlive = false;
         }
 
-        public Position GetBestFreeSpace(Animal other, IMap map, Func<double, double, bool> comparator)
-        {
-            int x = Position.X;
-            int y = Position.Y;
-
-            Position BestPosition = new Position(x, y);
-            double bestDistanceToAnimal = DistanceTo(other.Position.X, other.Position.Y);
-
-            int startX = Math.Max(0, x - Speed);
-            int endX = Math.Min(map.Width, x + Speed);
-
-            int startY = Math.Max(0, y - Speed);
-            int endY = Math.Min(map.Height, y + Speed);
-
-            for (int i = startX; i < endX; i++)
-            {
-                for (int j = startY; j < endY; j++)
-                {
-                    if (map.IsPositionValid(i, j))
-                    {
-                        var distanceToAnimal = DistanceTo(i, j);
-
-                        if (comparator(distanceToAnimal, bestDistanceToAnimal))
-                        {
-                            BestPosition = new Position(i, j);
-                            bestDistanceToAnimal = distanceToAnimal;
-                        }
-                    }
-                }
-            }
-
-            return BestPosition;
-        }
-
         public void Move(IMap map)
         {
             var action = _movement.Move(this, map);

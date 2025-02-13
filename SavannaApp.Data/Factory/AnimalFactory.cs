@@ -20,9 +20,9 @@ namespace SavannaApp.Data.Factory
             switch (animalType)
             {
                 case Type t when t == typeof(Lion):
-                    return new Lion(_id++, x, y, "L", 3, 5, new HunterMovement());
+                    return new Lion(_id++, x, y, "L", 3, 6, new HunterMovement());
                 case Type t when t == typeof(Antelope):
-                    return new Antelope(_id++, x, y, "A", 5, 10, new PrayMovement());
+                    return new Antelope(_id++, x, y, "A", 6, 3, new PrayMovement());
                 default:
                     throw new ArgumentException("Unknown animal type to create", nameof(animalType));
             }
