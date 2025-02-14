@@ -1,5 +1,4 @@
 ﻿using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
 
 namespace SavannaApp.Data.Entities.Animals
 {

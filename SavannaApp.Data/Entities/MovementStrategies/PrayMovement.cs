@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Interfaces.Game;
 
