@@ -1,12 +1,12 @@
 ﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Interfaces.Game;
+using SavannaApp.Data.Interfaces.Map;
 
 namespace SavannaApp.Data.Util
 {
-    public class AnimalCreationService(IAnimalFactory animalFactory) : IAnimalCreationService
+    public class AnimalCreationService(IAnimalFactory animalFactory, IMapManager mapManager) : IAnimalCreationService
     {
-        private readonly Random _random = new Random();
 
         /// <summary>
         /// Method to create animal
@@ -16,7 +16,7 @@ namespace SavannaApp.Data.Util
         /// <returns>Created animal or null if there is not free space</returns>
         public Animal? CreateAnimal(Type animalType, IMap map)
         {
-            var newPosition = GetRandomFreePlaceOnMap(map);
+            var newPosition = mapManager.GetRandomFreePlaceOnMap(map);
 
             if (newPosition == null) return null;
 
@@ -25,22 +25,18 @@ namespace SavannaApp.Data.Util
             return newAnimal;
         }
 
-        private Position? GetRandomFreePlaceOnMap(IMap map)
+        public Animal? RebirthAnimal(List<Animal> Animals, IMap map)
         {
-            if (map.Animals.Count() == map.Height * map.Width) return null;
+            var position = mapManager.GetClosestFreePositionToAnimals(Animals, map);
 
-            int x;
-            int y;
+            if (position == null) return null;
 
-            do
-            {
-                x = _random.Next(0, map.Width);
-                y = _random.Next(0, map.Height);
+            var newBorn = animalFactory.CreateAnimal(Animals.First().GetType(), position.X, position.Y);
 
-            } while (!map.IsPositionValid(x,y));
-
-            return new Position(x, y);
+            return newBorn;
         }
+
+
 
     }
 }

@@ -23,13 +23,16 @@ public class RandomMovement : IMovement
         int newX = animal.Position.X + deltaX;
         int newY = animal.Position.Y + deltaY;
 
-        newX = Math.Clamp(newX, 1, maxX - 1);
-        newY = Math.Clamp(newY, 1, maxY - 1);
+        int buffer = 1;
 
-        if (map.IsPositionValid(newX, newY))
+        if (newX >= buffer && newX <= maxX - buffer && newY >= buffer && newY <= maxY - buffer)
         {
-            animal.Position.X = newX;
-            animal.Position.Y = newY;
+            if (map.IsPositionValid(newX, newY))
+            {
+                animal.Position.X = newX;
+                animal.Position.Y = newY;
+
+            }
         }
 
         return true;

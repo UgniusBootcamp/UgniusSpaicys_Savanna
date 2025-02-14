@@ -6,7 +6,7 @@ using SavannaApp.Data.Interfaces.Game;
 
 namespace SavannaApp.Data.Util
 {
-    public class GameService(IMapCreator mapCreator, IMapPrinter mapPrinter, IAnimalCreationService animalCreationService) : IGameService
+    public class GameService(IMapCreator mapCreator, IMapPrinter mapPrinter, IAnimalCreationService animalCreationService, IAnimalGroupManager animalGroupManager) : IGameService
     {
         private IMap map = null!;
         private bool _isRunning = false;
@@ -34,6 +34,8 @@ namespace SavannaApp.Data.Util
         {
             while (_isRunning) 
             {
+
+                animalGroupManager.Reproduction(map);
 
                 var animals = map.Animals.ToList();
 
