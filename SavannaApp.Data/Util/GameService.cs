@@ -1,4 +1,5 @@
 ﻿using GameOfLife.Data.Interfaces.Game;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Interfaces.Game;
@@ -56,7 +57,7 @@ namespace SavannaApp.Data.Util
             var antelopesCount = map.Animals.Where(a => a is Antelope).Count();
             var lionsCount = map.Animals.Where(l => l is Lion).Count();
 
-            mapPrinter.PrintMap($"Antelopes - {antelopesCount} | Lions - {lionsCount}", map);
+            mapPrinter.PrintMap(String.Format(GameConstants.Header, antelopesCount, lionsCount), map);
         }
 
         private void CreateAnimal(Type animalType)

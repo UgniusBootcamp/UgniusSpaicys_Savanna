@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Entities.MovementStrategies;
 using SavannaApp.Data.Interfaces;
@@ -20,11 +21,11 @@ namespace SavannaApp.Data.Factory
             switch (animalType)
             {
                 case Type t when t == typeof(Lion):
-                    return new Lion(_id++, x, y, "L", 3, 6, new HunterMovement());
+                    return new Lion(_id++, x, y, GameConstants.Lion, GameConstants.LionSpeed, GameConstants.LionVision, new HunterMovement());
                 case Type t when t == typeof(Antelope):
-                    return new Antelope(_id++, x, y, "A", 6, 3, new PrayMovement());
+                    return new Antelope(_id++, x, y, GameConstants.Antelope, GameConstants.AntelopeSpeed, GameConstants.AntelopeVision, new PrayMovement());
                 default:
-                    throw new ArgumentException("Unknown animal type to create", nameof(animalType));
+                    throw new ArgumentException(GameConstants.UnknownAnimalType, nameof(animalType));
             }
         }
     }

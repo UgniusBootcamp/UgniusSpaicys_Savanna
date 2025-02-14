@@ -24,7 +24,7 @@ namespace SavannaApp.UI
                 for (int x = 0; x < map.Width; x++)
                 {
                     var animal = map.GetAnimal(x, y);
-                    Console.Write(animal != null ? animal.Name : "·"); ;
+                    Console.Write(animal != null ? animal.Name : GameConstants.FreeMapSpace); ;
                 }
                 Console.Write(GameConstants.MapVerticalBorder);
             }

@@ -1,4 +1,5 @@
-﻿using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Data.Constants;
+using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces.Game;
 
 namespace SavannaApp.Data.Entities
@@ -12,7 +13,7 @@ namespace SavannaApp.Data.Entities
         public Map(int height, int width)
         {
             if (width < 0 || height < 0)
-                throw new ArgumentException("Invalid");
+                throw new ArgumentException(GameConstants.InvalidPosition);
 
 
             Height = height;
@@ -25,7 +26,7 @@ namespace SavannaApp.Data.Entities
             int y = animal.Position.Y;
 
             if (x < 0 || y < 0 || x >= Width || y >= Height || Animals.Any(a => a.Position.X == x && a.Position.Y == y))
-                throw new ArgumentException("Invalid Position");
+                throw new ArgumentException(GameConstants.InvalidPosition);
 
             Animals.Add(animal);
         }
@@ -33,7 +34,7 @@ namespace SavannaApp.Data.Entities
         public Animal? GetAnimal(int x, int y) 
         {
             if (x < 0 || y < 0 || x >= Width || y >= Height)
-                throw new ArgumentException("Invalid Position");
+                throw new ArgumentException(GameConstants.InvalidPosition);
 
             return Animals.FirstOrDefault(a => a.Position.X == x && a.Position.Y == y);
         }

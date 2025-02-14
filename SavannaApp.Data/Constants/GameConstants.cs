@@ -20,6 +20,26 @@ namespace SavannaApp.Data.Constants
     
         public const int DefaultMapHeight = 25; // default map size
 
-        public const int DefaultMapLength = 50;
+        public const int DefaultMapLength = 50; // default map length
+
+        public const string FreeMapSpace = "·"; // Free space on a map string
+
+        public const string InvalidPosition = "Invalid Map position"; // Invalid position message
+
+        public const int LionSpeed = 3; // Lion speed
+
+        public const int LionVision = 6; // Lion vision
+        
+        public const int AntelopeSpeed = 6; // Antelope speed
+        
+        public const int AntelopeVision = 3; // Antelope vision
+        
+        public const string Lion = "L"; // Lion name
+        
+        public const string Antelope = "A"; // Antelope name
+        
+        public const string UnknownAnimalType = "Unknown animal type to create"; // Unknown animal type message
+        
+        public const string Header = "Antelopes - {0} | Lions - {1}"; // Header message
     }
 }
