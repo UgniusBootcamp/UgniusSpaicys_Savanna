@@ -11,6 +11,10 @@ namespace SavannaApp.Data.Util
         private IMap map = null!;
         private bool _isRunning = false;
         private readonly object _lock = new object();
+
+        /// <summary>
+        /// Method to run game
+        /// </summary>
         public void Execute()
         {
             map = mapCreator.CreateMap();
@@ -23,6 +27,9 @@ namespace SavannaApp.Data.Util
             RunLoop();
         }
 
+        /// <summary>
+        /// Helper to run a loop of game
+        /// </summary>
         private void RunLoop()
         {
             while (_isRunning) 
@@ -52,6 +59,9 @@ namespace SavannaApp.Data.Util
             }
         }
 
+        /// <summary>
+        /// Helper to print map
+        /// </summary>
         private void Print()
         {
             var antelopesCount = map.Animals.Where(a => a is Antelope).Count();
@@ -60,6 +70,10 @@ namespace SavannaApp.Data.Util
             mapPrinter.PrintMap(String.Format(GameConstants.Header, antelopesCount, lionsCount), map);
         }
 
+        /// <summary>
+        /// Helper to create animal
+        /// </summary>
+        /// <param name="animalType">Type of animal</param>
         private void CreateAnimal(Type animalType)
         {
             var animal = animalCreationService.CreateAnimal(animalType, map);
@@ -72,6 +86,9 @@ namespace SavannaApp.Data.Util
             }
         }
 
+        /// <summary>
+        /// Helper to listen for key presses
+        /// </summary>
         private void ListenForKeyPress()
         {
             while (_isRunning)

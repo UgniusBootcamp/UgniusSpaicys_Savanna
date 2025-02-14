@@ -6,6 +6,12 @@ namespace SavannaApp.Data.Entities.MovementStrategies
 {
     public class HunterMovement : IMovement
     {
+        /// <summary>
+        /// Method to catch pray or move towards best possible position towards pray if position is not reachable in one go
+        /// </summary>
+        /// <param name="animal">animal</param>
+        /// <param name="map">map</param>
+        /// <returns>true if movement was performed, false if not</returns>
         public bool Move(Animal animal, IMap map)
         {
             var antelopes = map.Animals.Where(a => a is Antelope && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Vision);
@@ -33,6 +39,13 @@ namespace SavannaApp.Data.Entities.MovementStrategies
             return true;
         }
 
+        /// <summary>
+        /// Helper method to get best free position which is closest to pray
+        /// </summary>
+        /// <param name="hunter">hunter</param>
+        /// <param name="pray">pray</param>
+        /// <param name="map">Map</param>
+        /// <returns>Free closest to pray position</returns>
         private Position GetBestFreeSpace(Animal hunter, Animal pray, IMap map)
         {
             int x = hunter.Position.X;

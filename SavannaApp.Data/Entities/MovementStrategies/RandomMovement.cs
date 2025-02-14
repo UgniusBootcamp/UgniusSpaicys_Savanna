@@ -6,6 +6,12 @@ public class RandomMovement : IMovement
 {
     private readonly Random _random = new Random();
 
+    /// <summary>
+    /// Method to perform random movement
+    /// </summary>
+    /// <param name="animal">animal</param>
+    /// <param name="map">Map</param>
+    /// <returns>always true</returns>
     public bool Move(Animal animal, IMap map)
     {
         int deltaX = _random.Next(-animal.Speed, animal.Speed + 1);

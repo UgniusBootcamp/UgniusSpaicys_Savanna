@@ -6,6 +6,12 @@ namespace SavannaApp.Data.Entities.MovementStrategies
 {
     public class PrayMovement : IMovement
     {
+        /// <summary>
+        /// Method for pray to escape from hunters
+        /// </summary>
+        /// <param name="animal">pray</param>
+        /// <param name="map">Map</param>
+        /// <returns>true if animal has moved, false if not</returns>
         public bool Move(Animal animal, IMap map)
         {
             var lions = map.Animals.Where(a => a is Lion && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Vision);
@@ -20,6 +26,13 @@ namespace SavannaApp.Data.Entities.MovementStrategies
             return true;
         }
 
+        /// <summary>
+        /// Helper method to calculate best free position which is furthest from all nearby hunters
+        /// </summary>
+        /// <param name="pray">pray</param>
+        /// <param name="hunters">hunters</param>
+        /// <param name="map">Map</param>
+        /// <returns>furthest position from all hunters</returns>
         private Position GetBestFreeSpace(Animal pray, IEnumerable<Animal> hunters, IMap map)
         {
             int x = pray.Position.X;

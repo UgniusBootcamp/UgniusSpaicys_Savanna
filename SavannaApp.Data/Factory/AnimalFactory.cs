@@ -8,8 +8,20 @@ namespace SavannaApp.Data.Factory
     public class AnimalFactory : IAnimalFactory
     {
         private int _id = 1;
+
+        /// <summary>
+        /// Animal factory constructor
+        /// </summary>
         public AnimalFactory() { }
 
+        /// <summary>
+        /// Method to create animal
+        /// </summary>
+        /// <param name="animalType">type of animal</param>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
+        /// <returns>Created animal</returns>
+        /// <exception cref="ArgumentException">if animal type is not found</exception>
         public Animal CreateAnimal(Type animalType, int x, int y) 
         {
             switch (animalType)

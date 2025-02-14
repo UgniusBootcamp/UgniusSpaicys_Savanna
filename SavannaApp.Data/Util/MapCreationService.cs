@@ -8,6 +8,10 @@ namespace GameOfLife.Data.Util
 {
     public class MapCreationService(IInputHandler inputHandler, IOutputHandler outputHandler) : IMapCreator
     {
+        /// <summary>
+        /// Map creation method
+        /// </summary>
+        /// <returns>Created map</returns>
         public IMap CreateMap()
         {
             int width = inputHandler.GetInt(String.Format("{0}{1}", GameConstants.LenghtInputMessage, GameConstants.DefaultMapLength));

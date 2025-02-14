@@ -8,6 +8,12 @@ namespace SavannaApp.Data.Util
     {
         private readonly Random _random = new Random();
 
+        /// <summary>
+        /// Method to create animal
+        /// </summary>
+        /// <param name="animalType">Type of animal</param>
+        /// <param name="map">Map</param>
+        /// <returns>Created animal or null if there is not free space</returns>
         public Animal? CreateAnimal(Type animalType, IMap map)
         {
             var newPosition = GetRandomFreePlaceOnMap(map);

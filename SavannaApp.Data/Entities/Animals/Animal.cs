@@ -13,16 +13,29 @@ namespace SavannaApp.Data.Entities.Animals
         public Position Position { get; } = new Position(x, y);
         private IMovement _movement { get; set; } = movement;
 
-        public double DistanceTo(int x, int y)
+        /// <summary>
+        /// Method to calculate distance to position (Manhattan)
+        /// </summary>
+        /// <param name="x">X coordinate</param>
+        /// <param name="y">Y coordinate</param>
+        /// <returns>Distance to position</returns>
+        public int DistanceTo(int x, int y)
         {
             return Math.Max(Math.Abs(Position.X - x), Math.Abs(Position.Y - y));
         }
 
+        /// <summary>
+        /// Method to make animal dead
+        /// </summary>
         public void Death()
         {
             IsAlive = false;
         }
 
+        /// <summary>
+        /// Method for performing movement of animal
+        /// </summary>
+        /// <param name="map">Map</param>
         public void Move(IMap map)
         {
             var action = _movement.Move(this, map);

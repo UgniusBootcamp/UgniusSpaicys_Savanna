@@ -14,6 +14,10 @@ namespace GameOfLife.Dependencies
 {
     public static class DependencyContainer
     {
+        /// <summary>
+        /// Method to create services
+        /// </summary>
+        /// <returns>Service provider</returns>
         public static ServiceProvider ConfigureService()
         {
             var services = new ServiceCollection();

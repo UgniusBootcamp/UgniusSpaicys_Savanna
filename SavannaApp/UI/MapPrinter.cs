@@ -5,6 +5,11 @@ namespace SavannaApp.UI
 {
     public class MapPrinter : IMapPrinter
     {
+        /// <summary>
+        /// Method for printing map to console
+        /// </summary>
+        /// <param name="header">Header message</param>
+        /// <param name="map">Map</param>
         public void PrintMap(string header, IMap map)
         {
             int yOffset = 0;
