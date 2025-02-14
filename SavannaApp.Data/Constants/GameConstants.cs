@@ -35,5 +35,13 @@
         public const string UnknownAnimalType = "Unknown animal type to create"; // Unknown animal type message
         
         public const string Header = "Antelopes - {0} | Lions - {1}"; // Header message
+
+        public const double LionHealth = 50; // Lion health
+
+        public const double AntelopeHealth = 30; // Antelope health
+
+        public const double HealthDamageOnMove = 0.5; // Health taken on every move 
+
+        public const double HealthIncreaseOnAntelopeEaten = 15; // Health added when antelope is eaten
     }
 }

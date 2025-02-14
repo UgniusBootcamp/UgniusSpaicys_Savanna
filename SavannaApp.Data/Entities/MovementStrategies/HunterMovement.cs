@@ -1,4 +1,5 @@
-﻿using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Data.Constants;
+using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Interfaces.Game;
 
@@ -24,7 +25,10 @@ namespace SavannaApp.Data.Entities.MovementStrategies
             {
                 int x = antelopeToCatch.Position.X;
                 int y = antelopeToCatch.Position.Y;
+
                 antelopeToCatch.Death();
+
+                animal.IncreaseHealth(GameConstants.HealthIncreaseOnAntelopeEaten);
 
                 animal.Position.X = x; animal.Position.Y = y;
             }

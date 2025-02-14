@@ -27,9 +27,9 @@ namespace SavannaApp.Data.Factory
             switch (animalType)
             {
                 case Type t when t == typeof(Lion):
-                    return new Lion(_id++, x, y, GameConstants.Lion, GameConstants.LionSpeed, GameConstants.LionVision, new HunterMovement());
+                    return new Lion(_id++, x, y, GameConstants.Lion, GameConstants.LionSpeed, GameConstants.LionVision, GameConstants.LionHealth, new HunterMovement());
                 case Type t when t == typeof(Antelope):
-                    return new Antelope(_id++, x, y, GameConstants.Antelope, GameConstants.AntelopeSpeed, GameConstants.AntelopeVision, new PrayMovement());
+                    return new Antelope(_id++, x, y, GameConstants.Antelope, GameConstants.AntelopeSpeed, GameConstants.AntelopeVision, GameConstants.AntelopeHealth, new PrayMovement());
                 default:
                     throw new ArgumentException(GameConstants.UnknownAnimalType, nameof(animalType));
             }
