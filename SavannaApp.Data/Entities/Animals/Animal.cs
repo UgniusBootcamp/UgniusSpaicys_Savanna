@@ -53,6 +53,8 @@ namespace SavannaApp.Data.Entities.Animals
 
         private void DecreaseHealth(double damage)
         {
+            if (damage < 0) return;
+
             Health -= damage;
 
             if (Health <= 0) IsAlive = false;
@@ -60,6 +62,8 @@ namespace SavannaApp.Data.Entities.Animals
 
         public void IncreaseHealth(double health)
         {
+            if (health < 0) return;
+
             Health += health;
         }
     }

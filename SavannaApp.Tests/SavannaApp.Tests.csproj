@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\MovementStrategiesTests\Hunter\" />
     <Folder Include="Entities\MovementStrategiesTests\Random\" />
     <Folder Include="Entities\MovementStrategiesTests\Pray\" />
     <Folder Include="Factory\AnimalFactoryTests\" />
