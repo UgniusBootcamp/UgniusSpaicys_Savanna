@@ -32,6 +32,7 @@ namespace SavannaApp.Data.Entities.Animals
         public void Death()
         {
             IsAlive = false;
+            Health = 0;
         }
 
         /// <summary>

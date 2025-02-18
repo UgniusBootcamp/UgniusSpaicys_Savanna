@@ -39,7 +39,7 @@ namespace SavannaApp.Data.Util
             int y = hunter.Position.Y;
 
             Position BestPosition = new Position(x, y);
-            double bestDistanceToAnimal = hunter.DistanceTo(pray.Position.X, pray.Position.Y);
+            double bestDistanceToAnimal = double.MaxValue;
 
             int startX = Math.Max(0, x - hunter.Speed);
             int endX = Math.Min(map.Width - 1, x + hunter.Speed);
@@ -53,7 +53,7 @@ namespace SavannaApp.Data.Util
                 {
                     if (map.IsPositionValid(i, j))
                     {
-                        var distanceToAnimal = hunter.DistanceTo(i, j);
+                        var distanceToAnimal = pray.DistanceTo(i, j);
 
                         if (distanceToAnimal < bestDistanceToAnimal)
                         {
