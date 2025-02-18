@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Util\AnimalCreationTests\" />
     <Folder Include="Util\AnimalGroupManagerTests\" />
     <Folder Include="Util\GameServiceTests\" />
     <Folder Include="Util\MapCreationTests\" />

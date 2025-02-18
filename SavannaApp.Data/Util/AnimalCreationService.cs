@@ -35,8 +35,5 @@ namespace SavannaApp.Data.Util
 
             return newBorn;
         }
-
-
-
     }
 }
