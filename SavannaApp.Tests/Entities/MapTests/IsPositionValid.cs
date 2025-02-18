@@ -2,6 +2,7 @@
 using SavannaApp.Data.Entities;
 using SavannaApp.Data.Interfaces.Game;
 using SavannaApp.Data.Interfaces;
+using Moq;
 
 namespace SavannaApp.Tests.Entities.MapTests
 {
@@ -13,10 +14,10 @@ namespace SavannaApp.Tests.Entities.MapTests
         [TestInitialize]
         public void Setup()
         {
-            IMovement random = new RandomMovement();
+            Mock<IMovement> random = new Mock<IMovement>();
             map = new Map(20, 20);
-            var animal1 = new Lion(1, 0, 0, "L", 1, 1, 1, random);
-            var animal2 = new Lion(1, 1, 1, "L", 1, 1, 1, random);
+            var animal1 = new Lion(1, 0, 0, "L", 1, 1, 1, random.Object);
+            var animal2 = new Lion(1, 1, 1, "L", 1, 1, 1, random.Object);
             map.SetAnimal(animal1);
             map.SetAnimal(animal2);
         }

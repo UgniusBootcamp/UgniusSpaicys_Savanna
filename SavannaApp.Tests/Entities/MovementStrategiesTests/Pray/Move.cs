@@ -5,6 +5,7 @@ using SavannaApp.Data.Interfaces.Game;
 using SavannaApp.Data.Interfaces.Map;
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Util;
+using Moq;
 
 namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
 {
@@ -13,7 +14,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
     {
         private Animal lion = null!;
         private Animal antelope = null!;
-        private IMovement hunter = null!;
+        private Mock<IMovement> hunter = null!;
         private IMovement pray = null!;
         private IMapManager mapManager = null!;
         private IMap map = null!;
@@ -23,9 +24,9 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
         {
             map = new Map(20, 20);
             mapManager = new MapManager();
-            hunter = new HunterMovement(mapManager);
+            hunter = new Mock<IMovement>();
             pray = new PrayMovement(mapManager);
-            lion = new Lion(1, 9, 9, "L", 5, 5, 5, hunter);
+            lion = new Lion(1, 9, 9, "L", 5, 5, 5, hunter.Object);
             antelope = new Antelope(2, 10, 12, "A", 5, 5, 5, pray);
         }
 
@@ -65,7 +66,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
         public void Move_NoLionsInVision_ShouldReturnFalse()
         {
             //Arrange
-            lion = new Lion(1, 9, 9, "L", 5, 5, 5, hunter);
+            lion = new Lion(1, 9, 9, "L", 5, 5, 5, hunter.Object);
             antelope = new Antelope(2, 10, 12, "A", 5, 2, 5, pray);
 
             map.SetAnimal(antelope);

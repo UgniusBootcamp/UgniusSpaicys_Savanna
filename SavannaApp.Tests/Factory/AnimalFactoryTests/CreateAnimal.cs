@@ -5,6 +5,8 @@ using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Factory;
 using SavannaApp.Data.Util;
 using SavannaApp.Data.Entities.MovementStrategies;
+using Moq;
+using SavannaApp.Data.Interfaces.Map;
 
 namespace SavannaApp.Tests.Factory.AnimalFactoryTests
 {
@@ -16,9 +18,9 @@ namespace SavannaApp.Tests.Factory.AnimalFactoryTests
         [TestInitialize]
         public void Setup()
         {
-            var mapManager = new MapManager();
-            var hunterMovement = new HunterMovement(mapManager);
-            var prayMovement = new PrayMovement(mapManager);
+            var mapManager = new Mock<IMapManager>();
+            var hunterMovement = new HunterMovement(mapManager.Object);
+            var prayMovement = new PrayMovement(mapManager.Object);
 
             _factory = new AnimalFactory(hunterMovement, prayMovement);
         }

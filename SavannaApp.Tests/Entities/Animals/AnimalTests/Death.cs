@@ -1,4 +1,5 @@
-﻿using SavannaApp.Data.Entities.Animals;
+﻿using Moq;
+using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalTests
@@ -8,13 +9,13 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
     public class Death
     {
         private Animal animal = null!;
-        private IMovement? random;
+        private Mock<IMovement> random = null!;
 
         [TestInitialize]
         public void Setup()
         {
-            random = new RandomMovement();
-            animal = new Lion(1, 2, 2, "L", 1, 1, 1, random);
+            random = new Mock<IMovement>();
+            animal = new Lion(1, 2, 2, "L", 1, 1, 1, random.Object);
         }
 
         [TestMethod]

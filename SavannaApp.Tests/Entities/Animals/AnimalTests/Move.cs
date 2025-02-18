@@ -14,7 +14,6 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
         private Animal lion = null!;
         private Animal antelope = null!;
         private IMovement hunter = null!;
-        private IMovement random = null!;
         private IMovement pray = null!;
         private IMapManager mapManager = null!;
         private IMap map = null!;

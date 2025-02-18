@@ -21,10 +21,4 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Util\GameServiceTests\" />
-    <Folder Include="Util\MapCreationTests\" />
-    <Folder Include="Util\MapManagerTests\" />
-  </ItemGroup>
-
 </Project>
