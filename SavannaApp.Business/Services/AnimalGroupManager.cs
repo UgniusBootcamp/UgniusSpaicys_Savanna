@@ -1,4 +1,5 @@
 ﻿using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 
@@ -6,10 +7,15 @@ namespace SavannaApp.Business.Services
 {
     public class AnimalGroupManager(IAnimalCreationService animalCreationService) : IAnimalGroupManager
     {
-        private readonly int rebirthRadius = 1;
-        private readonly int rebirthCounter = 3;
+        private readonly int rebirthRadius = GameConstants.DefaultRebirthRadius;
+        private readonly int rebirthCounter = GameConstants.DefaultRebirthCounter;
 
         private Dictionary<(int, int), AnimalGroup> AnimalGroups = new Dictionary<(int, int), AnimalGroup>();
+        
+        /// <summary>
+        /// Method for animal reproduction
+        /// </summary>
+        /// <param name="map">map</param>
         public void Reproduction(IMap map)
         {
             var Animals = map.Animals;
@@ -33,6 +39,10 @@ namespace SavannaApp.Business.Services
             }
         }
 
+        /// <summary>
+        /// Method to form animal group
+        /// </summary>
+        /// <param name="Animals">animals</param>
         private void FormGroups(List<Animal> Animals)
         {
             int n = Animals.Count();
@@ -49,6 +59,11 @@ namespace SavannaApp.Business.Services
             }
         }
 
+        /// <summary>
+        /// Method to add new group or increase existing counter
+        /// </summary>
+        /// <param name="a1">animal</param>
+        /// <param name="a2">animal</param>
         private void CheckGroup(Animal a1, Animal a2)
         {
             if (a1.DistanceTo(a2.Position.X, a2.Position.Y) <= rebirthRadius)
@@ -72,6 +87,9 @@ namespace SavannaApp.Business.Services
             }
         }
 
+        /// <summary>
+        /// Method for group existance validation
+        /// </summary>
         private void ValidateGroupsExistance()
         {
             foreach (var kvp in AnimalGroups)

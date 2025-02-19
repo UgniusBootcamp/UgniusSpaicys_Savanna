@@ -7,6 +7,11 @@ namespace SavannaApp.Data.Helpers.Map
     {
         private readonly Random _random = new Random();
 
+        /// <summary>
+        /// Method to get random free place on map
+        /// </summary>
+        /// <param name="map">random free place on map</param>
+        /// <returns>null if map is full, free place otherwise</returns>
         public Position? GetRandomFreePlaceOnMap(IMap map)
         {
             if (map.Animals.Count() == map.Height * map.Width) return null;
@@ -106,6 +111,12 @@ namespace SavannaApp.Data.Helpers.Map
             return BestPosition;
         }
 
+        /// <summary>
+        /// Method to get closest position to animals
+        /// </summary>
+        /// <param name="animals">animals</param>
+        /// <param name="map">map</param>
+        /// <returns>closest position to animals</returns>
         public Position? GetClosestFreePositionToAnimals(List<Animal> animals, IMap map)
         {
             int x = (int)animals.Average(a => a.Position.X);
@@ -138,6 +149,5 @@ namespace SavannaApp.Data.Helpers.Map
 
             return null;
         }
-
     }
 }

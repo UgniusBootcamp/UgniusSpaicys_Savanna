@@ -43,5 +43,9 @@
         public const double HealthDamageOnMove = 0.5; // Health taken on every move 
 
         public const double HealthIncreaseOnAntelopeEaten = 15; // Health added when antelope is eaten
+        
+        public const int DefaultRebirthRadius = 1; // rebirth radius
+
+        public const int DefaultRebirthCounter = 3; // number of round of animals being together to make rebirth
     }
 }

@@ -24,6 +24,12 @@ namespace SavannaApp.Business.Services
             return newAnimal;
         }
 
+        /// <summary>
+        /// Method to create animal near other animals
+        /// </summary>
+        /// <param name="Animals">animals</param>
+        /// <param name="map">map</param>
+        /// <returns>new animal if there is space on map, null otherwise</returns>
         public Animal? RebirthAnimal(List<Animal> Animals, IMap map)
         {
             var position = mapManager.GetClosestFreePositionToAnimals(Animals, map);

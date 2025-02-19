@@ -12,11 +12,19 @@
             Animals.Add(a2);
         }
 
+        /// <summary>
+        /// Method to increase round together counter
+        /// </summary>
         public void RoundTogether() 
         {
             RoundsTogether++;
         }
 
+        /// <summary>
+        /// Method to check whether group still eligible to exist
+        /// </summary>
+        /// <param name="range">valid which animals have to be within</param>
+        /// <returns>true if both alive and in range, false otherwise</returns>
         public bool GroupStillExist(int range)
         {
             var a1 = Animals.First(); var a2 = Animals.Last();
