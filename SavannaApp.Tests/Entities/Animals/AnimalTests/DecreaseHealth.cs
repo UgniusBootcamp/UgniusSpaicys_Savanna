@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Security.Claims;
 using SavannaApp.Data.Entities.Animals;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalTests

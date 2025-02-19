@@ -1,9 +1,6 @@
 ﻿using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Entities;
-using SavannaApp.Data.Interfaces.Game;
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Factory;
-using SavannaApp.Data.Util;
 using SavannaApp.Data.Entities.MovementStrategies;
 using Moq;
 using SavannaApp.Data.Interfaces.Map;

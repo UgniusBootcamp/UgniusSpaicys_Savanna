@@ -1,5 +1,4 @@
 ﻿using SavannaApp.Data.Entities;
-using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Util;
 using SavannaApp.Data.Entities.MovementStrategies;
 using SavannaApp.Data.Factory;

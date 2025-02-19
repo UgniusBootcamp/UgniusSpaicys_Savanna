@@ -1,6 +1,5 @@
 ﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces.Game;
-using System;
 using SavannaApp.Data.Interfaces.Map;
 
 namespace SavannaApp.Data.Util
