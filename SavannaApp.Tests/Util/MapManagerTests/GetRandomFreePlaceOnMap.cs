@@ -7,6 +7,7 @@ using SavannaApp.Data.Util;
 
 namespace SavannaApp.Tests.Util.MapManagerTests
 {
+    [TestClass]
     public class GetRandomFreePlaceOnMap
     {
         private IMapManager _mapManager = null!;
