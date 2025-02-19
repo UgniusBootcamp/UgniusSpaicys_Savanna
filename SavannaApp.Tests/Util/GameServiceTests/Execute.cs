@@ -1,9 +1,8 @@
-﻿using GameOfLife.Data.Interfaces.Game;
-using Moq;
+﻿using Moq;
+using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Services;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
-using SavannaApp.Data.Util;
 
 namespace SavannaApp.Tests.Util.GameServiceTests
 {

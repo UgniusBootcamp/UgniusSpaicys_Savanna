@@ -1,6 +1,6 @@
-﻿using SavannaApp.Data.Interfaces.Game;
+﻿using SavannaApp.Data.Interfaces;
 
-namespace GameOfLife.Data.Interfaces.Game
+namespace SavannaApp.Business.Interfaces
 {
     public interface IMapCreator
     {

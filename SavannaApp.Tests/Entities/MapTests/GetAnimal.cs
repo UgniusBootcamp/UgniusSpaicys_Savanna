@@ -1,6 +1,4 @@
-﻿using SavannaApp.Data.Entities;
-using SavannaApp.Data.Interfaces.Game;
-using SavannaApp.Data.Interfaces;
+﻿using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Entities.Animals;
 using Moq;
 

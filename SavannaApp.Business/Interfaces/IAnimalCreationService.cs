@@ -1,7 +1,7 @@
 ﻿using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces.Game;
+using SavannaApp.Data.Interfaces;
 
-namespace SavannaApp.Data.Interfaces
+namespace SavannaApp.Business.Interfaces
 {
     public interface IAnimalCreationService
     {

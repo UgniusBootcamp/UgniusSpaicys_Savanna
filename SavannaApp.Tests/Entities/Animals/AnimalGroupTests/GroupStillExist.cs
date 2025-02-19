@@ -1,4 +1,5 @@
 ﻿using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.MovementStrategies;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalGroupTests
 {

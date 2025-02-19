@@ -1,6 +1,6 @@
-﻿using GameOfLife.Data.Interfaces.UI;
+﻿using SavannaApp.Business.Interfaces.UI;
 
-namespace GameOfLife.UI
+namespace SavannaApp.UI
 {
     public class ConsoleOutput : IOutputHandler
     {

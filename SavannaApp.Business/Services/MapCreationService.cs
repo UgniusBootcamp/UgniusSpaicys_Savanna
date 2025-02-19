@@ -1,10 +1,10 @@
-﻿using GameOfLife.Data.Interfaces.Game;
-using GameOfLife.Data.Interfaces.UI;
+﻿using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Interfaces.UI;
 using SavannaApp.Data.Constants;
-using SavannaApp.Data.Entities;
-using SavannaApp.Data.Interfaces.Game;
+using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Interfaces;
 
-namespace GameOfLife.Data.Util
+namespace SavannaApp.Business.Services
 {
     public class MapCreationService(IInputHandler inputHandler, IOutputHandler outputHandler) : IMapCreator
     {

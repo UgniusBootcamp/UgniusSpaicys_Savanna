@@ -1,4 +1,6 @@
-﻿namespace SavannaApp.Data.Interfaces.Game
+﻿using SavannaApp.Data.Interfaces;
+
+namespace SavannaApp.Business.Interfaces
 {
     public interface IMapPrinter
     {

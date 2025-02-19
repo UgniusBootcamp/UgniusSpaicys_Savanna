@@ -1,9 +1,9 @@
 ﻿using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Factory;
-using SavannaApp.Data.Entities.MovementStrategies;
 using Moq;
-using SavannaApp.Data.Interfaces.Map;
+using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Services;
+using SavannaApp.Data.Interfaces;
+using SavannaApp.Data.MovementStrategies;
 
 namespace SavannaApp.Tests.Factory.AnimalFactoryTests
 {

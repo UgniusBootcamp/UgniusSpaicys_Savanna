@@ -1,7 +1,6 @@
 ﻿using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces.Game;
 
-namespace SavannaApp.Data.Interfaces.Map
+namespace SavannaApp.Data.Interfaces
 {
     public interface IMapManager
     {

@@ -1,8 +1,7 @@
 ﻿using SavannaApp.Data.Constants;
-using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces.Game;
+using SavannaApp.Data.Interfaces;
 
-namespace SavannaApp.Data.Entities
+namespace SavannaApp.Data.Entities.Animals
 {
     public class Map : IMap
     {
@@ -49,7 +48,7 @@ namespace SavannaApp.Data.Entities
         /// <param name="y">Y coordinate</param>
         /// <returns>Animal in a position or null if there is no animal there</returns>
         /// <exception cref="ArgumentException">If outside map boundries</exception>
-        public Animal? GetAnimal(int x, int y) 
+        public Animal? GetAnimal(int x, int y)
         {
             if (x < 0 || y < 0 || x >= Width || y >= Height)
                 throw new ArgumentException(GameConstants.InvalidPosition);

@@ -1,8 +1,8 @@
 ﻿using SavannaApp.Data.Interfaces;
 using Moq;
-using SavannaApp.Data.Util;
-using SavannaApp.Data.Interfaces.Game;
 using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Services;
 
 namespace SavannaApp.Tests.Util.AnimalGroupManagerTests
 {

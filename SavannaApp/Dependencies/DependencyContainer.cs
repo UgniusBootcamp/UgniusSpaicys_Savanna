@@ -1,16 +1,11 @@
-﻿using GameOfLife.Data.Interfaces.Game;
-using GameOfLife.Data.Interfaces.UI;
-using GameOfLife.Data.Util;
-using GameOfLife.UI;
-using Microsoft.Extensions.DependencyInjection;
-using SavannaApp.Data.Entities.MovementStrategies;
-using SavannaApp.Data.Factory;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Interfaces.UI;
+using SavannaApp.Business.Services;
+using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
-using SavannaApp.Data.Interfaces.Map;
-using SavannaApp.Data.Util;
+using SavannaApp.Data.MovementStrategies;
 using SavannaApp.UI;
-
 
 namespace GameOfLife.Dependencies
 {

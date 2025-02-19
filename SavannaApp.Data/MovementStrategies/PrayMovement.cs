@@ -1,9 +1,7 @@
 ﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
-using SavannaApp.Data.Interfaces.Map;
 
-namespace SavannaApp.Data.Entities.MovementStrategies
+namespace SavannaApp.Data.MovementStrategies
 {
     public class PrayMovement(IMapManager mapManager) : IMovement
     {
@@ -27,6 +25,6 @@ namespace SavannaApp.Data.Entities.MovementStrategies
             return true;
         }
 
-        
+
     }
 }

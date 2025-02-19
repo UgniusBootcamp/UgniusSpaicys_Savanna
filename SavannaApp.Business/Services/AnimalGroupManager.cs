@@ -1,8 +1,8 @@
-﻿using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
 
-namespace SavannaApp.Data.Util
+namespace SavannaApp.Business.Services
 {
     public class AnimalGroupManager(IAnimalCreationService animalCreationService) : IAnimalGroupManager
     {

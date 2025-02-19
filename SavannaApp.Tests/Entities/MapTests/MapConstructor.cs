@@ -1,4 +1,4 @@
-﻿using SavannaApp.Data.Entities;
+﻿using SavannaApp.Data.Entities.Animals;
 
 namespace SavannaApp.Tests.Entities.MapTests
 {

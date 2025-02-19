@@ -1,10 +1,9 @@
-﻿using GameOfLife.Data.Interfaces.Game;
+﻿using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
 
-namespace SavannaApp.Data.Util
+namespace SavannaApp.Business.Services
 {
     public class GameService(IMapCreator mapCreator, IMapPrinter mapPrinter, IAnimalCreationService animalCreationService, IAnimalGroupManager animalGroupManager) : IGameService
     {

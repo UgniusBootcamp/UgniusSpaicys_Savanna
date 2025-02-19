@@ -1,4 +1,4 @@
-﻿namespace GameOfLife.Data.Interfaces.UI
+﻿namespace SavannaApp.Business.Interfaces.UI
 {
     public interface IInputHandler
     {

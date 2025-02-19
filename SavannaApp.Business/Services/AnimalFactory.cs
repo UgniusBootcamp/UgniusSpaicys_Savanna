@@ -1,9 +1,9 @@
-﻿using SavannaApp.Data.Constants;
+﻿using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Entities.MovementStrategies;
-using SavannaApp.Data.Interfaces;
+using SavannaApp.Data.MovementStrategies;
 
-namespace SavannaApp.Data.Factory
+namespace SavannaApp.Business.Services
 {
     public class AnimalFactory(HunterMovement hunter, PrayMovement pray) : IAnimalFactory
     {

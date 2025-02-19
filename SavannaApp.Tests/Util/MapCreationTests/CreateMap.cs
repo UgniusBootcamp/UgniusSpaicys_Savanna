@@ -1,7 +1,7 @@
-﻿using GameOfLife.Data.Interfaces.Game;
-using Moq;
-using GameOfLife.Data.Interfaces.UI;
-using GameOfLife.Data.Util;
+﻿using Moq;
+using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Interfaces.UI;
+using SavannaApp.Business.Services;
 
 namespace SavannaApp.Tests.Util.MapCreationTests
 {
