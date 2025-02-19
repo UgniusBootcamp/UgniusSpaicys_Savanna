@@ -3,8 +3,8 @@ using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Interfaces.UI;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Helpers.Map;
+using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.MovementStrategies;
 using SavannaApp.UI;
 
 namespace GameOfLife.Dependencies

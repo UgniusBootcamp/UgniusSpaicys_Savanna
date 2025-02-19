@@ -3,7 +3,7 @@ using Moq;
 using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.MovementStrategies;
+using SavannaApp.Data.Helpers.MovementStrategies;
 
 namespace SavannaApp.Tests.Factory.AnimalFactoryTests
 {

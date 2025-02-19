@@ -1,5 +1,6 @@
-﻿using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.MovementStrategies;
+﻿using Moq;
+using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalGroupTests
 {
@@ -11,9 +12,9 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalGroupTests
         [TestInitialize]
         public void Setup()
         {
-            var random = new RandomMovement();
-            var animal = new Lion(1, 2, 2, "L", 1, 1, 1, random);
-            var animal1 = new Lion(1, 0, 0, "L", 1, 1, 1, random);
+            var random = new Mock<IMovement>();
+            var animal = new Lion(1, 2, 2, "L", 1, 1, 1, random.Object);
+            var animal1 = new Lion(1, 0, 0, "L", 1, 1, 1, random.Object);
 
             group = new AnimalGroup(animal, animal1);
         }

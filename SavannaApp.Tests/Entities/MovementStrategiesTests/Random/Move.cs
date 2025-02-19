@@ -1,6 +1,6 @@
 ﻿using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.MovementStrategies;
 
 namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Random
 {

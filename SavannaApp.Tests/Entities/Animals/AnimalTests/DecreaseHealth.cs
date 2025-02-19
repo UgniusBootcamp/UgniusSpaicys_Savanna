@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.MovementStrategies;
+using SavannaApp.Data.Helpers.MovementStrategies;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalTests
 {

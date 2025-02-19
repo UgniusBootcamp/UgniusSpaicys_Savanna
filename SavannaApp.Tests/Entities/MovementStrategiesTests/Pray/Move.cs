@@ -2,7 +2,7 @@
 using SavannaApp.Data.Interfaces;
 using Moq;
 using SavannaApp.Data.Helpers.Map;
-using SavannaApp.Data.MovementStrategies;
+using SavannaApp.Data.Helpers.MovementStrategies;
 
 namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
 {

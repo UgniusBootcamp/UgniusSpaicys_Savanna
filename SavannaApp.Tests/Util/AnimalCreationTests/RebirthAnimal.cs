@@ -2,7 +2,7 @@
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Helpers.Map;
-using SavannaApp.Data.MovementStrategies;
+using SavannaApp.Data.Helpers.MovementStrategies;
 
 namespace SavannaApp.Tests.Util.AnimalCreationTests
 {

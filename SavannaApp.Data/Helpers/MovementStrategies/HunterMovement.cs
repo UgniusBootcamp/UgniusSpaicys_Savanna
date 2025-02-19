@@ -2,7 +2,7 @@
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 
-namespace SavannaApp.Data.MovementStrategies
+namespace SavannaApp.Data.Helpers.MovementStrategies
 {
     public class HunterMovement(IMapManager mapManager) : IMovement
     {

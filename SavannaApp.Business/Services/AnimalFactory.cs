@@ -1,7 +1,7 @@
 ﻿using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.MovementStrategies;
+using SavannaApp.Data.Helpers.MovementStrategies;
 
 namespace SavannaApp.Business.Services
 {
