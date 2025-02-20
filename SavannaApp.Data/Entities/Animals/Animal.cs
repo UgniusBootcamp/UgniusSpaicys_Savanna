@@ -1,14 +1,14 @@
-﻿using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
+﻿using SavannaApp.Data.Constants;
+using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Entities.Animals
 {
-    public abstract class Animal(int id, int x, int y, string name, int speed, int vision, IMovement movement)
+    public abstract class Animal(int id, int x, int y, string name, AnimalFeatures features, IMovement movement)
     {
         public int Id { get; } = id;
         public string Name { get; } = name;
-        public int Speed { get; } = speed;
-        public int Vision { get; } = vision;
+        public AnimalFeatures Features { get; } = features;
         public bool IsAlive { get; private set; } = true;
         public Position Position { get; } = new Position(x, y);
         private IMovement _movement { get; set; } = movement;
@@ -30,6 +30,7 @@ namespace SavannaApp.Data.Entities.Animals
         public void Death()
         {
             IsAlive = false;
+            Features.Health = 0;
         }
 
         /// <summary>
@@ -45,6 +46,24 @@ namespace SavannaApp.Data.Entities.Animals
                 var random = new RandomMovement();
                 random.Move(this, map);
             }
+
+            DecreaseHealth(GameConstants.HealthDamageOnMove);
+        }
+
+        private void DecreaseHealth(double damage)
+        {
+            if (damage < 0) return;
+
+            Features.Health -= damage;
+
+            IsAlive = Features.Health > 0;
+        }
+
+        public void IncreaseHealth(double health)
+        {
+            if (health < 0) return;
+
+            Features.Health += health;
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using SavannaApp.Data.Constants;
-using SavannaApp.Data.Interfaces.Game;
+﻿using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Constants;
+using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.UI
 {

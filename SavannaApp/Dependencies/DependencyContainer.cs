@@ -1,14 +1,11 @@
-﻿using GameOfLife.Data.Interfaces.Game;
-using GameOfLife.Data.Interfaces.UI;
-using GameOfLife.Data.Util;
-using GameOfLife.UI;
-using Microsoft.Extensions.DependencyInjection;
-using SavannaApp.Data.Factory;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Interfaces.UI;
+using SavannaApp.Business.Services;
+using SavannaApp.Data.Helpers.Map;
+using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Interfaces.Game;
-using SavannaApp.Data.Util;
 using SavannaApp.UI;
-
 
 namespace GameOfLife.Dependencies
 {
@@ -28,9 +25,13 @@ namespace GameOfLife.Dependencies
             services.AddSingleton<IAnimalFactory, AnimalFactory>();
 
             services.AddTransient<IMapCreator, MapCreationService>();
-            services.AddTransient<IAnimalCreationService, AnimalCreationService>();
+            services.AddTransient<HunterMovement>();
+            services.AddTransient<PrayMovement>();
 
+            services.AddScoped<IMapManager, MapManager>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IAnimalCreationService, AnimalCreationService>();
+            services.AddScoped<IAnimalGroupManager, AnimalGroupManager>();
 
             return services.BuildServiceProvider();
         }

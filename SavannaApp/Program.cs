@@ -1,6 +1,6 @@
 ﻿using GameOfLife.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
-using SavannaApp.Data.Interfaces;
+using SavannaApp.Business.Interfaces;
 
 public class Program
 {

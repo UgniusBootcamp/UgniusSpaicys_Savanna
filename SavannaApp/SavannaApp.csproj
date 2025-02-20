@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SavannaApp.Business\SavannaApp.Business.csproj" />
     <ProjectReference Include="..\SavannaApp.Data\SavannaApp.Data.csproj" />
   </ItemGroup>
 
