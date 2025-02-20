@@ -1,9 +1,7 @@
 ﻿using SavannaApp.Data.Entities.Animals;
 using Moq;
 using SavannaApp.Business.Interfaces;
-using SavannaApp.Business.Services;
-using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Factory.AnimalFactoryTests
 {
@@ -15,11 +13,7 @@ namespace SavannaApp.Tests.Factory.AnimalFactoryTests
         [TestInitialize]
         public void Setup()
         {
-            var mapManager = new Mock<IMapManager>();
-            var hunterMovement = new HunterMovement(mapManager.Object);
-            var prayMovement = new PrayMovement(mapManager.Object);
-
-            _factory = new AnimalFactory(hunterMovement, prayMovement);
+            _factory = AnimalFactoryMock.Factory;
         }
         [TestMethod]
         public void CreateAnimal_ShouldReturnLion_WhenAnimalTypeIsLion()

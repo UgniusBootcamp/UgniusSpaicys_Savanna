@@ -1,8 +1,5 @@
 ﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
-using Moq;
-using SavannaApp.Data.Helpers.Map;
-using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
@@ -19,9 +16,9 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
         public void Setup()
         {
             map = new Map(20, 20);
-            var hunter = new Mock<IMovement>();
-            pray = new PrayMovement(new MapManager());
-            lion = AnimalMock.CreateLion(1, 9, 9, "L", 5, 5, 5, hunter.Object);
+            lion = AnimalMock.CreateLion(1, 9, 9, "L", 5, 5, 5, MovementMock.Movement.Object);
+
+            pray = MovementMock.Pray;
             antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 5, 5, pray);
         }
 

@@ -2,7 +2,6 @@
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Helpers.Map;
-using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.AnimalCreationTests
@@ -15,11 +14,7 @@ namespace SavannaApp.Tests.Util.AnimalCreationTests
         [TestInitialize]
         public void Setup()
         {
-            var mapManager = new MapManager();
-            var hunterMovement = new HunterMovement(mapManager);
-            var prayMovement = new PrayMovement(mapManager);
-
-            _animalCreationService = new AnimalCreationService(new AnimalFactory(hunterMovement, prayMovement), mapManager);
+            _animalCreationService = new AnimalCreationService(AnimalFactoryMock.Factory, new MapManager());
         }
 
         [TestMethod]
