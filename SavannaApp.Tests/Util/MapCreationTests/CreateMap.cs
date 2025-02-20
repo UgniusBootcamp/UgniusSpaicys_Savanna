@@ -10,13 +10,12 @@ namespace SavannaApp.Tests.Util.MapCreationTests
     {
         private IMapCreator mapCreator = null!;
         private Mock<IInputHandler> inputHandler = null!;
-        private Mock<IOutputHandler> outputHandler = null!;
 
         [TestInitialize]
         public void Setup()
         {
             inputHandler = new Mock<IInputHandler>();
-            outputHandler = new Mock<IOutputHandler>();
+            var outputHandler = new Mock<IOutputHandler>();
 
             mapCreator = new MapCreationService(inputHandler.Object, outputHandler.Object);
         }

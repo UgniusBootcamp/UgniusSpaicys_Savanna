@@ -2,6 +2,7 @@
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.MapManagerTests
 {
@@ -10,22 +11,20 @@ namespace SavannaApp.Tests.Util.MapManagerTests
     {
         IMapManager _mapManager = null!;
         Mock<IMap> _map = null!;
-        Mock<IMovement> _movement = null!;
 
         [TestInitialize]
         public void Setup()
         {
             _mapManager = new MapManager();
             _map = new Mock<IMap>();
-            _movement = new Mock<IMovement>();
         }
 
         [TestMethod]
         public void GetClosestFreePositionToAnimals_GetPositionBetweenTwoAnimals_ShouldReturnPositionBetweenAnimals()
         {
             //Arrange
-            var lion = new Lion(1, 2, 2, "L", 3, 5, 10, _movement.Object);
-            var lion2 = new Lion(1, 4, 4, "L", 3, 5, 10, _movement.Object);
+            var lion = AnimalMock.CreateLion(1, 2, 2, "L");
+            var lion2 = AnimalMock.CreateLion(1, 4, 4, "L");
             var animals = new List<Animal> { lion, lion2 };
             var mapHeight = 10;
             var mapWidth = 10;

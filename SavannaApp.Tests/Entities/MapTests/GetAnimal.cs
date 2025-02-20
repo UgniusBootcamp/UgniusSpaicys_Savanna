@@ -1,6 +1,6 @@
 ﻿using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Entities.Animals;
-using Moq;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.MapTests
 {
@@ -8,12 +8,12 @@ namespace SavannaApp.Tests.Entities.MapTests
     public class GetAnimal
     {
         private IMap map = null!;
-        private Mock<IMovement> random = null!;
+        private Animal animal = null!;
 
         [TestInitialize]
         public void Setup()
         {
-            random = new Mock<IMovement>();
+            animal = AnimalMock.CreateLion(1, 5, 5);
             map = new Map(20, 20);
         }
 
@@ -21,7 +21,6 @@ namespace SavannaApp.Tests.Entities.MapTests
         public void GetAnimal_ReturnsCorrectAnimal()
         {
             // Arrange
-            var animal = new Lion(1, 5, 5, "Lion", 10, 5, 100, random.Object);
             map.SetAnimal(animal);
 
             // Act

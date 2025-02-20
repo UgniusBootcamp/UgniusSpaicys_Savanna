@@ -1,6 +1,7 @@
 ﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Random
 {
@@ -16,7 +17,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Random
         {
             random = new RandomMovement();
             map = new Map(4, 4);
-            lion = new Lion(1, 1, 1, "L", 1, 1, 5, random);
+            lion = AnimalMock.CreateLion(1,1,1);
         }
 
         [TestMethod]

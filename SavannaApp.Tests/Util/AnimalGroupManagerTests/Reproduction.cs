@@ -3,6 +3,7 @@ using Moq;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Services;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.AnimalGroupManagerTests
 {
@@ -11,14 +12,12 @@ namespace SavannaApp.Tests.Util.AnimalGroupManagerTests
     {
         private IAnimalGroupManager _manager = null!;
         private Mock<IAnimalCreationService> _animalCreationServiceMock = null!;
-        private Mock<IMovement> _movementServiceMock = null!;
 
         [TestInitialize]
         public void Setup()
         {
             _animalCreationServiceMock = new Mock<IAnimalCreationService>();
             _manager = new AnimalGroupManager(_animalCreationServiceMock.Object);
-            _movementServiceMock = new Mock<IMovement>();
         }
 
         [TestMethod]
@@ -26,10 +25,10 @@ namespace SavannaApp.Tests.Util.AnimalGroupManagerTests
         {
             // Arrange
             var mapMock = new Mock<IMap>();
-            var lion1 = new Lion(1, 1, 1, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion2 = new Lion(2, 1, 2, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion3 = new Lion(3, 10, 10, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion4 = new Lion(4, 10, 11, "L", 1, 1, 1, _movementServiceMock.Object);
+            var lion1 = AnimalMock.CreateLion(1, 1, 1);
+            var lion2 = AnimalMock.CreateLion(2, 1, 2);
+            var lion3 = AnimalMock.CreateLion(3, 10, 10);
+            var lion4 = AnimalMock.CreateLion(4, 10, 11);
 
             mapMock.Setup(m => m.Animals).Returns(new List<Animal> { lion1, lion2, lion3, lion4 });
 
@@ -48,10 +47,10 @@ namespace SavannaApp.Tests.Util.AnimalGroupManagerTests
         {
             // Arrange
             var mapMock = new Mock<IMap>();
-            var lion1 = new Lion(1, 1, 1, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion2 = new Lion(2, 5, 5, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion3 = new Lion(3, 15, 15, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion4 = new Lion(4, 10, 11, "L", 1, 1, 1, _movementServiceMock.Object);
+            var lion1 = AnimalMock.CreateLion(1, 1, 1);
+            var lion2 = AnimalMock.CreateLion(2, 5, 5);
+            var lion3 = AnimalMock.CreateLion(3, 15, 15);
+            var lion4 = AnimalMock.CreateLion(4, 10, 11);
 
             mapMock.Setup(m => m.Animals).Returns(new List<Animal> { lion1, lion2, lion3, lion4 });
 
@@ -71,9 +70,8 @@ namespace SavannaApp.Tests.Util.AnimalGroupManagerTests
             // Arrange
             var mapMock = new Mock<IMap>();
 
-            var lion1 = new Lion(1, 1, 1, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion2 = new Lion(2, 2, 1, "L", 1, 1, 1, _movementServiceMock.Object);
-
+            var lion1 = AnimalMock.CreateLion(1, 1, 1);
+            var lion2 = AnimalMock.CreateLion(2, 2, 1);
 
             mapMock.Setup(m => m.Animals).Returns(new List<Animal> { lion1, lion2 });
 
@@ -94,8 +92,8 @@ namespace SavannaApp.Tests.Util.AnimalGroupManagerTests
             var mapMock = new Mock<IMap>();
             var mapMockAfterMove = new Mock<IMap>();
 
-            var lion1 = new Lion(1, 1, 1, "L", 1, 1, 1, _movementServiceMock.Object);
-            var lion2 = new Lion(2, 2, 1, "L", 1, 1, 1, _movementServiceMock.Object);
+            var lion1 = AnimalMock.CreateLion(1, 1, 1);
+            var lion2 = AnimalMock.CreateLion(2, 2, 1);
 
             mapMock.Setup(m => m.Animals).Returns(new List<Animal> { lion1, lion2 });
 

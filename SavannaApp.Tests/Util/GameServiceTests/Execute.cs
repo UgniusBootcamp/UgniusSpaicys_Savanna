@@ -3,6 +3,7 @@ using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.GameServiceTests
 {
@@ -11,21 +12,16 @@ namespace SavannaApp.Tests.Util.GameServiceTests
     {
         private IGameService _gameService = null!;
         private Mock<IMapCreator> _mapCreatorMock = null!;
-        private Mock<IMapPrinter> _printerMock = null!;
-        private Mock<IAnimalCreationService> _animalCreationServiceMock = null!;
-        private Mock<IAnimalGroupManager> _animalGroupManager = null!;
-        private Mock<IMovement> random = null!;
 
         [TestInitialize]
         public void Setup()
         {
             _mapCreatorMock = new Mock<IMapCreator>();
-            _printerMock = new Mock<IMapPrinter>();
-            _animalCreationServiceMock = new Mock<IAnimalCreationService>();
-            _animalGroupManager = new Mock<IAnimalGroupManager>();
-            random = new Mock<IMovement>();
+            var printerMock = new Mock<IMapPrinter>();
+            var animalCreationServiceMock = new Mock<IAnimalCreationService>();
+            var animalGroupManager = new Mock<IAnimalGroupManager>();
 
-            _gameService = new GameService(_mapCreatorMock.Object, _printerMock.Object, _animalCreationServiceMock.Object, _animalGroupManager.Object);
+            _gameService = new GameService(_mapCreatorMock.Object, printerMock.Object, animalCreationServiceMock.Object, animalGroupManager.Object);
         }
 
         [TestMethod]
@@ -36,8 +32,9 @@ namespace SavannaApp.Tests.Util.GameServiceTests
 
             mapMock.Setup(map => map.Animals).Returns(new List<Animal>
             {
-                new Lion(1,1,1,"L",1,1,1, random.Object),
+                AnimalMock.CreateLion()
             });
+
             _mapCreatorMock.Setup(m => m.CreateMap()).Returns(mapMock.Object);
 
             // Act & Assert

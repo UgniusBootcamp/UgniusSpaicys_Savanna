@@ -3,6 +3,7 @@ using SavannaApp.Data.Interfaces;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.AnimalCreationTests
 {
@@ -18,7 +19,7 @@ namespace SavannaApp.Tests.Util.AnimalCreationTests
             var hunterMovement = new HunterMovement(mapManager);
             var prayMovement = new PrayMovement(mapManager);
 
-            _animalCreationService = new AnimalCreationService(new AnimalFactory(hunterMovement, prayMovement), new MapManager());
+            _animalCreationService = new AnimalCreationService(new AnimalFactory(hunterMovement, prayMovement), mapManager);
         }
 
         [TestMethod]
@@ -26,7 +27,7 @@ namespace SavannaApp.Tests.Util.AnimalCreationTests
         {
             //Arrange
             IMap map = new Map(1, 1);
-            map.SetAnimal(new Antelope(1, 0, 0, "A", 1, 1, 10, new RandomMovement()));
+            map.SetAnimal(AnimalMock.CreateAntelope());
 
             //Act
             var result = _animalCreationService.CreateAnimal(typeof(Antelope), map);
@@ -40,8 +41,8 @@ namespace SavannaApp.Tests.Util.AnimalCreationTests
         {
             //Arrange
             IMap map = new Map(3, 3);
-            map.SetAnimal(new Antelope(1, 0, 0, "A", 1, 1, 10, new RandomMovement()));
-            map.SetAnimal(new Antelope(1, 2, 2, "A", 1, 1, 10, new RandomMovement()));
+            map.SetAnimal(AnimalMock.CreateAntelope());
+            map.SetAnimal(AnimalMock.CreateAntelope(2, 2, 2));
 
             var expectedX = 1;
             var expectedY = 1;

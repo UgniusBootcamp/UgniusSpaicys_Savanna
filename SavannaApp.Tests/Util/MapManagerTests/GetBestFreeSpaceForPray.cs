@@ -1,7 +1,7 @@
 ﻿using Moq;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.Map;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.MapManagerTests
 {
@@ -10,24 +10,22 @@ namespace SavannaApp.Tests.Util.MapManagerTests
     {
         IMapManager _mapManager = null!;
         Mock<IMap> _map = null!;
-        Mock<IMovement> _movement = null!;
 
         [TestInitialize]
         public void Setup()
         {
             _mapManager = new MapManager();
             _map = new Mock<IMap>();
-            _movement = new Mock<IMovement>();
         }
 
         [TestMethod]
         public void GetBestFreeSpaceForPray_ShouldMoveAwaysFromHunters_ShouldReturnFurtherDistance()
         {
             //Arrange
-            var lion = new Lion(1, 2, 2, "L", 3, 5, 10, _movement.Object);
-            var lion2 = new Lion(1, 3, 3, "L", 3, 5, 10, _movement.Object);
+            var lion = AnimalMock.CreateLion(1, 2, 2, "L", 3, 5);
+            var lion2 = AnimalMock.CreateLion(2, 3, 3, "L", 3, 5);
             var hunters = new[] { lion, lion2 };
-            var antelope = new Antelope(1, 2, 3, "L", 3, 5, 10, _movement.Object);
+            var antelope = AnimalMock.CreateLion(3, 2, 3, "L", 3, 5);
             var mapHeight = 10;
             var mapWidth = 10;
 

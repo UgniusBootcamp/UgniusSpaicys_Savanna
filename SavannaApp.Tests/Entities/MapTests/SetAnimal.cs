@@ -1,6 +1,6 @@
-﻿using Moq;
-using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.MapTests
 {
@@ -8,12 +8,10 @@ namespace SavannaApp.Tests.Entities.MapTests
     public class SetAnimal
     {
         private IMap map = null!;
-        private Mock<IMovement> random = null!;
 
         [TestInitialize]
         public void Setup()
         {
-            random = new Mock<IMovement>();
             map = new Map(20, 20);
         }
 
@@ -21,7 +19,7 @@ namespace SavannaApp.Tests.Entities.MapTests
         public void SetAnimal_ValidPosition_AnimalIsSet()
         {
             // Arrange
-            var animal = new Lion(1, 5, 5, "Lion", 10, 5, 100, random.Object);
+            var animal = AnimalMock.CreateLion(1, 5, 5);
 
             // Act
             map.SetAnimal(animal);
@@ -37,7 +35,7 @@ namespace SavannaApp.Tests.Entities.MapTests
         public void SetAnimal_InvalidPosition_AnimalIsNotSet()
         {
             // Arrange
-            var animal = new Lion(1, 25, 25, "Lion", 10, 5, 100, random.Object);
+            var animal = AnimalMock.CreateLion(1,25,25);
 
             // Act and Assert
             map.SetAnimal(animal);
@@ -48,8 +46,9 @@ namespace SavannaApp.Tests.Entities.MapTests
         public void SetAnimal_AnimalAlreadyExists_AnimalIsUpdated()
         {
             // Arrange
-            var animal1 = new Lion(1, 5, 5, "Lion", 10, 5, 100, random.Object);
-            var animal2 = new Lion(2, 5, 5, "Lion2", 12, 6, 90, random.Object);
+            var animal1 = AnimalMock.CreateLion(1, 5, 5);
+            var animal2 = AnimalMock.CreateLion(2, 5, 5);
+
 
             // Act and Assert
             map.SetAnimal(animal1);
@@ -60,10 +59,11 @@ namespace SavannaApp.Tests.Entities.MapTests
         public void SetAnimal_ManyAnimalsAreSet_AnimalsShouldBeSet()
         {
             // Arrange
-            var animal1 = new Lion(1, 5, 5, "Lion", 10, 5, 100, random.Object);
-            var animal2 = new Lion(2, 5, 6, "Lion2", 12, 6, 90, random.Object);
-            var animal3 = new Lion(3, 5, 7, "Lion2", 12, 6, 90, random.Object);
-            var animal4 = new Lion(4, 5, 8, "Lion2", 12, 6, 90, random.Object);
+            var animal1 = AnimalMock.CreateLion(1, 5, 5);
+            var animal2 = AnimalMock.CreateLion(2, 5, 6);
+            var animal3 = AnimalMock.CreateLion(3, 5, 7);
+            var animal4 = AnimalMock.CreateLion(4, 5, 8);
+
 
             var expected = 4;
 

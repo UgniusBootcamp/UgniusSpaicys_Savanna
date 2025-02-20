@@ -1,6 +1,5 @@
-﻿using Moq;
-using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces;
+﻿using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalTests
 {
@@ -8,13 +7,11 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
     public class DistanceTo
     {
         private Animal animal = null!;
-        private Mock<IMovement> random = null!;
 
         [TestInitialize]
         public void Setup()
         {
-            random = new Mock<IMovement>();
-            animal = new Lion(1, 2, 2, "L", 1, 1, 1, random.Object);
+            animal = AnimalMock.CreateLion(1,2,2);
         }
 
         [TestMethod]

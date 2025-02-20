@@ -1,6 +1,6 @@
-﻿using Moq;
-using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.MapTests
 {
@@ -12,12 +12,11 @@ namespace SavannaApp.Tests.Entities.MapTests
         [TestInitialize]
         public void Setup()
         {
-            Mock<IMovement> random = new Mock<IMovement>();
             map = new Map(20, 20);
-            var animal1 = new Lion(1, 0, 0, "L", 1, 1, 1, random.Object);
-            var animal2 = new Lion(1, 1, 1, "L", 1, 1, 1, random.Object);
-            var animal3 = new Lion(1, 1, 2, "L", 1, 1, 1, random.Object);
-            var animal4 = new Lion(1, 1, 3, "L", 1, 1, 1, random.Object);
+            var animal1 = AnimalMock.CreateLion();
+            var animal2 = AnimalMock.CreateLion(2,1,1);
+            var animal3 = AnimalMock.CreateLion(3,1,2);
+            var animal4 = AnimalMock.CreateLion(4,1,3);
             map.SetAnimal(animal1);
             map.SetAnimal(animal2);
             map.SetAnimal(animal3);

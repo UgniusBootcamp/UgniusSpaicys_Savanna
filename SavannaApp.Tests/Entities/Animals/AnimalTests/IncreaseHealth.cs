@@ -1,6 +1,5 @@
-﻿using Moq;
-using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces;
+﻿using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalTests
 {
@@ -12,8 +11,7 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
         [TestInitialize]
         public void Setup()
         {
-            var movement = new Mock<IMovement>();
-            animal = new Antelope(2, 10, 12, "A", 5, 5, 5, movement.Object);
+            animal = AnimalMock.CreateLion();
         }
 
         [TestMethod]

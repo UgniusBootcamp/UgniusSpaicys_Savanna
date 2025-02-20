@@ -2,6 +2,7 @@
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.MapManagerTests
 {
@@ -9,13 +10,11 @@ namespace SavannaApp.Tests.Util.MapManagerTests
     public class GetRandomFreePlaceOnMap
     {
         private IMapManager _mapManager = null!;
-        private Mock<IMovement> random = null!;
 
         [TestInitialize]
         public void Setup()
         {
             _mapManager = new MapManager();
-            random = new Mock<IMovement>();
         }
 
         [TestMethod]
@@ -31,10 +30,10 @@ namespace SavannaApp.Tests.Util.MapManagerTests
 
             mock.Setup(m => m.Animals).Returns(new List<Animal>
             {
-                new Lion(1,0,0,"L",1,1,1,random.Object),
-                new Lion(1,0,1,"L",1,1,1,random.Object),
-                new Lion(1,1,0,"L",1,1,1,random.Object),
-                new Lion(1,1,1,"L",1,1,1,random.Object),
+                AnimalMock.CreateLion(1,0,0),
+                AnimalMock.CreateLion(2,0,1),
+                AnimalMock.CreateLion(3,1,0),
+                AnimalMock.CreateLion(4,1,1),
             });
 
             //Act 
@@ -61,9 +60,9 @@ namespace SavannaApp.Tests.Util.MapManagerTests
 
             mock.Setup(m => m.Animals).Returns(new List<Animal>
             {
-                new Lion(1,0,0,"L",1,1,1,random.Object),
-                new Lion(1,0,1,"L",1,1,1,random.Object),
-                new Lion(1,1,0,"L",1,1,1,random.Object),
+                AnimalMock.CreateLion(1,0,0),
+                AnimalMock.CreateLion(2,0,1),
+                AnimalMock.CreateLion(3,1,0),
             });
 
             mock.Setup(m => m.IsPositionValid(It.IsInRange(0, 1, Moq.Range.Inclusive), It.IsInRange(0, 1, Moq.Range.Inclusive))).Returns((int x, int y) => x == 1 && y == 1);

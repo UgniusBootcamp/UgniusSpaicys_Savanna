@@ -3,6 +3,7 @@ using SavannaApp.Data.Interfaces;
 using Moq;
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
 {
@@ -12,19 +13,18 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
         private Animal lion = null!;
         private Animal antelope = null!;
         private IMovement hunter = null!;
-        private Mock<IMovement> pray = null!;
-        private IMapManager mapManager = null!;
         private IMap map = null!;
 
         [TestInitialize]
         public void Setup()
         {
             map = new Map(20, 20);
-            mapManager = new MapManager();
-            hunter = new HunterMovement(mapManager);
-            pray = new Mock<IMovement>();
-            lion = new Lion(1, 9, 9, "L", 5, 5, 5, hunter);
-            antelope = new Antelope(2, 10, 12, "A", 5, 5, 5, pray.Object);
+
+            hunter = new HunterMovement(new MapManager());
+            lion = AnimalMock.CreateLion(1, 9, 9, "L", 5, 5, 5, hunter);
+
+            var pray = new Mock<IMovement>();
+            antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 5, 5, pray.Object);
         }
 
         [TestMethod]
@@ -67,7 +67,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
         public void Move_InVisionButNotEnoughSpeed_ShouldReturnTrue()
         {
             //Arrange
-            var closeLion = new Lion(1, 9, 9, "L", 2, 5, 5, hunter);
+            var closeLion = AnimalMock.CreateLion(1, 9, 9, "L", 2, 5, 5, hunter);
             map.SetAnimal(closeLion);
             map.SetAnimal(antelope);
             var expected = true;

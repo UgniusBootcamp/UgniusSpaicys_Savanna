@@ -3,6 +3,7 @@ using SavannaApp.Data.Interfaces;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.AnimalCreationTests
 {
@@ -26,7 +27,7 @@ namespace SavannaApp.Tests.Util.AnimalCreationTests
         {
             //Arrange
             IMap map = new Map(1, 1);
-            map.SetAnimal(new Antelope(1, 0, 0, "A", 1, 1, 10, new RandomMovement()));
+            map.SetAnimal(AnimalMock.CreateAntelope());
 
             //Act
             var result = _animalCreationService.CreateAnimal(typeof(Antelope), map);

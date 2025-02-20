@@ -2,6 +2,7 @@
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Entities.Animals.AnimalTests
 {
@@ -10,20 +11,17 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
     {
         private Animal lion = null!;
         private Animal antelope = null!;
-        private IMovement hunter = null!;
-        private IMovement pray = null!;
-        private IMapManager mapManager = null!;
         private IMap map = null!;
 
         [TestInitialize]
         public void Setup()
         {
             map = new Map(20, 20);
-            mapManager = new MapManager();
-            hunter = new HunterMovement(mapManager);
-            pray = new PrayMovement(mapManager);
-            lion = new Lion(1, 9, 9, "L", 5, 5, 5, hunter);
-            antelope = new Antelope(2, 10, 12, "A", 5, 5, 5, pray);
+            var mapManager = new MapManager();
+            var hunter = new HunterMovement(mapManager);
+            var pray = new PrayMovement(mapManager);
+            lion = AnimalMock.CreateLion(1, 9, 9, "L", 5, 5, 5, hunter);
+            antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 5, 5, pray);
 
             map.SetAnimal(antelope);
             map.SetAnimal(lion);
