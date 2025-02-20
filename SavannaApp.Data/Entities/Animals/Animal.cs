@@ -4,11 +4,11 @@ using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Entities.Animals
 {
-    public abstract class Animal(int id, int x, int y, string name, int speed, int vision, double health, IMovement movement)
+    public abstract class Animal(int id, int x, int y, string name, AnimalFeatures features, IMovement movement)
     {
         public int Id { get; } = id;
         public string Name { get; } = name;
-        public AnimalFeatures Features { get; } = new AnimalFeatures(speed, vision, health); 
+        public AnimalFeatures Features { get; } = features;
         public bool IsAlive { get; private set; } = true;
         public Position Position { get; } = new Position(x, y);
         private IMovement _movement { get; set; } = movement;

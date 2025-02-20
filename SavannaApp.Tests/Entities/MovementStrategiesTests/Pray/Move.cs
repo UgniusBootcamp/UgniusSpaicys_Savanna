@@ -61,7 +61,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
         public void Move_NoLionsInVision_ShouldReturnFalse()
         {
             //Arrange
-            antelope = new Antelope(2, 10, 12, "A", 5, 2, 5, pray);
+            antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 2, 5, pray);
 
             map.SetAnimal(antelope);
             map.SetAnimal(lion);

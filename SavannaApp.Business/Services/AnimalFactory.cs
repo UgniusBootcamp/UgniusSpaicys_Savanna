@@ -22,9 +22,9 @@ namespace SavannaApp.Business.Services
             switch (animalType)
             {
                 case Type t when t == typeof(Lion):
-                    return new Lion(_id++, x, y, GameConstants.Lion, GameConstants.LionSpeed, GameConstants.LionVision, GameConstants.LionHealth, hunter);
+                    return new Lion(_id++, x, y, GameConstants.Lion, new AnimalFeatures(GameConstants.LionSpeed, GameConstants.LionVision, GameConstants.LionHealth), hunter);
                 case Type t when t == typeof(Antelope):
-                    return new Antelope(_id++, x, y, GameConstants.Antelope, GameConstants.AntelopeSpeed, GameConstants.AntelopeVision, GameConstants.AntelopeHealth, pray);
+                    return new Antelope(_id++, x, y, GameConstants.Antelope, new AnimalFeatures(GameConstants.AntelopeSpeed, GameConstants.AntelopeVision, GameConstants.AntelopeHealth), pray);
                 default:
                     throw new ArgumentException(GameConstants.UnknownAnimalType, nameof(animalType));
             }
