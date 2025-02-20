@@ -56,7 +56,7 @@ namespace SavannaApp.Data.Entities.Animals
 
             Features.Health -= damage;
 
-            if (Features.Health <= 0) IsAlive = false;
+            IsAlive = Features.Health > 0;
         }
 
         public void IncreaseHealth(double health)
