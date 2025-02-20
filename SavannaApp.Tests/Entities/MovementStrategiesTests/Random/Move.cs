@@ -15,7 +15,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Random
         [TestInitialize]
         public void Setup()
         {
-            random = new RandomMovement();
+            random = MovementMock.Random;
             map = new Map(4, 4);
             lion = AnimalMock.CreateLion(1,1,1);
         }

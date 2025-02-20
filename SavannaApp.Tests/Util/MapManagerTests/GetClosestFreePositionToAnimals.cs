@@ -10,13 +10,13 @@ namespace SavannaApp.Tests.Util.MapManagerTests
     public class GetClosestFreePositionToAnimals
     {
         IMapManager _mapManager = null!;
-        Mock<IMap> _map = null!;
+        IMap _map = null!;
 
         [TestInitialize]
         public void Setup()
         {
-            _mapManager = new MapManager();
-            _map = new Mock<IMap>();
+            _mapManager = MapManagerMock.mapManager;
+            _map = MapMock.CreateMap(10, 10);
         }
 
         [TestMethod]
@@ -26,20 +26,13 @@ namespace SavannaApp.Tests.Util.MapManagerTests
             var lion = AnimalMock.CreateLion(1, 2, 2, "L");
             var lion2 = AnimalMock.CreateLion(1, 4, 4, "L");
             var animals = new List<Animal> { lion, lion2 };
-            var mapHeight = 10;
-            var mapWidth = 10;
-
-            _map.Setup(m => m.Width).Returns(mapWidth);
-            _map.Setup(m => m.Height).Returns(mapHeight);
-
-            _map.Setup(m => m.IsPositionValid(It.IsAny<int>(), It.IsAny<int>())).Returns(true);
-            _map.Setup(m => m.IsPositionValid(2, 2)).Returns(false);
-            _map.Setup(m => m.IsPositionValid(4, 4)).Returns(false);
+            _map.SetAnimal(lion);
+            _map.SetAnimal(lion2);
 
             var expectedX = 3;
             var expectedY = 3;
             //Act
-            var result = _mapManager.GetClosestFreePositionToAnimals(animals, _map.Object);
+            var result = _mapManager.GetClosestFreePositionToAnimals(animals, _map);
 
             //Assert
             Assert.IsNotNull(result);

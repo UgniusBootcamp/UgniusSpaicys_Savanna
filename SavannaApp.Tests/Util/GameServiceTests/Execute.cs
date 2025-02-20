@@ -17,11 +17,8 @@ namespace SavannaApp.Tests.Util.GameServiceTests
         public void Setup()
         {
             _mapCreatorMock = new Mock<IMapCreator>();
-            var printerMock = new Mock<IMapPrinter>();
-            var animalCreationServiceMock = new Mock<IAnimalCreationService>();
-            var animalGroupManager = new Mock<IAnimalGroupManager>();
-
-            _gameService = new GameService(_mapCreatorMock.Object, printerMock.Object, animalCreationServiceMock.Object, animalGroupManager.Object);
+            var creator = AnimalCreationMock.AnimalCreationService;
+            _gameService = new GameService(_mapCreatorMock.Object, UIMock.MapPrinterMock.Object, creator, AnimalGroupManagerMock.CreateAnimalGroupManager(creator));
         }
 
         [TestMethod]

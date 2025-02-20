@@ -3,25 +3,26 @@ using SavannaApp.Data.Interfaces;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Tests.Helpers;
+using SavannaApp.Business.Interfaces;
 
 namespace SavannaApp.Tests.Util.AnimalCreationTests
 {
     [TestClass]
     public class RebirthAnimal
     {
-        private AnimalCreationService _animalCreationService = null!;
+        private IAnimalCreationService _animalCreationService = null!;
 
         [TestInitialize]
         public void Setup()
         {
-            _animalCreationService = new AnimalCreationService(AnimalFactoryMock.Factory, new MapManager());
+            _animalCreationService = AnimalCreationMock.AnimalCreationService;
         }
 
         [TestMethod]
         public void RebirthAnimal_NoSpaceLeft_ShouldReturnNull()
         {
             //Arrange
-            IMap map = new Map(1, 1);
+            IMap map = MapMock.CreateMap(1, 1);
             map.SetAnimal(AnimalMock.CreateAntelope());
 
             //Act
@@ -35,7 +36,7 @@ namespace SavannaApp.Tests.Util.AnimalCreationTests
         public void RebirthAnimal_SpaceBetweenAnimals_ShouldReturnMiddlePosition()
         {
             //Arrange
-            IMap map = new Map(3, 3);
+            IMap map = MapMock.CreateMap(10, 10);
             map.SetAnimal(AnimalMock.CreateAntelope());
             map.SetAnimal(AnimalMock.CreateAntelope(2, 2, 2));
 

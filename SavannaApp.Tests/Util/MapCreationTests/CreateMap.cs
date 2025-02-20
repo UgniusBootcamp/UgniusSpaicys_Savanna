@@ -1,7 +1,7 @@
 ﻿using Moq;
 using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Interfaces.UI;
-using SavannaApp.Business.Services;
+using SavannaApp.Tests.Helpers;
 
 namespace SavannaApp.Tests.Util.MapCreationTests
 {
@@ -15,9 +15,7 @@ namespace SavannaApp.Tests.Util.MapCreationTests
         public void Setup()
         {
             inputHandler = new Mock<IInputHandler>();
-            var outputHandler = new Mock<IOutputHandler>();
-
-            mapCreator = new MapCreationService(inputHandler.Object, outputHandler.Object);
+            mapCreator = MapCreatorMock.CreateMapCreator(UIMock.OutputHandlerMock.Object, inputHandler.Object);
         }
         [TestMethod]
         public void CreateMap_ShouldReturnValidMap()
