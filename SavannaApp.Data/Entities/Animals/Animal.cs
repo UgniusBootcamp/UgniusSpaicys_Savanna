@@ -8,9 +8,7 @@ namespace SavannaApp.Data.Entities.Animals
     {
         public int Id { get; } = id;
         public string Name { get; } = name;
-        public int Speed { get; } = speed;
-        public int Vision { get; } = vision;
-        public double Health { get; private set; } = health;
+        public AnimalFeatures Features { get; } = new AnimalFeatures(speed, vision, health); 
         public bool IsAlive { get; private set; } = true;
         public Position Position { get; } = new Position(x, y);
         private IMovement _movement { get; set; } = movement;
@@ -32,7 +30,7 @@ namespace SavannaApp.Data.Entities.Animals
         public void Death()
         {
             IsAlive = false;
-            Health = 0;
+            Features.Health = 0;
         }
 
         /// <summary>
@@ -56,16 +54,16 @@ namespace SavannaApp.Data.Entities.Animals
         {
             if (damage < 0) return;
 
-            Health -= damage;
+            Features.Health -= damage;
 
-            if (Health <= 0) IsAlive = false;
+            if (Features.Health <= 0) IsAlive = false;
         }
 
         public void IncreaseHealth(double health)
         {
             if (health < 0) return;
 
-            Health += health;
+            Features.Health += health;
         }
     }
 }

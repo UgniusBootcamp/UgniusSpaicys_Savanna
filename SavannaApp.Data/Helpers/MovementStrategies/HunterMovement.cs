@@ -14,13 +14,13 @@ namespace SavannaApp.Data.Helpers.MovementStrategies
         /// <returns>true if movement was performed, false if not</returns>
         public bool Move(Animal animal, IMap map)
         {
-            var antelopes = map.Animals.Where(a => a is Antelope && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Vision);
+            var antelopes = map.Animals.Where(a => a is Antelope && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Features.Vision);
 
             if (!antelopes.Any()) return false;
 
             var antelopeToCatch = antelopes.OrderBy(a => animal.DistanceTo(a.Position.X, a.Position.Y)).First();
 
-            if (animal.DistanceTo(antelopeToCatch.Position.X, antelopeToCatch.Position.Y) <= animal.Speed)
+            if (animal.DistanceTo(antelopeToCatch.Position.X, antelopeToCatch.Position.Y) <= animal.Features.Speed)
             {
                 int x = antelopeToCatch.Position.X;
                 int y = antelopeToCatch.Position.Y;

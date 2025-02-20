@@ -13,7 +13,7 @@ namespace SavannaApp.Data.Helpers.MovementStrategies
         /// <returns>true if animal has moved, false if not</returns>
         public bool Move(Animal animal, IMap map)
         {
-            var lions = map.Animals.Where(a => a is Lion && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Vision);
+            var lions = map.Animals.Where(a => a is Lion && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Features.Vision);
 
             if (!lions.Any()) return false;
 

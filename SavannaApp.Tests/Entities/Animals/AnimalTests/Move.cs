@@ -39,7 +39,7 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
             var antelopeX = antelope.Position.X;
             var antelopeY = antelope.Position.Y;
 
-            var lionHealth = lion.Health;
+            var lionHealth = lion.Features.Health;
 
             // Act
             lion.Move(map);
@@ -53,7 +53,7 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
 
             Assert.IsFalse(antelope.IsAlive);
             Assert.IsTrue(lion.IsAlive);
-            Assert.IsTrue(lionHealth < lion.Health);
+            Assert.IsTrue(lionHealth < lion.Features.Health);
         }
 
         [TestMethod]
@@ -66,7 +66,7 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
             var antelopeX = antelope.Position.X;
             var antelopeY = antelope.Position.Y;
 
-            var antelopeHealth = antelope.Health;
+            var antelopeHealth = antelope.Features.Health;
 
             // Act
             antelope.Move(map);
@@ -75,7 +75,7 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
             Assert.IsTrue(antelopeX != antelope.Position.X || antelopeY != antelope.Position.Y);
             Assert.IsTrue(lionX != antelope.Position.X && lionY != antelope.Position.Y);
             Assert.IsTrue(antelope.IsAlive);
-            Assert.IsTrue(antelope.Health < antelopeHealth);
+            Assert.IsTrue(antelope.Features.Health < antelopeHealth);
         }
 
         [TestCleanup]

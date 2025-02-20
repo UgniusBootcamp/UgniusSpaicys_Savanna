@@ -48,7 +48,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
             map.SetAnimal(lion);
             map.SetAnimal(antelope);
             var expected = true;
-            var lionHealth = lion.Health;
+            var lionHealth = lion.Features.Health;
             var antelopeX = antelope.Position.X;
             var antelopeY = antelope.Position.Y;
 
@@ -58,8 +58,8 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
             //Assert
             Assert.AreEqual(expected, result);
             Assert.IsFalse(antelope.IsAlive);
-            Assert.IsTrue(lion.Health > lionHealth);
-            Assert.AreEqual(antelope.Health, 0);
+            Assert.IsTrue(lion.Features.Health > lionHealth);
+            Assert.AreEqual(antelope.Features.Health, 0);
             Assert.IsTrue(lion.Position.X == antelopeX && lion.Position.Y == antelopeY);
         }
 
@@ -71,7 +71,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
             map.SetAnimal(closeLion);
             map.SetAnimal(antelope);
             var expected = true;
-            var lionHealth = closeLion.Health;
+            var lionHealth = closeLion.Features.Health;
             var initialDistance = closeLion.DistanceTo(antelope.Position.X, antelope.Position.Y);
 
             //Act

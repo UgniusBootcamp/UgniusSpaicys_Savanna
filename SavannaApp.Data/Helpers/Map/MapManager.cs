@@ -44,11 +44,11 @@ namespace SavannaApp.Data.Helpers.Map
             Position BestPosition = new Position(x, y);
             double bestDistanceToAnimal = double.MaxValue;
 
-            int startX = Math.Max(0, x - hunter.Speed);
-            int endX = Math.Min(map.Width - 1, x + hunter.Speed);
+            int startX = Math.Max(0, x - hunter.Features.Speed);
+            int endX = Math.Min(map.Width - 1, x + hunter.Features.Speed);
 
-            int startY = Math.Max(0, y - hunter.Speed);
-            int endY = Math.Min(map.Height - 1, y + hunter.Speed);
+            int startY = Math.Max(0, y - hunter.Features.Speed);
+            int endY = Math.Min(map.Height - 1, y + hunter.Features.Speed);
 
             for (int i = startX; i <= endX; i++)
             {
@@ -85,11 +85,11 @@ namespace SavannaApp.Data.Helpers.Map
             Position BestPosition = new Position(x, y);
             double bestDistanceFromAllAnimal = double.MinValue;
 
-            int startX = Math.Max(0, x - pray.Speed);
-            int endX = Math.Min(map.Width - 1, x + pray.Speed);
+            int startX = Math.Max(0, x - pray.Features.Speed);
+            int endX = Math.Min(map.Width - 1, x + pray.Features.Speed);
 
-            int startY = Math.Max(0, y - pray.Speed);
-            int endY = Math.Min(map.Height - 1, y + pray.Speed);
+            int startY = Math.Max(0, y - pray.Features.Speed);
+            int endY = Math.Min(map.Height - 1, y + pray.Features.Speed);
 
             for (int i = startX; i <= endX; i++)
             {

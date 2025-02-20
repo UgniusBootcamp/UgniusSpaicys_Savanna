@@ -15,8 +15,8 @@ namespace SavannaApp.Data.Helpers.MovementStrategies
         /// <returns>always true</returns>
         public bool Move(Animal animal, IMap map)
         {
-            int deltaX = _random.Next(-animal.Speed, animal.Speed + 1);
-            int deltaY = _random.Next(-animal.Speed, animal.Speed + 1);
+            int deltaX = _random.Next(-animal.Features.Speed, animal.Features.Speed + 1);
+            int deltaY = _random.Next(-animal.Features.Speed, animal.Features.Speed + 1);
 
             int maxX = map.Width - 1;
             int maxY = map.Height - 1;
