@@ -14,26 +14,26 @@ namespace SavannaApp.Data.Helpers.MovementStrategies
         /// <returns>true if movement was performed, false if not</returns>
         public bool Move(Animal animal, IMap map)
         {
-            var antelopes = map.Animals.Where(a => a is Antelope && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Features.Vision);
+            var prays = map.Animals.Where(a => a is Pray && animal.DistanceTo(a.Position.X, a.Position.Y) <= animal.Features.Vision);
 
-            if (!antelopes.Any()) return false;
+            if (!prays.Any()) return false;
 
-            var antelopeToCatch = antelopes.OrderBy(a => animal.DistanceTo(a.Position.X, a.Position.Y)).First();
+            var prayToCatch = prays.OrderBy(a => animal.DistanceTo(a.Position.X, a.Position.Y)).First();
 
-            if (animal.DistanceTo(antelopeToCatch.Position.X, antelopeToCatch.Position.Y) <= animal.Features.Speed)
+            if (animal.DistanceTo(prayToCatch.Position.X, prayToCatch.Position.Y) <= animal.Features.Speed)
             {
-                int x = antelopeToCatch.Position.X;
-                int y = antelopeToCatch.Position.Y;
+                int x = prayToCatch.Position.X;
+                int y = prayToCatch.Position.Y;
 
-                antelopeToCatch.Death();
+                prayToCatch.Death();
 
-                animal.IncreaseHealth(GameConstants.HealthIncreaseOnAntelopeEaten);
+                animal.IncreaseHealth(GameConstants.HealthIncreaseOnPrayEaten);
 
                 animal.Position.X = x; animal.Position.Y = y;
             }
             else
             {
-                var bestPosition = mapManager.GetBestFreeSpaceForHunter(animal, antelopeToCatch, map);
+                var bestPosition = mapManager.GetBestFreeSpaceForHunter(animal, prayToCatch, map);
 
                 animal.Position.X = bestPosition.X;
                 animal.Position.Y = bestPosition.Y;

@@ -42,7 +42,7 @@
 
         public const double HealthDamageOnMove = 0.5; // Health taken on every move 
 
-        public const double HealthIncreaseOnAntelopeEaten = 15; // Health added when antelope is eaten
+        public const double HealthIncreaseOnPrayEaten = 15; // Health added when antelope is eaten
         
         public const int DefaultRebirthRadius = 1; // rebirth radius
 

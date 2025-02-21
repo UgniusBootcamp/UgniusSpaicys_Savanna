@@ -4,14 +4,14 @@ using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Entities.Animals
 {
-    public abstract class Animal(int id, int x, int y, string name, AnimalFeatures features, IMovement movement)
+    public abstract class Animal(int id, int x, int y, string name, AnimalFeatures features)
     {
         public int Id { get; } = id;
         public string Name { get; } = name;
         public AnimalFeatures Features { get; } = features;
         public bool IsAlive { get; private set; } = true;
         public Position Position { get; } = new Position(x, y);
-        private IMovement _movement { get; set; } = movement;
+        protected readonly IMovement RandomMovement = new RandomMovement();
 
         /// <summary>
         /// Method to calculate distance to position (Manhattan)
@@ -37,20 +37,14 @@ namespace SavannaApp.Data.Entities.Animals
         /// Method for performing movement of animal
         /// </summary>
         /// <param name="map">Map</param>
-        public void Move(IMap map)
+        public virtual void Move(IMap map)
         {
-            var action = _movement.Move(this, map);
-
-            if (!action)
-            {
-                var random = new RandomMovement();
-                random.Move(this, map);
-            }
+            RandomMovement.Move(this, map);
 
             DecreaseHealth(GameConstants.HealthDamageOnMove);
         }
 
-        private void DecreaseHealth(double damage)
+        protected void DecreaseHealth(double damage)
         {
             if (damage < 0) return;
 
