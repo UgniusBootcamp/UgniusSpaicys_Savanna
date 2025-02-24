@@ -9,6 +9,6 @@ namespace SavannaApp.Business.Interfaces
         /// </summary>
         /// <param name="header">Header</param>
         /// <param name="map">Map</param>
-        void PrintMap(string header, IMap map);
+        void PrintMap(string header, string footer, IMap map);
     }
 }

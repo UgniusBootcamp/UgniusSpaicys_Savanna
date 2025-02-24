@@ -1,4 +1,5 @@
-﻿using SavannaApp.Business.Interfaces;
+﻿using System.Text;
+using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
@@ -11,6 +12,7 @@ namespace SavannaApp.Business.Services
         private bool _isRunning = false;
         private readonly object _lock = new object();
         private Dictionary<ConsoleKey, Type> AnimalTypesMap = null!;
+        private string _header = string.Empty;
 
         /// <summary>
         /// Method to run game
@@ -18,6 +20,7 @@ namespace SavannaApp.Business.Services
         public void Execute()
         {
             AnimalTypesMap = mapper.MapCreatables(assemblyLoader.LoadAnimalTypes());
+            SetHeader();
 
             map = mapCreator.CreateMap();
 
@@ -69,8 +72,30 @@ namespace SavannaApp.Business.Services
         /// </summary>
         private void Print()
         {
+            var footer = new StringBuilder("|");
 
-            mapPrinter.PrintMap(GameConstants.Header, map);
+            foreach(var type in AnimalTypesMap.Values)
+            {
+                var count = map.Animals.Where(a => a.GetType() == type).Count();
+                var message = String.Format(" {0} {1} |", type.Name, count);
+                footer.Append(message);
+            }
+
+            mapPrinter.PrintMap(_header, footer.ToString(), map);
+        }
+
+        private void SetHeader()
+        {
+            var header = new StringBuilder("|");
+
+            foreach(var key in AnimalTypesMap.Keys)
+            {
+                var type = AnimalTypesMap[key];
+                var message = String.Format(" {0} - {1} |", type.Name, key.ToString());
+                header.Append(message);
+            }
+
+            _header = header.ToString();
         }
 
         /// <summary>
@@ -99,7 +124,7 @@ namespace SavannaApp.Business.Services
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey(true);
-                    if (AnimalTypesMap[key.Key] != null) CreateAnimal(AnimalTypesMap[key.Key]);
+                    if (AnimalTypesMap.ContainsKey(key.Key)) CreateAnimal(AnimalTypesMap[key.Key]);
                 }
             }
         }

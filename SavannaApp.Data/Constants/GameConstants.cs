@@ -22,8 +22,6 @@
 
         public const string UnknownAnimalType = "Unknown animal type to create"; // Unknown animal type message
         
-        public const string Header = "Savanna App"; // Header 
-
         public const double HealthDamageOnMove = 0.5; // Health taken on every move 
 
         public const double HealthIncreaseOnPrayEaten = 15; // Health added when antelope is eaten

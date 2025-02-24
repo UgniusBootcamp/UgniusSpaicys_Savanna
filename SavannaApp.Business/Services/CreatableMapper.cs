@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.Serialization;
 using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.MovementStrategies;
@@ -21,16 +20,22 @@ namespace SavannaApp.Business.Services
 
                     if (creationKeyProp != null)
                     {
-                        var animalInstance = Activator.CreateInstance(animalType, 0, 0, 0, new RandomMovement()) as Animal;
+                        var constructor = animalType.GetConstructor([typeof(int), typeof(int), typeof(int), typeof(IMovement)]);
 
-                        var creationKey = creationKeyProp.GetValue(animalInstance);
-
-                        if (creationKey != null)
+                        if (constructor != null)
                         {
-                            var key = (ConsoleKey)creationKey;
+                            var movement = new RandomMovement();
+                            var animalInstance = constructor.Invoke([1, 1, 1, movement]) as Animal;
 
-                            if(!creatableTypes.ContainsKey(key)) creatableTypes.Add(key, animalType);
-                        } 
+                            var creationKey = creationKeyProp.GetValue(animalInstance);
+
+                            if (creationKey != null)
+                            {
+                                var key = (ConsoleKey)creationKey;
+
+                                if (!creatableTypes.ContainsKey(key)) creatableTypes.Add(key, animalType);
+                            }
+                        }
                     }
                 }
             }
