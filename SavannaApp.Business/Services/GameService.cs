@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using SavannaApp.Business.Interfaces;
-using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 
@@ -84,6 +83,9 @@ namespace SavannaApp.Business.Services
             mapPrinter.PrintMap(_header, footer.ToString(), map);
         }
 
+        /// <summary>
+        /// Method for initializing header
+        /// </summary>
         private void SetHeader()
         {
             var header = new StringBuilder("|");

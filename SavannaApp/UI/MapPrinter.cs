@@ -11,6 +11,7 @@ namespace SavannaApp.UI
         /// </summary>
         /// <param name="header">Header message</param>
         /// <param name="map">Map</param>
+        /// <param name="footer">Footer</param>>
         public void PrintMap(string header, string footer, IMap map)
         {
             int yOffset = 0;

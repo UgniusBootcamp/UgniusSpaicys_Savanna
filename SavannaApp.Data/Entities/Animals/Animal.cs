@@ -47,6 +47,10 @@ namespace SavannaApp.Data.Entities.Animals
             DecreaseHealth(GameConstants.HealthDamageOnMove);
         }
 
+        /// <summary>
+        /// Method for decreasing health
+        /// </summary>
+        /// <param name="damage">helth to decrease</param>
         protected void DecreaseHealth(double damage)
         {
             if (damage < 0) return;
@@ -56,6 +60,10 @@ namespace SavannaApp.Data.Entities.Animals
             IsAlive = Features.Health > 0;
         }
 
+        /// <summary>
+        /// Method for increasing health
+        /// </summary>
+        /// <param name="health">health to increase</param>
         public void IncreaseHealth(double health)
         {
             if (health < 0) return;

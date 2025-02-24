@@ -1,8 +1,5 @@
 ﻿using SavannaApp.Data.Constants;
-using System.Diagnostics.Metrics;
 using SavannaApp.Data.Interfaces;
-using SavannaApp.Data.Helpers.MovementStrategies;
-using SavannaApp.Data.Helpers.Map;
 
 namespace SavannaApp.Data.Entities.Animals
 {
@@ -10,6 +7,10 @@ namespace SavannaApp.Data.Entities.Animals
     {
         private readonly IMovement _pray = movement;
 
+        /// <summary>
+        /// Method for pray movement logic
+        /// </summary>
+        /// <param name="map"></param>
         public override void Move(IMap map)
         {
             var action = _pray.Move(this, map);

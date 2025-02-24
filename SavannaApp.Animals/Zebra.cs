@@ -1,5 +1,4 @@
 ﻿using SavannaApp.Animals.Constants;
-using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 

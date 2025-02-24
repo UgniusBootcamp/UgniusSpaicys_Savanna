@@ -7,6 +7,10 @@ namespace SavannaApp.Data.Entities.Animals
     {
         private readonly IMovement _hunter = movement;
 
+        /// <summary>
+        /// Method for hunter movement logic
+        /// </summary>
+        /// <param name="map">Map</param>
         public override void Move(IMap map)
         {
             var action = _hunter.Move(this, map);

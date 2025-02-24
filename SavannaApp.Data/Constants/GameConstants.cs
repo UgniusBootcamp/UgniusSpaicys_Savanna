@@ -29,5 +29,13 @@
         public const int DefaultRebirthRadius = 1; // rebirth radius
 
         public const int DefaultRebirthCounter = 3; // number of round of animals being together to make rebirth
+
+        public const string PluginsDirectory = "Plugins"; // Plugins directory
+
+        public const string DllFileExtensions = ".dll"; // dll file extension
+
+        public const string DllLoadingFailed = "System has failed loading assembly"; // assembly loading fail message
+
+        public const string MappingFails = "Failed mapping types into creatable objects"; // mapping fail message
     }
 }

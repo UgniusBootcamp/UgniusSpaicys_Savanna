@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
@@ -8,6 +9,12 @@ namespace SavannaApp.Business.Services
 {
     public class CreatableMapper : ICreatableMapper
     {
+        /// <summary>
+        /// Method to map types with console keys
+        /// </summary>
+        /// <param name="types">class types</param>
+        /// <returns>map with console key and type</returns>
+        /// <exception cref="Exception">if mapping fails</exception>
         public Dictionary<ConsoleKey, Type> MapCreatables(List<Type> types)
         {
             Dictionary<ConsoleKey, Type> creatableTypes = new Dictionary<ConsoleKey, Type>();
@@ -41,7 +48,7 @@ namespace SavannaApp.Business.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed mapping types into creatable objects {ex.Message}");
+                throw new Exception(String.Format("{0} {1}", GameConstants.MappingFails, ex.Message));
             }
 
             return creatableTypes;

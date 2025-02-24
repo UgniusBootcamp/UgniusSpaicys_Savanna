@@ -1,5 +1,4 @@
 ﻿using SavannaApp.Business.Interfaces;
-using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
