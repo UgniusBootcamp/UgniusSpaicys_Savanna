@@ -4,7 +4,7 @@ using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Entities.Animals
 {
-    public abstract class Animal(int id, int x, int y, string name, AnimalFeatures features)
+    public abstract class Animal(int id, int x, int y, string name, AnimalFeatures features) : ICreatable
     {
         public int Id { get; } = id;
         public string Name { get; } = name;
@@ -12,6 +12,8 @@ namespace SavannaApp.Data.Entities.Animals
         public bool IsAlive { get; private set; } = true;
         public Position Position { get; } = new Position(x, y);
         protected readonly IMovement RandomMovement = new RandomMovement();
+        public abstract ConsoleKey CreationKey { get; }
+
 
         /// <summary>
         /// Method to calculate distance to position (Manhattan)

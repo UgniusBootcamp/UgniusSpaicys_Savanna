@@ -23,10 +23,12 @@ namespace GameOfLife.Dependencies
             services.AddSingleton<IOutputHandler, ConsoleOutput>();
             services.AddSingleton<IInputHandler, ConsoleInput>();
             services.AddSingleton<IAnimalFactory, AnimalFactory>();
+            services.AddSingleton<IAssemblyLoader, AssemblyLoader>();
 
             services.AddTransient<IMapCreator, MapCreationService>();
             services.AddTransient<HunterMovement>();
             services.AddTransient<PrayMovement>();
+            services.AddTransient<ICreatableMapper, CreatableMapper>();
 
             services.AddScoped<IMapManager, MapManager>();
             services.AddScoped<IGameService, GameService>();

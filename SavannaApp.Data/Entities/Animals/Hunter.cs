@@ -1,6 +1,4 @@
 ﻿using SavannaApp.Data.Constants;
-using SavannaApp.Data.Helpers.Map;
-using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Entities.Animals

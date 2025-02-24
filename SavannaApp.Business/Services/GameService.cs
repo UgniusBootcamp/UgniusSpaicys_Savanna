@@ -5,17 +5,20 @@ using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Business.Services
 {
-    public class GameService(IMapCreator mapCreator, IMapPrinter mapPrinter, IAnimalCreationService animalCreationService, IAnimalGroupManager animalGroupManager) : IGameService
+    public class GameService(ICreatableMapper mapper, IAssemblyLoader assemblyLoader, IMapCreator mapCreator, IMapPrinter mapPrinter, IAnimalCreationService animalCreationService, IAnimalGroupManager animalGroupManager) : IGameService
     {
         private IMap map = null!;
         private bool _isRunning = false;
         private readonly object _lock = new object();
+        private Dictionary<ConsoleKey, Type> AnimalTypesMap = null!;
 
         /// <summary>
         /// Method to run game
         /// </summary>
         public void Execute()
         {
+            AnimalTypesMap = mapper.MapCreatables(assemblyLoader.LoadAnimalTypes());
+
             map = mapCreator.CreateMap();
 
             _isRunning = true;
@@ -25,6 +28,7 @@ namespace SavannaApp.Business.Services
 
             RunLoop();
         }
+
 
         /// <summary>
         /// Helper to run a loop of game
@@ -38,15 +42,15 @@ namespace SavannaApp.Business.Services
 
                 var animals = map.Animals.ToList();
 
-                foreach (var antelope in animals.Where(a => a is Antelope))
+                foreach (var prays in animals.Where(a => a is Pray))
                 {
-                    antelope.Move(map);
+                    prays.Move(map);
                 }
 
 
-                foreach (var lion in animals.Where(a => a is Lion))
+                foreach (var hunter in animals.Where(a => a is Hunter))
                 {
-                    lion.Move(map);
+                    hunter.Move(map);
                 }
 
                 lock (_lock)
@@ -65,10 +69,8 @@ namespace SavannaApp.Business.Services
         /// </summary>
         private void Print()
         {
-            var antelopesCount = map.Animals.Where(a => a is Antelope).Count();
-            var lionsCount = map.Animals.Where(l => l is Lion).Count();
 
-            mapPrinter.PrintMap(String.Format(GameConstants.Header, antelopesCount, lionsCount), map);
+            mapPrinter.PrintMap(String.Format(GameConstants.Header), map);
         }
 
         /// <summary>
@@ -96,16 +98,8 @@ namespace SavannaApp.Business.Services
             {
                 if (Console.KeyAvailable)
                 {
-                    var key = Console.ReadKey(true).Key;
-                    switch (key)
-                    {
-                        case ConsoleKey.L:
-                            CreateAnimal(typeof(Lion));
-                            break;
-                        case ConsoleKey.A:
-                            CreateAnimal(typeof(Antelope));
-                            break;
-                    }
+                    var key = Console.ReadKey(true);
+                    if (AnimalTypesMap[key.Key] != null) CreateAnimal(AnimalTypesMap[key.Key]);
                 }
             }
         }
