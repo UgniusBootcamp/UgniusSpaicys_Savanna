@@ -1,16 +1,14 @@
 ﻿using SavannaApp.Data.Constants;
 using System.Diagnostics.Metrics;
 using SavannaApp.Data.Interfaces;
+using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Data.Helpers.Map;
 
 namespace SavannaApp.Data.Entities.Animals
 {
-    public class Pray : Animal
+    public abstract class Pray(int id, int x, int y, IMovement movement) : Animal(id, x, y)
     {
-        private readonly IMovement _pray;
-        public Pray(int id, int x, int y, string name, AnimalFeatures features, IMovement movement) : base(id, x, y, name, features)
-        {
-            _pray = movement;
-        }
+        private readonly IMovement _pray = movement;
 
         public override void Move(IMap map)
         {

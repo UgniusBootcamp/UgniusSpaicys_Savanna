@@ -22,7 +22,12 @@ namespace SavannaApp.Business.Services
         {
             IMovement movement = animalType.BaseType == typeof(Hunter) ? hunter : pray;
 
-            return null;
+            var animal = Activator.CreateInstance(animalType, _id++, x, y, movement) as Animal;
+
+            if (animal == null)
+                throw new Exception($"Animal does not have required constructor {animalType.ToString()}");
+
+            return animal;
         }
     }
 }

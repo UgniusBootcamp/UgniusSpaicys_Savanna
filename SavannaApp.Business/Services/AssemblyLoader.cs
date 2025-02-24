@@ -1,7 +1,6 @@
 ﻿using SavannaApp.Business.Interfaces;
-using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
-using SavannaApp.Data.Interfaces;
+using SavannaApp.Data.Helpers.MovementStrategies;
 using System.Reflection;
 
 namespace SavannaApp.Business.Services
@@ -9,6 +8,7 @@ namespace SavannaApp.Business.Services
     public class AssemblyLoader : IAssemblyLoader
     {
         private readonly string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
         public List<Type> LoadAnimalTypes(string directory = "Plugins")
         {
             var path = Path.Combine(baseDir, directory);
@@ -28,6 +28,8 @@ namespace SavannaApp.Business.Services
                         .Where(a => a.IsSubclassOf(typeof(Animal))).ToList();
 
                     types.AddRange(animalTypes);
+
+                   
                 }
                 catch (Exception e)
                 {

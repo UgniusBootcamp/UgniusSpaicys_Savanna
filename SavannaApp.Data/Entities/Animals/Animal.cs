@@ -4,14 +4,15 @@ using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Entities.Animals
 {
-    public abstract class Animal(int id, int x, int y, string name, AnimalFeatures features) : ICreatable
+    public abstract class Animal(int id, int x, int y) : ICreatable
     {
         public int Id { get; } = id;
-        public string Name { get; } = name;
-        public AnimalFeatures Features { get; } = features;
         public bool IsAlive { get; private set; } = true;
         public Position Position { get; } = new Position(x, y);
         protected readonly IMovement RandomMovement = new RandomMovement();
+
+        public abstract string Name { get; }
+        public abstract AnimalFeatures Features { get; }
         public abstract ConsoleKey CreationKey { get; }
 
 

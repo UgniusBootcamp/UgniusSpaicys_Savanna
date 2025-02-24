@@ -22,7 +22,7 @@
 
         public const string UnknownAnimalType = "Unknown animal type to create"; // Unknown animal type message
         
-        public const string Header = "Antelopes - {0} | Lions - {1}"; // Header 
+        public const string Header = "Savanna App"; // Header 
 
         public const double HealthDamageOnMove = 0.5; // Health taken on every move 
 

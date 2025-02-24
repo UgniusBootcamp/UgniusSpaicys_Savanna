@@ -1,5 +1,8 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Reflection;
+using System.Runtime.Serialization;
 using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Business.Services
@@ -12,21 +15,22 @@ namespace SavannaApp.Business.Services
 
             try
             {
-                foreach (var type in types)
+                foreach (var animalType in types)
                 {
-                    if (typeof(ICreatable).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
+                    var creationKeyProp = animalType.GetProperty("CreationKey", BindingFlags.Public | BindingFlags.Instance);
+
+                    if (creationKeyProp != null)
                     {
-                        var creationKeyProperty = type.GetProperty("CreationKey", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+                        var animalInstance = Activator.CreateInstance(animalType, 0, 0, 0, new RandomMovement()) as Animal;
 
-                        if (creationKeyProperty != null && creationKeyProperty.PropertyType == typeof(ConsoleKey))
+                        var creationKey = creationKeyProp.GetValue(animalInstance);
+
+                        if (creationKey != null)
                         {
-                            var key = (ConsoleKey)creationKeyProperty.GetValue(null);
+                            var key = (ConsoleKey)creationKey;
 
-                            if (!creatableTypes.ContainsKey(key))
-                            {
-                                creatableTypes[key] = type;
-                            }
-                        }
+                            if(!creatableTypes.ContainsKey(key)) creatableTypes.Add(key, animalType);
+                        } 
                     }
                 }
             }

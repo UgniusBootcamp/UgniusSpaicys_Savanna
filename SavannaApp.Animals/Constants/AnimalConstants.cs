@@ -17,12 +17,12 @@
         public const int TigerVision = 4; // Tiger vision
         public const double TigerHealth = 50; // Tiger health
 
-        public const string Hyena = "L"; // Hyena name
+        public const string Hyena = "H"; // Hyena name
         public const int HyenaSpeed = 5; // Hyena speed
         public const int HyenaVision = 4; // Hyean vision
         public const double HyenaHealth = 50; // Hyeana health
 
-        public const string Zebra = "L"; // Zebra name
+        public const string Zebra = "Z"; // Zebra name
         public const int ZebraSpeed = 4; // Zebra speed
         public const int ZebraVision = 4; // Zebra vision
         public const double ZebraHealth = 30; // Zebra health

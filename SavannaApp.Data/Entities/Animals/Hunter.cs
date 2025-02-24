@@ -3,14 +3,9 @@ using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Data.Entities.Animals
 {
-    public abstract class Hunter : Animal
+    public abstract class Hunter(int id, int x, int y, IMovement movement) : Animal(id, x, y)
     {
-        private readonly IMovement _hunter;
-
-        protected Hunter(int id, int x, int y, string name, AnimalFeatures features, IMovement movement) : base(id, x, y, name, features)
-        {
-            _hunter = movement;
-        }
+        private readonly IMovement _hunter = movement;
 
         public override void Move(IMap map)
         {

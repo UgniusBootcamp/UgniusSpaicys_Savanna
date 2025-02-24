@@ -70,7 +70,7 @@ namespace SavannaApp.Business.Services
         private void Print()
         {
 
-            mapPrinter.PrintMap(String.Format(GameConstants.Header), map);
+            mapPrinter.PrintMap(GameConstants.Header, map);
         }
 
         /// <summary>
