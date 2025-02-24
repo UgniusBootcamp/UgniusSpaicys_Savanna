@@ -6,10 +6,11 @@ namespace SavannaApp.Animals
 {
     public class Antelope(int id, int x, int y, IMovement movement) : Pray(id, x, y, movement)
     {
+        private AnimalFeatures _animalFeatures = new AnimalFeatures(AnimalConstants.AntelopeSpeed, AnimalConstants.AntelopeVision, AnimalConstants.AntelopeHealth);
         public override ConsoleKey CreationKey => ConsoleKey.A;
 
         public override string Name => AnimalConstants.Antelope;
 
-        public override AnimalFeatures Features => new AnimalFeatures(AnimalConstants.AntelopeSpeed, AnimalConstants.AntelopeVision, AnimalConstants.AntelopeHealth);
+        public override AnimalFeatures Features => _animalFeatures;
     }
 }

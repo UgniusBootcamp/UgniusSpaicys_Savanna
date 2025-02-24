@@ -22,10 +22,10 @@ namespace SavannaApp.Tests.Util.MapManagerTests
         public void GetBestFreeSpaceForPray_ShouldMoveAwaysFromHunters_ShouldReturnFurtherDistance()
         {
             //Arrange
-            var lion = AnimalMock.CreateLion(1, 2, 2, "L", 3, 5);
-            var lion2 = AnimalMock.CreateLion(2, 3, 3, "L", 3, 5);
+            var lion = AnimalMock.CreateLion(1, 2, 2);
+            var lion2 = AnimalMock.CreateLion(2, 3, 3);
             var hunters = new[] { lion, lion2 };
-            var antelope = AnimalMock.CreateLion(3, 2, 3, "L", 3, 5);
+            var antelope = AnimalMock.CreateLion(3, 2, 3);
 
             _map.SetAnimal(lion);
             _map.SetAnimal(lion2);

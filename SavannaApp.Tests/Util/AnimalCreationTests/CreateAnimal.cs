@@ -2,6 +2,7 @@
 using SavannaApp.Data.Interfaces;
 using SavannaApp.Tests.Helpers;
 using SavannaApp.Business.Interfaces;
+using SavannaApp.Animals;
 
 namespace SavannaApp.Tests.Util.AnimalCreationTests
 {

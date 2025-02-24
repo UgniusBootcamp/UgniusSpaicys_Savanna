@@ -6,8 +6,9 @@ namespace SavannaApp.Animals
 {
     public class Zebra(int id, int x, int y, IMovement movement) : Pray(id, x, y, movement)
     {
+        private AnimalFeatures _animalFeatures = new AnimalFeatures(AnimalConstants.ZebraSpeed, AnimalConstants.ZebraVision, AnimalConstants.ZebraHealth);
         public override ConsoleKey CreationKey => ConsoleKey.Z;
         public override string Name => AnimalConstants.Zebra;
-        public override AnimalFeatures Features => new AnimalFeatures(AnimalConstants.ZebraSpeed, AnimalConstants.ZebraVision, AnimalConstants.ZebraHealth);
+        public override AnimalFeatures Features => _animalFeatures;
     }
 }
