@@ -5,6 +5,6 @@ namespace SavannaApp.Tests.Helpers
 {
     public static class AnimalFactoryMock
     {
-        public static IAnimalFactory Factory = new AnimalFactory(MovementMock.Hunter, MovementMock.Pray);
+        public static IAnimalFactory Factory = new AnimalFactory(MovementMock.Hunter, MovementMock.Pray, AnimalConfigurationServiceMock.AnimalConfigurationService);
     }
 }

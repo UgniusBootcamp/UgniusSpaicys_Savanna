@@ -7,7 +7,7 @@ namespace SavannaApp.Business.Services
 {
     public class JsonAnimalConfigurationReader : IAnimalConfigReader
     {
-        private string _baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GameConstants.ConfigDirectory) + "\\";
+        private string _baseDir = AppDomain.CurrentDomain.BaseDirectory + "\\";
 
         /// <summary>
         /// Method to create animal

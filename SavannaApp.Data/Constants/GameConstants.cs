@@ -38,12 +38,12 @@
 
         public const string MappingFails = "Failed mapping types into creatable objects"; // mapping fail message
 
-        public const string FileNotFound = "File {0} has not been found";
+        public const string FileNotFound = "File {0} has not been found"; // File not found message
 
-        public const string ConfigLoadFail = "Config has failed to load {0}";
+        public const string ConfigLoadFail = "Config has failed to load {0}"; // config failed to load message
 
         public const string NoConstructor = "Animal does not have required constructor"; // no required constructor
-        public const string ConfigDirectory = "Config";
-        public const string AnimalConfiguration = "config.json";
+
+        public const string AnimalConfiguration = "config.json"; // config.json
     }
 }
