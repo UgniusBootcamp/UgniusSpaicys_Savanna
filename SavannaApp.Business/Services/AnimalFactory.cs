@@ -1,4 +1,5 @@
 ﻿using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
@@ -24,7 +25,7 @@ namespace SavannaApp.Business.Services
             var animal = Activator.CreateInstance(animalType, _id++, x, y, movement) as Animal;
 
             if (animal == null)
-                throw new Exception($"Animal does not have required constructor {animalType.ToString()}");
+                throw new Exception(String.Format("{0} {1}", GameConstants.NoConstructor, animalType.ToString()));
 
             return animal;
         }

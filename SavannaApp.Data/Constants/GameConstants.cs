@@ -37,5 +37,7 @@
         public const string DllLoadingFailed = "System has failed loading assembly"; // assembly loading fail message
 
         public const string MappingFails = "Failed mapping types into creatable objects"; // mapping fail message
+
+        public const string NoConstructor = "Animal does not have required constructor"; // no required constructor
     }
 }
