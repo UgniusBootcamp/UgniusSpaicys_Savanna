@@ -37,7 +37,7 @@ namespace SavannaApp.Business.Services
 
                    
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     continue;
                 }

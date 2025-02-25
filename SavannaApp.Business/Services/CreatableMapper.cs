@@ -15,7 +15,7 @@ namespace SavannaApp.Business.Services
         /// <param name="types">class types</param>
         /// <returns>map with console key and type</returns>
         /// <exception cref="Exception">if mapping fails</exception>
-        public Dictionary<ConsoleKey, Type> MapCreatables(List<Type> types)
+        public Dictionary<ConsoleKey, Type> MapCreatableAnimals(List<Type> types)
         {
             Dictionary<ConsoleKey, Type> creatableTypes = new Dictionary<ConsoleKey, Type>();
 

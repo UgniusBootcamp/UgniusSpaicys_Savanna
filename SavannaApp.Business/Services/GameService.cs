@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using SavannaApp.Business.Interfaces;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 
@@ -18,7 +19,7 @@ namespace SavannaApp.Business.Services
         /// </summary>
         public void Execute()
         {
-            AnimalTypesMap = mapper.MapCreatables(assemblyLoader.LoadAnimalTypes());
+            AnimalTypesMap = mapper.MapCreatableAnimals(assemblyLoader.LoadAnimalTypes());
             SetHeader();
 
             map = mapCreator.CreateMap();
@@ -71,12 +72,12 @@ namespace SavannaApp.Business.Services
         /// </summary>
         private void Print()
         {
-            var footer = new StringBuilder("|");
+            var footer = new StringBuilder(GameConstants.MapVerticalBorder);
 
             foreach(var type in AnimalTypesMap.Values)
             {
                 var count = map.Animals.Where(a => a.GetType() == type).Count();
-                var message = String.Format(" {0} {1} |", type.Name, count);
+                var message = String.Format(" {0} {1} {2}", type.Name, count, GameConstants.MapVerticalBorder);
                 footer.Append(message);
             }
 
@@ -88,12 +89,12 @@ namespace SavannaApp.Business.Services
         /// </summary>
         private void SetHeader()
         {
-            var header = new StringBuilder("|");
+            var header = new StringBuilder(GameConstants.MapVerticalBorder);
 
             foreach(var key in AnimalTypesMap.Keys)
             {
                 var type = AnimalTypesMap[key];
-                var message = String.Format(" {0} - {1} |", type.Name, key.ToString());
+                var message = String.Format(" {0} - {1} {2}", type.Name, key.ToString(), GameConstants.MapVerticalBorder);
                 header.Append(message);
             }
 
