@@ -31,8 +31,7 @@ namespace SavannaApp.Business.Services
 
                         if (constructor != null)
                         {
-                            var movement = new RandomMovement();
-                            var animalInstance = constructor.Invoke([1, 1, 1, movement]) as Animal;
+                            var animalInstance = constructor.Invoke([default(int), default(int), default(int), null]) as Animal;
 
                             var creationKey = creationKeyProp.GetValue(animalInstance);
 
