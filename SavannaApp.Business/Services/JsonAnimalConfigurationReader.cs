@@ -7,7 +7,7 @@ namespace SavannaApp.Business.Services
 {
     public class JsonAnimalConfigurationReader : IAnimalConfigReader
     {
-        private string _baseDir = AppDomain.CurrentDomain.BaseDirectory + "\\";
+        private string _baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
         /// <summary>
         /// Method to create animal
@@ -21,7 +21,7 @@ namespace SavannaApp.Business.Services
             {
                 fileName = String.Format("{0}{1}", _baseDir, fileName);
 
-                if (!File.Exists(fileName)) throw new FileNotFoundException(String.Format(GameConstants.FileNotFound, fileName));
+                if (!File.Exists(fileName)) throw new FileNotFoundException();
 
                 string json = File.ReadAllText(fileName);
                 var result = JsonSerializer.Deserialize<List<AnimalConfig>>(json);
@@ -30,7 +30,13 @@ namespace SavannaApp.Business.Services
             }
             catch (Exception e)
             {
-                throw new Exception(String.Format(GameConstants.ConfigLoadFail, e.Message));
+                switch (e)
+                {
+                    case FileNotFoundException _:
+                        throw new FileNotFoundException(String.Format(GameConstants.FileNotFound, fileName));
+                    default:
+                        throw new Exception(String.Format(GameConstants.ConfigLoadFail, e.Message));
+                }
             }
         }
     }
