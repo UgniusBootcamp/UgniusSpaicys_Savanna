@@ -6,7 +6,7 @@ using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Business.Services
 {
-    public class AnimalFactory(HunterMovement hunter, PrayMovement pray) : IAnimalFactory
+    public class AnimalFactory(HunterMovement hunter, PrayMovement pray, IAnimalConfigurationService configurationService) : IAnimalFactory
     {
         private int _id = 1;
 
@@ -21,8 +21,9 @@ namespace SavannaApp.Business.Services
         public Animal CreateAnimal(Type animalType, int x, int y) 
         {
             IMovement movement = animalType.BaseType == typeof(Hunter) ? hunter : pray;
+            var config = configurationService.GetConfig(animalType.Name);
 
-            var animal = Activator.CreateInstance(animalType, _id++, x, y, movement) as Animal;
+            var animal = Activator.CreateInstance(animalType, _id++, x, y, movement, config) as Animal;
 
             if (animal == null)
                 throw new Exception(String.Format("{0} {1}", GameConstants.NoConstructor, animalType.ToString()));

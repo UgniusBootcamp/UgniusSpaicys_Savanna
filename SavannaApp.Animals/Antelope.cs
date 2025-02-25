@@ -1,15 +1,15 @@
-﻿using SavannaApp.Animals.Constants;
-using SavannaApp.Data.Entities.Animals;
+﻿using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Helpers.Configuration;
 using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Animals
 {
-    public class Antelope(int id, int x, int y, IMovement movement) : Pray(id, x, y, movement)
+    public class Antelope(int id, int x, int y, IMovement movement, AnimalConfig config) : Pray(id, x, y, movement)
     {
-        private AnimalFeatures _animalFeatures = new AnimalFeatures(AnimalConstants.AntelopeSpeed, AnimalConstants.AntelopeVision, AnimalConstants.AntelopeHealth);
-        public override ConsoleKey CreationKey => ConsoleKey.A;
+        private AnimalFeatures _animalFeatures = new AnimalFeatures(config.Speed, config.Vision, config.Health);
+        public override ConsoleKey CreationKey => (ConsoleKey)config.Key;
 
-        public override string Name => AnimalConstants.Antelope;
+        public override string Name => config.Name;
 
         public override AnimalFeatures Features => _animalFeatures;
     }
