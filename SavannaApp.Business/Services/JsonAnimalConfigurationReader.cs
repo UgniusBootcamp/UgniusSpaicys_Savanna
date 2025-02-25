@@ -1,5 +1,5 @@
 ﻿using System.Text.Json;
-using SavannaApp.Business.Interfaces.UI;
+using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Constants;
 using SavannaApp.Data.Helpers.Configuration;
 
@@ -8,6 +8,13 @@ namespace SavannaApp.Business.Services
     public class JsonAnimalConfigurationReader : IAnimalConfigReader
     {
         private string _baseDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GameConstants.ConfigDirectory) + "\\";
+
+        /// <summary>
+        /// Method to create animal
+        /// </summary>
+        /// <param name="animalType">Type of animal</param>
+        /// <param name="map">Map</param>
+        /// <returns>Created animal or null if there is no free space in map</returns>
         public IEnumerable<AnimalConfig> GetAnimalConfiguration(string fileName)
         {
             try
