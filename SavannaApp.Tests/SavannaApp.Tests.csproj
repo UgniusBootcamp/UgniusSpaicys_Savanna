@@ -23,4 +23,8 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Util\CreatableMapperTests\" />
+  </ItemGroup>
+
 </Project>

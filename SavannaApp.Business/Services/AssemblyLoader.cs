@@ -39,7 +39,7 @@ namespace SavannaApp.Business.Services
                 }
                 catch (Exception e)
                 {
-                    throw new Exception(String.Format("{0} {1}", GameConstants.DllLoadingFailed, e.Message));
+                    continue;
                 }
             }
 
