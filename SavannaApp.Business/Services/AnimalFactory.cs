@@ -2,10 +2,11 @@
 using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Business.Services
 {
-    public class AnimalFactory(HunterMovement hunter, PrayMovement pray) : IAnimalFactory
+    public class AnimalFactory(HunterMovement hunter, PrayMovement pray, IAnimalConfigurationService configurationService) : IAnimalFactory
     {
         private int _id = 1;
 
@@ -19,15 +20,15 @@ namespace SavannaApp.Business.Services
         /// <exception cref="ArgumentException">if animal type is not found</exception>
         public Animal CreateAnimal(Type animalType, int x, int y) 
         {
-            switch (animalType)
-            {
-                case Type t when t == typeof(Lion):
-                    return new Lion(_id++, x, y, GameConstants.Lion, new AnimalFeatures(GameConstants.LionSpeed, GameConstants.LionVision, GameConstants.LionHealth), hunter);
-                case Type t when t == typeof(Antelope):
-                    return new Antelope(_id++, x, y, GameConstants.Antelope, new AnimalFeatures(GameConstants.AntelopeSpeed, GameConstants.AntelopeVision, GameConstants.AntelopeHealth), pray);
-                default:
-                    throw new ArgumentException(GameConstants.UnknownAnimalType, nameof(animalType));
-            }
+            IMovement movement = animalType.BaseType == typeof(Hunter) ? hunter : pray;
+            var config = configurationService.GetConfig(animalType.Name);
+
+            var animal = Activator.CreateInstance(animalType, _id++, x, y, movement, config) as Animal;
+
+            if (animal == null)
+                throw new Exception(String.Format("{0} {1}", GameConstants.NoConstructor, animalType.ToString()));
+
+            return animal;
         }
     }
 }

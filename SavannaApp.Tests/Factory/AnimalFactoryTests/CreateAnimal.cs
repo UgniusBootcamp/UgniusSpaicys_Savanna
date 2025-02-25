@@ -2,6 +2,7 @@
 using Moq;
 using SavannaApp.Business.Interfaces;
 using SavannaApp.Tests.Helpers;
+using SavannaApp.Animals;
 
 namespace SavannaApp.Tests.Factory.AnimalFactoryTests
 {

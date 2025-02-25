@@ -11,7 +11,8 @@ namespace SavannaApp.UI
         /// </summary>
         /// <param name="header">Header message</param>
         /// <param name="map">Map</param>
-        public void PrintMap(string header, IMap map)
+        /// <param name="footer">Footer</param>>
+        public void PrintMap(string header, string footer, IMap map)
         {
             int yOffset = 0;
             int xOffset = 0;
@@ -36,7 +37,12 @@ namespace SavannaApp.UI
             }
             Console.SetCursorPosition(xOffset, ++yOffset);
             Console.Write(GameConstants.MapCorner + new string(GameConstants.MapHorizontalBorder, map.Width) + GameConstants.MapCorner);
-
+            Console.SetCursorPosition(xOffset, ++yOffset);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(xOffset, yOffset++);
+            Console.WriteLine(footer);
+            Console.ResetColor();
         }
     }
 }

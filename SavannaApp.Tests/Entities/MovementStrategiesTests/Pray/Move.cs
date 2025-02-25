@@ -16,10 +16,10 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
         public void Setup()
         {
             map = new Map(20, 20);
-            lion = AnimalMock.CreateLion(1, 9, 9, "L", 5, 5, 5, MovementMock.Movement.Object);
+            lion = AnimalMock.CreateLion(1, 9, 9, MovementMock.Movement.Object);
 
             pray = MovementMock.Pray;
-            antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 5, 5, pray);
+            antelope = AnimalMock.CreateAntelope(2, 10, 10, pray);
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Pray
         public void Move_NoLionsInVision_ShouldReturnFalse()
         {
             //Arrange
-            antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 2, 5, pray);
+            antelope = AnimalMock.CreateAntelope(2, 1, 1, pray);
 
             map.SetAnimal(antelope);
             map.SetAnimal(lion);

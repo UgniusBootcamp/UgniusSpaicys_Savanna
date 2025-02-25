@@ -20,32 +20,30 @@
 
         public const string InvalidPosition = "Invalid Map position"; // Invalid position message
 
-        public const int LionSpeed = 3; // Lion speed
-
-        public const int LionVision = 6; // Lion vision
-        
-        public const int AntelopeSpeed = 6; // Antelope speed
-        
-        public const int AntelopeVision = 3; // Antelope vision
-        
-        public const string Lion = "L"; // Lion name
-        
-        public const string Antelope = "A"; // Antelope name
-        
         public const string UnknownAnimalType = "Unknown animal type to create"; // Unknown animal type message
         
-        public const string Header = "Antelopes - {0} | Lions - {1}"; // Header message
-
-        public const double LionHealth = 50; // Lion health
-
-        public const double AntelopeHealth = 30; // Antelope health
-
         public const double HealthDamageOnMove = 0.5; // Health taken on every move 
 
-        public const double HealthIncreaseOnAntelopeEaten = 15; // Health added when antelope is eaten
+        public const double HealthIncreaseOnPrayEaten = 15; // Health added when antelope is eaten
         
         public const int DefaultRebirthRadius = 1; // rebirth radius
 
         public const int DefaultRebirthCounter = 3; // number of round of animals being together to make rebirth
+
+        public const string PluginsDirectory = "Plugins"; // Plugins directory
+
+        public const string DllFileExtensions = ".dll"; // dll file extension
+
+        public const string DllLoadingFailed = "System has failed loading assembly"; // assembly loading fail message
+
+        public const string MappingFails = "Failed mapping types into creatable objects"; // mapping fail message
+
+        public const string FileNotFound = "File {0} has not been found"; // File not found message
+
+        public const string ConfigLoadFail = "Config has failed to load {0}"; // config failed to load message
+
+        public const string NoConstructor = "Animal does not have required constructor"; // no required constructor
+
+        public const string AnimalConfiguration = "config.json"; // config.json
     }
 }

@@ -4,6 +4,7 @@ using SavannaApp.Business.Services;
 using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Tests.Helpers;
 using SavannaApp.Business.Interfaces;
+using SavannaApp.Animals;
 
 namespace SavannaApp.Tests.Util.AnimalCreationTests
 {

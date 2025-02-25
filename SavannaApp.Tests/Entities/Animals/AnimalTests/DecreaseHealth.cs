@@ -25,7 +25,7 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
             var methodInfo = typeof(Animal).GetMethod("DecreaseHealth", BindingFlags.NonPublic | BindingFlags.Instance);
 
             // Act
-            var result = methodInfo?.Invoke(animal, [damage]);
+            methodInfo?.Invoke(animal, new object[] { damage });
 
             // Assert
             Assert.AreEqual(initialHealth - damage, animal.Features.Health);

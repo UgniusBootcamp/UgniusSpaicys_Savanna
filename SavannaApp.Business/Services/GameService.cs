@@ -1,21 +1,27 @@
-﻿using SavannaApp.Business.Interfaces;
+﻿using System.Text;
+using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Constants;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Business.Services
 {
-    public class GameService(IMapCreator mapCreator, IMapPrinter mapPrinter, IAnimalCreationService animalCreationService, IAnimalGroupManager animalGroupManager) : IGameService
+    public class GameService(ICreatableMapper mapper, IAssemblyLoader assemblyLoader, IMapCreator mapCreator, IMapPrinter mapPrinter, IAnimalCreationService animalCreationService, IAnimalGroupManager animalGroupManager) : IGameService
     {
         private IMap map = null!;
         private bool _isRunning = false;
         private readonly object _lock = new object();
+        private Dictionary<ConsoleKey, Type> AnimalTypesMap = null!;
+        private string _header = string.Empty;
 
         /// <summary>
         /// Method to run game
         /// </summary>
         public void Execute()
         {
+            AnimalTypesMap = mapper.MapCreatableAnimals(assemblyLoader.LoadAnimalTypes());
+            SetHeader();
+
             map = mapCreator.CreateMap();
 
             _isRunning = true;
@@ -25,6 +31,7 @@ namespace SavannaApp.Business.Services
 
             RunLoop();
         }
+
 
         /// <summary>
         /// Helper to run a loop of game
@@ -38,15 +45,15 @@ namespace SavannaApp.Business.Services
 
                 var animals = map.Animals.ToList();
 
-                foreach (var antelope in animals.Where(a => a is Antelope))
+                foreach (var prays in animals.Where(a => a is Pray))
                 {
-                    antelope.Move(map);
+                    prays.Move(map);
                 }
 
 
-                foreach (var lion in animals.Where(a => a is Lion))
+                foreach (var hunter in animals.Where(a => a is Hunter))
                 {
-                    lion.Move(map);
+                    hunter.Move(map);
                 }
 
                 lock (_lock)
@@ -65,10 +72,33 @@ namespace SavannaApp.Business.Services
         /// </summary>
         private void Print()
         {
-            var antelopesCount = map.Animals.Where(a => a is Antelope).Count();
-            var lionsCount = map.Animals.Where(l => l is Lion).Count();
+            var footer = new StringBuilder(GameConstants.MapVerticalBorder);
 
-            mapPrinter.PrintMap(String.Format(GameConstants.Header, antelopesCount, lionsCount), map);
+            foreach(var type in AnimalTypesMap.Values)
+            {
+                var count = map.Animals.Where(a => a.GetType() == type).Count();
+                var message = String.Format(" {0} {1} {2}", type.Name, count, GameConstants.MapVerticalBorder);
+                footer.Append(message);
+            }
+
+            mapPrinter.PrintMap(_header, footer.ToString(), map);
+        }
+
+        /// <summary>
+        /// Method for initializing header
+        /// </summary>
+        private void SetHeader()
+        {
+            var header = new StringBuilder(GameConstants.MapVerticalBorder);
+
+            foreach(var key in AnimalTypesMap.Keys)
+            {
+                var type = AnimalTypesMap[key];
+                var message = String.Format(" {0} - {1} {2}", type.Name, key.ToString(), GameConstants.MapVerticalBorder);
+                header.Append(message);
+            }
+
+            _header = header.ToString();
         }
 
         /// <summary>
@@ -96,16 +126,8 @@ namespace SavannaApp.Business.Services
             {
                 if (Console.KeyAvailable)
                 {
-                    var key = Console.ReadKey(true).Key;
-                    switch (key)
-                    {
-                        case ConsoleKey.L:
-                            CreateAnimal(typeof(Lion));
-                            break;
-                        case ConsoleKey.A:
-                            CreateAnimal(typeof(Antelope));
-                            break;
-                    }
+                    var key = Console.ReadKey(true);
+                    if (AnimalTypesMap.ContainsKey(key.Key)) CreateAnimal(AnimalTypesMap[key.Key]);
                 }
             }
         }

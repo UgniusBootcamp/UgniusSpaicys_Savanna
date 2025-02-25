@@ -15,8 +15,8 @@ namespace SavannaApp.Tests.Entities.Animals.AnimalTests
         public void Setup()
         {
             map = new Map(20, 20);
-            lion = AnimalMock.CreateLion(1, 9, 9, "L", 5, 5, 5, MovementMock.Hunter);
-            antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 5, 5, MovementMock.Pray);
+            lion = AnimalMock.CreateLion(1, 9, 9,MovementMock.Hunter);
+            antelope = AnimalMock.CreateAntelope(2, 10, 10, MovementMock.Pray);
 
             map.SetAnimal(antelope);
             map.SetAnimal(lion);
