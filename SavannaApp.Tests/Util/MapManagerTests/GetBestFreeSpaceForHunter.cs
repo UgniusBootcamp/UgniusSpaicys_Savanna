@@ -22,8 +22,8 @@ namespace SavannaApp.Tests.Util.MapManagerTests
         public void GetBestFreeSpaceForHunter_ClosestDistanceToAnimal_ShouldReturnClosestPosition()
         {
             //Arrange
-            var lion = AnimalMock.CreateLion(1, 2, 2, "L", 3, 5);
-            var antelope = AnimalMock.CreateAntelope(2, 2, 6, "A", 3, 5);
+            var lion = AnimalMock.CreateLion(1, 2, 2);
+            var antelope = AnimalMock.CreateAntelope(2, 2, 6);
 
             _map.SetAnimal(lion);
             _map.SetAnimal(antelope);
@@ -41,8 +41,8 @@ namespace SavannaApp.Tests.Util.MapManagerTests
         public void GetBestFreeSpaceForHunter_HunterInRangeToReachPray_ShouldNotReturnPositionAtAnimal()
         {
             //Arrange
-            var lion = AnimalMock.CreateLion(1, 2, 2, "L", 3, 5);
-            var antelope = AnimalMock.CreateAntelope(1, 2, 5, "A", 3, 5);
+            var lion = AnimalMock.CreateLion(1, 2, 2);
+            var antelope = AnimalMock.CreateAntelope(1, 2, 5);
 
             _map.SetAnimal(lion);
             _map.SetAnimal(antelope);

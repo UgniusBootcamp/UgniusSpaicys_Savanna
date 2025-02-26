@@ -23,8 +23,8 @@ namespace SavannaApp.Tests.Util.MapManagerTests
         public void GetClosestFreePositionToAnimals_GetPositionBetweenTwoAnimals_ShouldReturnPositionBetweenAnimals()
         {
             //Arrange
-            var lion = AnimalMock.CreateLion(1, 2, 2, "L");
-            var lion2 = AnimalMock.CreateLion(1, 4, 4, "L");
+            var lion = AnimalMock.CreateLion(1, 2, 2);
+            var lion2 = AnimalMock.CreateLion(1, 4, 4);
             var animals = new List<Animal> { lion, lion2 };
             _map.SetAnimal(lion);
             _map.SetAnimal(lion2);

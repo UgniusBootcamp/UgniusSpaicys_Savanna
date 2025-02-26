@@ -18,9 +18,9 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
             map = new Map(20, 20);
 
             hunter = MovementMock.Hunter;
-            lion = AnimalMock.CreateLion(1, 9, 9, "L", 5, 5, 5, hunter);
+            lion = AnimalMock.CreateLion(1, 9, 9, hunter);
 
-            antelope = AnimalMock.CreateAntelope(2, 10, 12, "A", 5, 5, 5, MovementMock.Movement.Object);
+            antelope = AnimalMock.CreateAntelope(2, 10, 10, MovementMock.Movement.Object);
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace SavannaApp.Tests.Entities.MovementStrategiesTests.Hunter
         public void Move_InVisionButNotEnoughSpeed_ShouldReturnTrue()
         {
             //Arrange
-            var closeLion = AnimalMock.CreateLion(1, 9, 9, "L", 2, 5, 5, hunter);
+            var closeLion = AnimalMock.CreateLion(1, 6, 6, hunter);
             map.SetAnimal(closeLion);
             map.SetAnimal(antelope);
             var expected = true;
