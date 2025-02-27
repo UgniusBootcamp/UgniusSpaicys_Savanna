@@ -1,9 +1,5 @@
-import React from 'react'
-
 const Savanna = () => {
-  return (
-    <div>Savanna</div>
-  )
-}
+  return <div>Savanna</div>;
+};
 
-export default Savanna
+export default Savanna;
