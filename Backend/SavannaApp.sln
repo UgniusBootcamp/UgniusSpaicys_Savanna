@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SavannaApp.Business", "Sava
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SavannaApp.Animals", "SavannaApp.Animals\SavannaApp.Animals.csproj", "{9DBCD1F7-A393-4CD9-AA71-647A563D61DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SavannaApp.Api", "SavannaApp.Api\SavannaApp.Api.csproj", "{020D0E96-34DD-415E-B651-3F496A28623A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9DBCD1F7-A393-4CD9-AA71-647A563D61DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DBCD1F7-A393-4CD9-AA71-647A563D61DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DBCD1F7-A393-4CD9-AA71-647A563D61DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{020D0E96-34DD-415E-B651-3F496A28623A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{020D0E96-34DD-415E-B651-3F496A28623A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{020D0E96-34DD-415E-B651-3F496A28623A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{020D0E96-34DD-415E-B651-3F496A28623A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
