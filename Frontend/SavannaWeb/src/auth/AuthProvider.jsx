@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [userName, setUserName] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const tokenHandler = new TokenHandler();
 
@@ -111,6 +112,8 @@ export const AuthProvider = ({ children }) => {
       fetchAccessToken,
       logOut,
       login,
+      snackbarMessage,
+      setSnackbarMessage,
     }),
     [
       roles,
@@ -121,6 +124,8 @@ export const AuthProvider = ({ children }) => {
       fetchAccessToken,
       logOut,
       login,
+      snackbarMessage,
+      setSnackbarMessage,
     ],
   );
 

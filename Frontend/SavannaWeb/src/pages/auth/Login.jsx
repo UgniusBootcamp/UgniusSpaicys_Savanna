@@ -7,7 +7,7 @@ import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, setSnackbarMessage } = useAuth();
   const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -32,6 +32,7 @@ const Login = () => {
       };
 
       await login(loginData);
+      setSnackbarMessage('Login Successful!');
       navigate(routes.home);
     } catch (error) {
       setError('Invalid username or password');

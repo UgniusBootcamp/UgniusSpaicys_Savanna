@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import AccountApi from '../../api/AccountApi';
 import Button from '../../components/common/Button';
-import { Spinner } from '../../components/common/Spinner';
 import FormTemplate from '../../components/form/FormTemplate';
 import routes from '../../constants/routes';
+import { useAuth } from '../../hooks/useAuth';
 import useErrorHandler from '../../hooks/useErrorHandler';
 
 const Register = () => {
   const navigate = useNavigate();
   const errorHandler = useErrorHandler();
-  const [isLoading, setIsLoading] = useState(false);
+  const { setSnackbarMessage } = useAuth();
   const [formData, setFormData] = useState({
     userName: '',
     password: '',
@@ -49,7 +49,6 @@ const Register = () => {
     e.preventDefault();
 
     if (validate()) {
-      setIsLoading(true);
       try {
         const userData = {
           userName: formData.userName,
@@ -59,20 +58,18 @@ const Register = () => {
 
         const response = await AccountApi.register(userData);
 
-        if (response.success) navigate(routes.home);
+        if (response.success) {
+          setSnackbarMessage(`Welcome to Savanna ${formData.userName}`);
+          navigate(routes.home);
+        }
       } catch (error) {
         error.status === 422
           ? setErrors({ usernameExist: 'Username already exists' })
           : errorHandler.handleError(error);
       } finally {
-        setIsLoading(false);
       }
     }
   };
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   return (
     <FormTemplate header={'Join the Savanna Adventure'}>

@@ -14,7 +14,11 @@ const Savanna = () => {
     fetchData();
   }, []);
 
-  return <div>Savanna</div>;
+  return (
+    <div>
+      <h1>Savanna</h1>
+    </div>
+  );
 };
 
 export default Savanna;
