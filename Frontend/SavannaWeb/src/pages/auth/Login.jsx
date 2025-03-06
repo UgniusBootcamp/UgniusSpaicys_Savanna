@@ -1,27 +1,61 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Button from '../../components/common/Button';
+import FormTemplate from '../../components/form/FormTemplate';
 import routes from '../../constants/routes';
+import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [error, setError] = useState(null);
+
+  const [formData, setFormData] = useState({
+    userName: '',
+    password: '',
+  });
+
+  const handleChanges = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const loginData = {
+        userName: formData.userName,
+        password: formData.password,
+      };
+
+      await login(loginData);
+      navigate(routes.home);
+    } catch (error) {
+      setError('Invalid username or password');
+    }
+  };
 
   return (
-    <div className="w-full flex justify-center items-center">
-      <div className="w-full sm:w-96 border-2 rounded-lg bg-primary-50 border-primary-300 p-6 flex flex-col items-center">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Welcome Back to Savanna
-        </h2>
-
+    <FormTemplate header={'Welcome back to Savanna'}>
+      <form onSubmit={handleSubmit}>
         <div className="w-full mb-4">
           <label
-            htmlFor="username"
+            htmlFor="userName"
             className="block text-sm font-medium text-gray-700"
           >
             Username
           </label>
           <input
-            id="username"
+            id="userName"
+            name="userName"
+            onChange={handleChanges}
+            value={formData.userName}
+            autoComplete={'userName'}
             type="text"
+            required
             className="mt-1 p-2 w-full border border-primary-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-200"
             placeholder="Enter your username"
           />
@@ -36,16 +70,23 @@ const Login = () => {
           </label>
           <input
             id="password"
+            name="password"
+            onChange={handleChanges}
             type="password"
+            required
+            autoComplete={'current-password'}
             className="mt-1 p-2 w-full border border-primary-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-200"
             placeholder="Confirm your password"
           />
+          <div className="my-2 text-red-500 ">
+            {error && <span>{error}</span>}
+          </div>
         </div>
 
         <Button className="w-full bg-primary-900 hover:bg-primary-700 mb-4">
           Log In to Savanna
         </Button>
-        <div className="flex justify-end items-center mb-4">
+        <div className="flex justify-center items-center mb-">
           <p className="text-base">
             New to Savanna?{' '}
             <a
@@ -56,8 +97,8 @@ const Login = () => {
             </a>
           </p>
         </div>
-      </div>
-    </div>
+      </form>
+    </FormTemplate>
   );
 };
 

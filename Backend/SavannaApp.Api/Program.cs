@@ -1,9 +1,20 @@
+using System.Text;
+using System.Text.Json;
 using DotNetEnv;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using SavannaApp.Business.Interfaces.Web;
+using SavannaApp.Business.Services.Web;
 using SavannaApp.Data.Data;
 using SavannaApp.Data.Entities.Auth;
+using SavannaApp.Data.Helpers.Configuration;
 using SavannaApp.Data.Helpers.Mapper;
+using SavannaApp.Data.Interfaces.Repo;
+using SavannaApp.Data.Repositories;
+using SavannaApp.Data.Responses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,25 +28,119 @@ builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddEnvironmentVariables();
 
+var corsSettings = builder.Configuration.GetSection("Cors").Get<CorsSettings>();
+
+builder.Services.AddCors(option =>
+{
+    option.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins(corsSettings!.AllowedOrigins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 builder.Services.AddDbContext<SavannaDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Mapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+//Add JWT
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+
+builder.Services.Configure<ApiBehaviorOptions>(option =>
+{
+    option.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState.Values
+            .SelectMany(x => x.Errors.Select(e => e.ErrorMessage))
+            .ToList();
+
+        var response = ApiResponse.ErrorResponse("Validation error", errors);
+
+        return new BadRequestObjectResult(response);
+    };
+});
+
+//Repositories
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+
+//Services
+builder.Services.AddScoped<IValidationService, ValidationService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddScoped<DbSeeder>();
+
 //Add Identity
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<SavannaDbContext>()
     .AddDefaultTokenProviders();
 
+//Add Authentication
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(option =>
+{
+    var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>();
+
+    option.MapInboundClaims = false;
+    option.TokenValidationParameters.ValidAudience = jwtSettings!.Audience;
+    option.TokenValidationParameters.ValidIssuer = jwtSettings!.Issuer;
+    option.TokenValidationParameters.IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret));
+
+    option.Events = new JwtBearerEvents
+    {
+        OnChallenge = context =>
+        {
+            context.HandleResponse();
+
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            context.Response.ContentType = "application/json";
+
+            var responseJson = JsonSerializer.Serialize(ApiResponse.UnauthorizedResponse("Unauthorized access"));
+
+            return context.Response.WriteAsync(responseJson);
+        },
+
+        OnForbidden = context =>
+        {
+            context.Response.StatusCode = StatusCodes.Status403Forbidden;
+            context.Response.ContentType = "application/json";
+
+            var responseJson = JsonSerializer.Serialize(ApiResponse.ForbiddenResponse("Forbidden access"));
+
+            return context.Response.WriteAsync(responseJson);
+        }
+    };
+});
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+//Seed database
+using var scope = app.Services.CreateScope();
+if (app.Environment.IsProduction())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<SavannaDbContext>();
+    dbContext.Database.Migrate();
+}
+
+var dbSeeder = scope.ServiceProvider.GetRequiredService<DbSeeder>();
+await dbSeeder.SeedAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -44,10 +149,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
+
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
 app.MapControllers();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.Run();

@@ -1,30 +1,49 @@
+import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { AuthProvider } from './auth/AuthProvider';
+import { Spinner } from './components/common/Spinner';
+import PrivateRoute from './components/routes/PrivateRoute';
+import PublicRoute from './components/routes/PublicRoute';
 import routes from './constants/routes';
-import Login from './pages/auth/Login';
-import Register from './pages/auth/Register';
-import Error from './pages/error/Error';
-import NoAccess from './pages/error/NoAccess';
-import NotFound from './pages/error/NotFound';
-import Savanna from './pages/game/Savanna';
-import Home from './pages/Home';
-import Layout from './pages/Layout';
+
+const Login = React.lazy(() => import('./pages/auth/Login'));
+const Register = React.lazy(() => import('./pages/auth/Register'));
+const Error = React.lazy(() => import('./pages/error/Error'));
+const NoAccess = React.lazy(() => import('./pages/error/NoAccess'));
+const NotFound = React.lazy(() => import('./pages/error/NotFound'));
+const Savanna = React.lazy(() => import('./pages/game/Savanna'));
+const Layout = React.lazy(() => import('./pages/Layout'));
+const Home = React.lazy(() => import('./pages/Home'));
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <Routes>
-          <Route path={routes.home} element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path={routes.login} element={<Login />} />
-            <Route path={routes.register} element={<Register />} />
-            <Route path={routes.savanna} element={<Savanna />} />
-            <Route path={routes.error} element={<Error />} />
-            <Route path={routes.noAccess} element={<NoAccess />} />
-            <Route path={routes.NotFound} element={<NotFound />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
+        <AuthProvider>
+          <Suspense fallback={<Spinner />}>
+            <Routes>
+              <Route path={routes.home} element={<Layout />}>
+                <Route index element={<PublicRoute element={<Home />} />} />
+                <Route
+                  path={routes.login}
+                  element={<PublicRoute element={<Login />} />}
+                />
+                <Route
+                  path={routes.register}
+                  element={<PublicRoute element={<Register />} />}
+                />
+                <Route
+                  path={routes.savanna}
+                  element={<PrivateRoute element={<Savanna />} />}
+                />
+                <Route path={routes.error} element={<Error />} />
+                <Route path={routes.noAccess} element={<NoAccess />} />
+                <Route path={routes.notFound} element={<NotFound />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );
