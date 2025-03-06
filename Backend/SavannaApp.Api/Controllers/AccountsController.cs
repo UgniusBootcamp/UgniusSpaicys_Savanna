@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SavannaApp.Business.Interfaces.Web;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Dto.Account;
 using SavannaApp.Data.Helpers.Configuration;
 using SavannaApp.Data.Responses;
@@ -26,7 +26,7 @@ namespace SavannaApp.Api.Controllers
             try
             {
                 var user = await accountService.RegisterAsync(registerDto);
-                return Created("", ApiResponse.CreatedResponse("User regiseter", user));
+                return Created("", ApiResponse.CreatedResponse(WebConstants.UserRegister, user));
             }
             catch (Exception ex)
             {
@@ -50,7 +50,7 @@ namespace SavannaApp.Api.Controllers
 
                 UpdateCookie(refreshToken);
 
-                return Ok(ApiResponse.OkResponse("Login successful", new { AccessToken = login.Token }));
+                return Ok(ApiResponse.OkResponse(WebConstants.LoginSuccessful), new { AccessToken = login.Token }));
             }
             catch (Exception ex)
             {
@@ -62,11 +62,11 @@ namespace SavannaApp.Api.Controllers
         [Route("AccessToken")]
         public async Task<IActionResult> AccessToken()
         {
-            HttpContext.Request.Cookies.TryGetValue("RefreshToken", out var refreshToken);
+            HttpContext.Request.Cookies.TryGetValue(WebConstants.RefreshToken, out var refreshToken);
 
             if (string.IsNullOrEmpty(refreshToken))
             {
-                return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse("Refresh token not found"));
+                return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse(WebConstants.RefreshTokenNotFound));
             }
 
             try
@@ -77,7 +77,7 @@ namespace SavannaApp.Api.Controllers
 
                 var sessionValid = await sessionService.IsSessionValidAsync(sessionId, refreshToken);
                 if (!sessionValid)
-                    return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse("Session is not valid anymore"));
+                    return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse(WebConstants.SessionNotValid));
 
                 var newRefreshToken = await accountService.CreateRefreshTokenAsync(sessionId, login.UserId);
 
@@ -85,7 +85,7 @@ namespace SavannaApp.Api.Controllers
 
                 await sessionService.ExtendSessionsAsync(sessionId, newRefreshToken, DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays));
 
-                return Ok(ApiResponse.OkResponse("Access token refreshed", new { AccessToken = login.Token }));
+                return Ok(ApiResponse.OkResponse(WebConstants.AccessTokenRefreshed, new { AccessToken = login.Token }));
             }
             catch (Exception ex)
             {
@@ -98,10 +98,10 @@ namespace SavannaApp.Api.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            HttpContext.Request.Cookies.TryGetValue("RefreshToken", out var refreshToken);
+            HttpContext.Request.Cookies.TryGetValue(WebConstants.RefreshToken, out var refreshToken);
 
             if (string.IsNullOrEmpty(refreshToken))
-                return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse("Refresh token not found"));
+                return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse(WebConstants.RefreshTokenNotFound));
 
             try
             {
@@ -109,9 +109,9 @@ namespace SavannaApp.Api.Controllers
 
                 await sessionService.InvalidateSessionAsync(sessionId);
 
-                RemoveCookie("RefreshToken");
+                RemoveCookie(WebConstants.RefreshToken);
 
-                return Ok(ApiResponse.OkResponse("Logout successful"));
+                return Ok(ApiResponse.OkResponse(WebConstants.LogoutSuccessful));
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace SavannaApp.Api.Controllers
                 Secure = true
             };
 
-            Response.Cookies.Append("RefreshToken", refreshToken, cookieOptions);
+            Response.Cookies.Append(WebConstants.RefreshToken, refreshToken, cookieOptions);
         }
 
         private void RemoveCookie(string cookieName)

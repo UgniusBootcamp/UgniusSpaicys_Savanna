@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Data;
 using SavannaApp.Data.Entities.Auth;
 using SavannaApp.Data.Helpers.Exceptions;
@@ -24,7 +25,7 @@ namespace SavannaApp.Data.Repositories
 
                 var role = await roleManager.FindByNameAsync(roleId);
                 if (role == null)
-                    throw new NotFoundException("Role not found");
+                    throw new NotFoundException(RepoConstants.RoleNotFound);
 
                 var addRoleResult = await userManager.AddToRoleAsync(user, role.Name!);
                 if (!addRoleResult.Succeeded)
@@ -43,7 +44,7 @@ namespace SavannaApp.Data.Repositories
                     case NotFoundException _:
                         throw;
                     default:
-                        throw new Exception(String.Format("Failed to create user. {0}", ex.Message));
+                        throw new Exception(String.Format(RepoConstants.FailedToCreateUser, ex.Message));
                 }
             }
         }

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SavannaApp.Business.Interfaces.Web;
 using SavannaApp.Business.Services.Web;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Data;
 using SavannaApp.Data.Entities.Auth;
 using SavannaApp.Data.Helpers.Configuration;
@@ -64,7 +65,7 @@ builder.Services.Configure<ApiBehaviorOptions>(option =>
             .SelectMany(x => x.Errors.Select(e => e.ErrorMessage))
             .ToList();
 
-        var response = ApiResponse.ErrorResponse("Validation error", errors);
+        var response = ApiResponse.ErrorResponse(WebServiceConstants.ValidationError, errors);
 
         return new BadRequestObjectResult(response);
     };
@@ -110,7 +111,7 @@ builder.Services.AddAuthentication(option =>
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
             context.Response.ContentType = "application/json";
 
-            var responseJson = JsonSerializer.Serialize(ApiResponse.UnauthorizedResponse("Unauthorized access"));
+            var responseJson = JsonSerializer.Serialize(ApiResponse.UnauthorizedResponse(WebServiceConstants.Unauthorized));
 
             return context.Response.WriteAsync(responseJson);
         },
@@ -120,7 +121,7 @@ builder.Services.AddAuthentication(option =>
             context.Response.StatusCode = StatusCodes.Status403Forbidden;
             context.Response.ContentType = "application/json";
 
-            var responseJson = JsonSerializer.Serialize(ApiResponse.ForbiddenResponse("Forbidden access"));
+            var responseJson = JsonSerializer.Serialize(ApiResponse.ForbiddenResponse(WebServiceConstants.Forbidden));
 
             return context.Response.WriteAsync(responseJson);
         }

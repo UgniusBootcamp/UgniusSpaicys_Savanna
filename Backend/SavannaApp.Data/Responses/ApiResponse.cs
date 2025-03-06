@@ -1,5 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http;
+using SavannaApp.Data.Constants;
 
 namespace SavannaApp.Data.Responses
 {
@@ -27,7 +28,7 @@ namespace SavannaApp.Data.Responses
 
         public static ApiResponse NoContentResponse()
         {
-            return new ApiResponse(true, StatusCodes.Status204NoContent, "No Content", null, null);
+            return new ApiResponse(true, StatusCodes.Status204NoContent, WebServiceConstants.NoContent, null, null);
         }
 
         public static ApiResponse ErrorResponse(string message, List<string> errors)

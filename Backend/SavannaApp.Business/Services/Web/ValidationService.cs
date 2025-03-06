@@ -1,4 +1,5 @@
 ﻿using SavannaApp.Business.Interfaces.Web;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Helpers.Exceptions;
 
 namespace SavannaApp.Business.Services.Web
@@ -9,7 +10,7 @@ namespace SavannaApp.Business.Services.Web
         {
             if (password != confirmPassword)
             {
-                throw new BusinessRuleValidationException("Passwords do not match");
+                throw new BusinessRuleValidationException(WebServiceConstants.PasswordsDoNotMatch);
             }
         }
     }

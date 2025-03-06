@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using AutoMapper;
 using SavannaApp.Business.Interfaces.Web;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Dto.Account;
 using SavannaApp.Data.Entities.Auth;
 using SavannaApp.Data.Enums;
@@ -21,7 +22,7 @@ namespace SavannaApp.Business.Services.Web
             var user = await accountRepository.FindUserByIdAsync(userId);
 
             if (user == null)
-                throw new NotFoundException("User not found");
+                throw new NotFoundException(WebServiceConstants.UserNotFound);
 
             return jwtTokenService.CreateRefreshToken(sessionId, user.Id);
         }
@@ -32,14 +33,14 @@ namespace SavannaApp.Business.Services.Web
                 !jwtTokenService.TryParseRefreshToken(refreshToken, out var claims) ||
                 claims?.FindFirst(JwtRegisteredClaimNames.Sub)?.Value is not string userId)
             {
-                throw new BusinessRuleValidationException("Invalid refresh token");
+                throw new BusinessRuleValidationException(WebServiceConstants.InvalidRefreshToken);
 
             }
 
             var user = await accountRepository.FindUserByIdAsync(userId);
 
             if (user == null)
-                throw new NotFoundException("User not found");
+                throw new NotFoundException(WebServiceConstants.UserNotFound);
 
             var userRoles = await accountRepository.GetUserRolesAsync(user);
 
@@ -56,9 +57,9 @@ namespace SavannaApp.Business.Services.Web
         {
             if (string.IsNullOrEmpty(refreshToken) ||
                 !jwtTokenService.TryParseRefreshToken(refreshToken, out var claims) ||
-                claims?.FindFirst("SessionId")?.Value is not string sessionId)
+                claims?.FindFirst(WebServiceConstants.SessiondId)?.Value is not string sessionId)
             {
-                throw new BusinessRuleValidationException("Invalid refresh token");
+                throw new BusinessRuleValidationException(WebServiceConstants.InvalidRefreshToken);
             }
 
             return sessionId;
@@ -69,18 +70,18 @@ namespace SavannaApp.Business.Services.Web
             var user = await accountRepository.FindUserByUsernameAsync(loginDto.UserName);
 
             if (user == null)
-                throw new BusinessRuleValidationException("Invalid username or password");
+                throw new BusinessRuleValidationException(WebServiceConstants.InvalidUsernamePassword);
 
             var isPasswordValid = await accountRepository.IsPasswordValidAsync(user, loginDto.Password);
 
             if (!isPasswordValid)
-                throw new BusinessRuleValidationException("Invalid username or password");
+                throw new BusinessRuleValidationException(WebServiceConstants.InvalidUsernamePassword);
 
             var allowerdRoles = new List<string> { UserRoles.User};
             var isAllowrd = await accountRepository.IsUserInRoleAsync(user, allowerdRoles);
 
             if(!isAllowrd)
-                throw new BusinessRuleValidationException("User is not allowed to login");
+                throw new BusinessRuleValidationException(WebServiceConstants.UserNotAllowedToSignIn);
 
             var userRoles = await accountRepository.GetUserRolesAsync(user);
 
@@ -98,7 +99,7 @@ namespace SavannaApp.Business.Services.Web
             var user = await accountRepository.FindUserByUsernameAsync(registerDto.UserName);
 
             if (user != null)
-                throw new BusinessRuleValidationException(String.Format("Username {0} already taken", registerDto.UserName));
+                throw new BusinessRuleValidationException(String.Format(WebServiceConstants.UsernameTaken, registerDto.UserName));
 
             validationService.ValidateRegisterPassword(registerDto.Password, registerDto.ConfirmPassword);
 

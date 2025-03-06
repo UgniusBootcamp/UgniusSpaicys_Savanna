@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SavannaApp.Business.Interfaces.Web;
+using SavannaApp.Data.Constants;
 using SavannaApp.Data.Helpers.Configuration;
 
 namespace SavannaApp.Business.Services.Web
@@ -41,7 +42,7 @@ namespace SavannaApp.Business.Services.Web
             {
                 new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new (JwtRegisteredClaimNames.Sub, userId),
-                new ("SessionId", sessionsId.ToString())
+                new (WebServiceConstants.SessiondId, sessionsId.ToString())
             };
 
             var token = new JwtSecurityToken(
