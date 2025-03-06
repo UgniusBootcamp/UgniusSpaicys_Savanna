@@ -94,6 +94,7 @@ export const AuthProvider = ({ children }) => {
         const token = response.data.accessToken;
         parseToken(token);
         localStorage.setItem('accessToken', token);
+        setSnackbarMessage('Login Successful!');
       } catch (error) {
         await logOut();
         throw error;
@@ -134,6 +135,6 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-AuthProvider.PropTypes = {
+AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

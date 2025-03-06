@@ -1,11 +1,21 @@
-import { Navigate } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 import routes from '../../constants/routes';
 import { useAuth } from '../../hooks/useAuth';
+import { Spinner } from '../common/Spinner';
 
 const PrivateRoute = ({ element }) => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isLoading } = useAuth();
+  const location = useLocation();
 
-  return isLoggedIn ? element : <Navigate to={routes.login} />;
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  return isLoggedIn ? (
+    element
+  ) : (
+    <Navigate to={routes.login} state={{ from: location }} />
+  );
 };
 
 export default PrivateRoute;
