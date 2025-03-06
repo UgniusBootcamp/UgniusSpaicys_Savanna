@@ -5,8 +5,8 @@ const Savanna = () => {
   const [test, setTest] = useState(null);
 
   useEffect(() => {
-    const fetchData = () => {
-      const response = AccountApi.test();
+    const fetchData = async () => {
+      const response = await AccountApi.test();
       setTest(response.data);
       console.log(response.data);
     };

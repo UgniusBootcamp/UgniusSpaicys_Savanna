@@ -10,6 +10,20 @@ const apiClient = axios.create({
   },
 });
 
+// Add request interceptor to add JWT token
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+
 const handleResponse = (response) => {
   const { success, status, message, data, errors } = response.data;
 
@@ -76,14 +90,5 @@ const handleError = (error) => {
     return Promise.reject({ message: error.message });
   }
 };
-
-apiClient.interceptors.response.use((config) => {
-  const token = localStorage.getItem('accessToken');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-
-  return config;
-});
 
 export default api;

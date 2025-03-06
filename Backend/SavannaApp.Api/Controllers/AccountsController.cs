@@ -95,6 +95,7 @@ namespace SavannaApp.Api.Controllers
 
         [HttpPost]
         [Route("Logout")]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             HttpContext.Request.Cookies.TryGetValue("RefreshToken", out var refreshToken);
