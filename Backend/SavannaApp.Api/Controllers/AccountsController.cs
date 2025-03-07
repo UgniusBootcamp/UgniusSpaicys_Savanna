@@ -64,7 +64,7 @@ namespace SavannaApp.Api.Controllers
 
                 UpdateCookie(refreshToken);
 
-                return Ok(ApiResponse.OkResponse(WebConstants.LoginSuccessful), new { AccessToken = login.Token }));
+                return Ok(ApiResponse.OkResponse(WebConstants.LoginSuccessful, new { AccessToken = login.Token }));
             }
             catch (Exception ex)
             {
