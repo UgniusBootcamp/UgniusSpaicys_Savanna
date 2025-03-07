@@ -6,6 +6,11 @@ namespace SavannaApp.Api.Controllers
 {
     public abstract class BaseController : ControllerBase
     {
+        /// <summary>
+        /// Generic method for handling errors in controllers
+        /// </summary>
+        /// <param name="ex">exception</param>
+        /// <returns>appropriate status code</returns>
         protected IActionResult HandleException(Exception ex)
         {
             var message = ex.Message;

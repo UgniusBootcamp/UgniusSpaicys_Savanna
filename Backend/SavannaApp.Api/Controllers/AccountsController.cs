@@ -19,6 +19,13 @@ namespace SavannaApp.Api.Controllers
     {
         private readonly JwtSettings _jwtSettings = jwtSettings.Value;
 
+        /// <summary>
+        /// Register user to the system
+        /// </summary>
+        /// <param name="registerDto">registration info</param>
+        /// <returns>registered user</returns>
+        /// <response code="201">If used was successfully registered</response>>
+        /// <response code="422">If username already exists</response>>
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
@@ -34,6 +41,13 @@ namespace SavannaApp.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Endpoint for login
+        /// </summary>
+        /// <param name="loginDto">login data</param>
+        /// <returns>access token</returns>
+        /// <response code="200">successful login</response>>
+        /// <response code="422">login incorrect</response>>
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
@@ -58,6 +72,12 @@ namespace SavannaApp.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Ednpoint for access token refresh
+        /// </summary>
+        /// <returns>refreshed access token</returns>
+        /// <response code="200">new access token</response>>
+        /// <response code="422">If refresh not found or invalid or session invalid</response>>
         [HttpPost]
         [Route("AccessToken")]
         public async Task<IActionResult> AccessToken()
@@ -93,6 +113,13 @@ namespace SavannaApp.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Endpoint for logout
+        /// </summary>
+        /// <returns>message for successful logout</returns>
+        /// <response code="200">If logout successful</response>>
+        /// <response code="401">Not authorized</response>>
+        /// <response code="422">Refresh token not found</response>>
         [HttpPost]
         [Route("Logout")]
         [Authorize]
@@ -119,6 +146,10 @@ namespace SavannaApp.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Test endpoint to see if auth is working
+        /// </summary>
+        /// <returns>test data</returns>
         [HttpGet]
         [Authorize]
         public IActionResult GetData()
@@ -127,6 +158,10 @@ namespace SavannaApp.Api.Controllers
             return Ok(ApiResponse.OkResponse("Auth test", new { testData }));
         }
 
+        /// <summary>
+        /// Method for refresh token update in cookies
+        /// </summary>
+        /// <param name="refreshToken">refresh token</param>
         private void UpdateCookie(string refreshToken)
         {
             var cookieOptions = new CookieOptions
@@ -140,6 +175,10 @@ namespace SavannaApp.Api.Controllers
             Response.Cookies.Append(WebConstants.RefreshToken, refreshToken, cookieOptions);
         }
 
+        /// <summary>
+        /// Method for removal of refresh token
+        /// </summary>
+        /// <param name="cookieName">refresh token to remove</param>
         private void RemoveCookie(string cookieName)
         {
             HttpContext.Response.Cookies.Append(cookieName, "", new CookieOptions

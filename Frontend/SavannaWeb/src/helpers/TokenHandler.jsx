@@ -10,7 +10,7 @@ class TokenHandler {
     }
   }
 
-  tokenToExipre(token, bufferTimeInSeconds = 120) {
+  tokenToExipre(token, bufferTimeInSeconds = 300) {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const currentTime = Date.now() / 1000;

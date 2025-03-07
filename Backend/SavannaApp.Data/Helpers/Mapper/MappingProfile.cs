@@ -6,6 +6,9 @@ namespace SavannaApp.Data.Helpers.Mapper
 {
     public class MappingProfile : Profile
     {
+        /// <summary>
+        /// Mapper
+        /// </summary>
         public MappingProfile() 
         {
             //User

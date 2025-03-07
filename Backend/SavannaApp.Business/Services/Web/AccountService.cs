@@ -17,6 +17,12 @@ namespace SavannaApp.Business.Services.Web
         IMapper mapper
         ) : IAccountService
     {
+        /// <summary>
+        /// Method for creating refresh token
+        /// </summary>
+        /// <param name="sessionId">session id</param>
+        /// <param name="userId">user id</param>
+        /// <returns>created refresh token</returns>
         public async Task<string> CreateRefreshTokenAsync(Guid sessionId, string userId)
         {
             var user = await accountRepository.FindUserByIdAsync(userId);
@@ -27,6 +33,11 @@ namespace SavannaApp.Business.Services.Web
             return jwtTokenService.CreateRefreshToken(sessionId, user.Id);
         }
 
+        /// <summary>
+        /// Method to get access token from refresh token
+        /// </summary>
+        /// <param name="refreshToken">refresh token</param>
+        /// <returns>parsed access token</returns>
         public async Task<AccessTokenDto> GetAccessTokenFromRefreshToken(string? refreshToken)
         {
             if (string.IsNullOrEmpty(refreshToken) ||
@@ -53,6 +64,11 @@ namespace SavannaApp.Business.Services.Web
             };
         }
 
+        /// <summary>
+        /// Method to get sessionId from refresh token
+        /// </summary>
+        /// <param name="refreshToken">refresh token</param>
+        /// <returns>parsed session id</returns>
         public string GetSessionIdFromRefreshToken(string? refreshToken)
         {
             if (string.IsNullOrEmpty(refreshToken) ||
@@ -65,6 +81,11 @@ namespace SavannaApp.Business.Services.Web
             return sessionId;
         }
 
+        /// <summary>
+        /// Method for login
+        /// </summary>
+        /// <param name="loginDto">login data</param>
+        /// <returns>access token info</returns>
         public async Task<AccessTokenDto> LoginAsync(LoginDto loginDto)
         {
             var user = await accountRepository.FindUserByUsernameAsync(loginDto.UserName);
@@ -94,6 +115,11 @@ namespace SavannaApp.Business.Services.Web
             };
         }
 
+        /// <summary>
+        /// Method to register user
+        /// </summary>
+        /// <param name="registerDto">registration data</param>
+        /// <returns>registered user</returns>
         public async Task<UserDto> RegisterAsync(RegisterDto registerDto)
         {
             var user = await accountRepository.FindUserByUsernameAsync(registerDto.UserName);
