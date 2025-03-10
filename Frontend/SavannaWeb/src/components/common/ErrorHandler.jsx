@@ -1,4 +1,5 @@
 import routes from '../../constants/routes';
+import statusCodes from '../../constants/statusCodes';
 
 class ErrorHandler {
   constructor(navigate) {
@@ -6,9 +7,12 @@ class ErrorHandler {
   }
 
   handleError(error) {
-    if (error.status === 404) {
+    if (error.status === statusCodes.notFound) {
       this.navigate(routes.notFound);
-    } else if (error.status === 403 || error.status === 401) {
+    } else if (
+      error.status === statusCodes.notAuthorized ||
+      error.status === statusCodes.forbidden
+    ) {
       this.navigate(routes.noAccess);
     } else {
       this.navigate(routes.error);
