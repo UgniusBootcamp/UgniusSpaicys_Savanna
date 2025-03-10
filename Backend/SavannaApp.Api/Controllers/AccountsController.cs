@@ -10,7 +10,7 @@ using SavannaApp.Data.Responses;
 namespace SavannaApp.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route(EndpointConstants.Api + "[controller]")]
     public class AccountsController(
         IAccountService accountService,
         ISessionService sessionService,
@@ -27,7 +27,7 @@ namespace SavannaApp.Api.Controllers
         /// <response code="201">If used was successfully registered</response>>
         /// <response code="422">If username already exists</response>>
         [HttpPost]
-        [Route("Register")]
+        [Route(EndpointConstants.Register)]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             try
@@ -49,7 +49,7 @@ namespace SavannaApp.Api.Controllers
         /// <response code="200">successful login</response>>
         /// <response code="422">login incorrect</response>>
         [HttpPost]
-        [Route("Login")]
+        [Route(EndpointConstants.Login)]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             try
@@ -79,7 +79,7 @@ namespace SavannaApp.Api.Controllers
         /// <response code="200">new access token</response>>
         /// <response code="422">If refresh not found or invalid or session invalid</response>>
         [HttpPost]
-        [Route("AccessToken")]
+        [Route(EndpointConstants.AccessToken)]
         public async Task<IActionResult> AccessToken()
         {
             HttpContext.Request.Cookies.TryGetValue(WebConstants.RefreshToken, out var refreshToken);
@@ -121,7 +121,7 @@ namespace SavannaApp.Api.Controllers
         /// <response code="401">Not authorized</response>>
         /// <response code="422">Refresh token not found</response>>
         [HttpPost]
-        [Route("Logout")]
+        [Route(EndpointConstants.Logout)]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
