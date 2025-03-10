@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router';
 import AccountApi from '../../api/AccountApi';
 import Button from '../../components/common/Button';
 import FormTemplate from '../../components/form/FormTemplate';
+import loginConstants from '../../constants/loginConstants';
+import registerConstants from '../../constants/registerConstants';
 import routes from '../../constants/routes';
 import { useAuth } from '../../hooks/useAuth';
 import useErrorHandler from '../../hooks/useErrorHandler';
@@ -21,19 +23,19 @@ const Register = () => {
 
   const validate = () => {
     let newErrors = {};
-    if (!formData.userName) newErrors.userName = 'Username is required';
+    if (!formData.userName)
+      newErrors.userName = registerConstants.usernameRequired;
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = registerConstants.passwordRequired;
     } else if (
       formData.password.length < 8 ||
       !/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^a-zA-Z\d])/.test(formData.password)
     ) {
-      newErrors.password =
-        'Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one symbol';
+      newErrors.password = registerConstants.passwordRegulation;
     }
 
     if (formData.confirmPassword !== formData.password) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = registerConstants.passwordMatch;
     }
 
     setErrors(newErrors);
@@ -59,12 +61,14 @@ const Register = () => {
         const response = await AccountApi.register(userData);
 
         if (response.success) {
-          setSnackbarMessage(`Welcome to Savanna ${formData.userName}`);
+          setSnackbarMessage(
+            `${registerConstants.welcomeToSavanna} ${formData.userName}`,
+          );
           navigate(routes.home);
         }
       } catch (error) {
         error.status === 422
-          ? setErrors({ usernameExist: 'Username already exists' })
+          ? setErrors({ usernameExist: registerConstants.usernameExists })
           : errorHandler.handleError(error);
       } finally {
       }
@@ -72,7 +76,7 @@ const Register = () => {
   };
 
   return (
-    <FormTemplate header={'Join the Savanna Adventure'}>
+    <FormTemplate header={registerConstants.joinTheSavannaAdventure}>
       <form onSubmit={handleSumbit}>
         <div className="w-full mb-4">
           {errors.usernameExist && (
@@ -82,7 +86,7 @@ const Register = () => {
             htmlFor="userName"
             className="block text-sm font-medium text-gray-700"
           >
-            Username
+            {loginConstants.username}
           </label>
           <input
             id="userName"
@@ -92,7 +96,7 @@ const Register = () => {
             maxLength={255}
             onChange={handleChange}
             className="mt-1 p-2 w-full border border-primary-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-200"
-            placeholder="Enter your username"
+            placeholder={loginConstants.usernamePlaceholder}
           />
           {errors.userName && (
             <p className="text-red-500 text-sm">{errors.userName}</p>
@@ -104,7 +108,7 @@ const Register = () => {
             htmlFor="password"
             className="block text-sm font-medium text-gray-700"
           >
-            Password
+            {loginConstants.password}
           </label>
           <input
             id="password"
@@ -122,13 +126,13 @@ const Register = () => {
               errors.password ? 'text-red-500' : ''
             }`}
           >
-            <span>Password must include:</span>
+            <span>{registerConstants.passwordMustInclude}</span>
             <ul className="list-disc list-inside">
-              <li>At least 8 characters</li>
-              <li>One uppercase letter</li>
-              <li>One lowercase letter</li>
-              <li>One number</li>
-              <li>One symbol</li>
+              <li>{registerConstants.atLeast8Chars}</li>
+              <li>{registerConstants.oneUppercase}</li>
+              <li>{registerConstants.oneLowercase}</li>
+              <li>{registerConstants.oneNumber}</li>
+              <li>{registerConstants.oneSymbol}</li>
             </ul>
           </div>
         </div>
@@ -138,7 +142,7 @@ const Register = () => {
             htmlFor="confirmPassword"
             className="block text-sm font-medium text-gray-700"
           >
-            Confirm Password
+            {loginConstants.confirmPassword}
           </label>
           <input
             id="confirmPassword"
@@ -156,17 +160,17 @@ const Register = () => {
         </div>
 
         <Button className="w-full bg-primary-900 hover:bg-primary-700 mb-4">
-          Join Savanna
+          {registerConstants.joinSavanna}
         </Button>
 
         <div className="flex justify-center items-center mb-4">
           <p className="text-base">
-            Already a member of Savanna?{' '}
+            {registerConstants.alreadyMemeber}{' '}
             <a
               className="underline text-primary-900 font-semibold hover:text-primary-700 cursor-pointer transition duration-300"
               onClick={() => navigate(routes.login)}
             >
-              Log in
+              {registerConstants.login}
             </a>
           </p>
         </div>

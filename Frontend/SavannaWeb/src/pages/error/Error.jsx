@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router';
 import Button from '../../components/common/Button';
+import errorConstants from '../../constants/errorConstants';
 import routes from '../../constants/routes';
 
 const Error = () => {
@@ -16,17 +17,14 @@ const Error = () => {
           500
         </h1>
         <h2 className="text-4xl mt-4 text-primary-700 font-bold">
-          Something Went Wrong
+          {errorConstants.somethingWentWrong}
         </h2>
-        <p>
-          We are sorry, but the server encountered an internal error. Please try
-          again later or go back to the home page.
-        </p>
+        <p>{errorConstants.message}</p>
         <Button
           onClick={goHome}
           className="bg-primary-700 mt-6 text-white hover:bg-primary-400"
         >
-          Go to HomePage
+          {errorConstants.goToHome}
         </Button>
       </div>
     </div>
