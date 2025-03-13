@@ -147,18 +147,6 @@ namespace SavannaApp.Api.Controllers
         }
 
         /// <summary>
-        /// Test endpoint to see if auth is working
-        /// </summary>
-        /// <returns>test data</returns>
-        [HttpGet]
-        [Authorize]
-        public IActionResult GetData()
-        {
-            var testData = "Auth is working";
-            return Ok(ApiResponse.OkResponse("Auth test", new { testData }));
-        }
-
-        /// <summary>
         /// Method for refresh token update in cookies
         /// </summary>
         /// <param name="refreshToken">refresh token</param>

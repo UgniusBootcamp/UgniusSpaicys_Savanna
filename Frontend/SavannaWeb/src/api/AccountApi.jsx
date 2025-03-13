@@ -15,10 +15,6 @@ const AccountApi = {
   async logout() {
     return api.post('/Accounts/Logout');
   },
-
-  async test() {
-    return api.get('/Accounts');
-  },
 };
 
 export default AccountApi;

@@ -45,6 +45,8 @@ namespace SavannaApp.Data.Entities.Animals
             RandomMovement.Move(this, map);
 
             DecreaseHealth(GameConstants.HealthDamageOnMove);
+
+            IncreaseAge();
         }
 
         /// <summary>
@@ -69,6 +71,20 @@ namespace SavannaApp.Data.Entities.Animals
             if (health < 0) return;
 
             Features.Health += health;
+        }
+
+        private void IncreaseAge()
+        {
+            if (!IsAlive) return;
+
+            Features.Age++;
+        }
+
+        public void IncreaseOffSprings()
+        {
+            if (!IsAlive) return;
+
+            Features.Offsprings++;
         }
     }
 }

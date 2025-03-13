@@ -15,5 +15,9 @@
 		  SourceFiles="$(TargetDir)$(TargetName).dll"
 		  DestinationFolder="$(SolutionDir)SavannaApp\bin\Debug\net8.0\Plugins"
 		  SkipUnchangedFiles="true" />
+		<Copy
+		  SourceFiles="$(TargetDir)$(TargetName).dll"
+		  DestinationFolder="$(SolutionDir)SavannaApp.Api\bin\Debug\net8.0\Plugins"
+		  SkipUnchangedFiles="true" />
 	</Target>
 </Project>

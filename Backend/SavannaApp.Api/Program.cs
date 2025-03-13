@@ -6,13 +6,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SavannaApp.Api.Hubs;
+using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Interfaces.Web;
+using SavannaApp.Business.Services;
 using SavannaApp.Business.Services.Web;
 using SavannaApp.Data.Constants;
 using SavannaApp.Data.Data;
 using SavannaApp.Data.Entities.Auth;
 using SavannaApp.Data.Helpers.Configuration;
+using SavannaApp.Data.Helpers.Map;
 using SavannaApp.Data.Helpers.Mapper;
+using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Data.Interfaces;
 using SavannaApp.Data.Interfaces.Repo;
 using SavannaApp.Data.Repositories;
 using SavannaApp.Data.Responses;
@@ -80,7 +86,17 @@ builder.Services.AddScoped<IValidationService, ValidationService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
+builder.Services.AddScoped<IGamesManager, GamesManager>();
+builder.Services.AddScoped<IAnimalCreationService, AnimalCreationService>();
+builder.Services.AddScoped<IAnimalFactory, AnimalFactory>();
+builder.Services.AddTransient<HunterMovement>();
+builder.Services.AddTransient<PrayMovement>();
+builder.Services.AddScoped<IAnimalConfigurationService, AnimalConfigurationService>();
+builder.Services.AddScoped<IAnimalConfigReader, JsonAnimalConfigurationReader>();
+builder.Services.AddScoped<IGameCreationService, GameCreationService>();
+builder.Services.AddScoped<IMapManager, MapManager>();
 builder.Services.AddScoped<DbSeeder>();
+builder.Services.AddSignalR();
 
 //Add Identity
 builder.Services.AddIdentity<User, IdentityRole>()
@@ -124,6 +140,17 @@ builder.Services.AddAuthentication(option =>
             var responseJson = JsonSerializer.Serialize(ApiResponse.ForbiddenResponse(WebServiceConstants.Forbidden));
 
             return context.Response.WriteAsync(responseJson);
+        },
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+
+            var path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/game"))
+            {
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
         }
     };
 });
@@ -159,5 +186,8 @@ app.MapControllers();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseWebSockets();
+app.MapHub<GameHub>("/game").RequireAuthorization();
 
 app.Run();
