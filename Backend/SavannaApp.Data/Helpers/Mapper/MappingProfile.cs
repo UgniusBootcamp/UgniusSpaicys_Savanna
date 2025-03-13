@@ -35,7 +35,9 @@ namespace SavannaApp.Data.Helpers.Mapper
 
             //Game
             CreateMap<Game, GameReadDto>()
-                .ForMember(dest => dest.AnimalCount, opt => opt.MapFrom(src => src.Map.Animals.Count()));
+                .ForMember(dest => dest.AnimalCount, opt => opt.MapFrom(src => src.Map.Animals.GroupBy(animal => animal.GetType().Name)
+                .ToDictionary(group => group.Key, group => group.Count())));
+
         }
     }
 }

@@ -6,5 +6,6 @@ namespace SavannaApp.Business.Interfaces
     {
         void AddGame(Game game);
         void RemoveGame(string userId);
+        void AddAnimal(string userId, Type animalType);
     }
 }

@@ -1,70 +1,58 @@
 ﻿using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Entities;
-using SavannaApp.Data.Entities.Animals;
+using SavannaApp.Data.Helpers.MovementStrategies;
+using SavannaApp.Data.Interfaces;
 
 namespace SavannaApp.Business.Services.Web
 {
-    public class GamesManager(IAnimalCreationService animalCreationService) : IGamesManager
+    public class GamesManager(
+        HunterMovement hunterMovement,
+        PrayMovement prayMovement,
+        IAnimalConfigurationService animalConfigurationService,
+        IGameUpdateInformer gameUpdateInformer,
+        IMapManager mapManager)
+        : IGamesManager
     {
-        private List<Game> Games = new List<Game>();
+        private static List<WebGameRunner> WebGames = new List<WebGameRunner>();
 
         public void AddGame(Game game)
         {
-            if (Games.All(g => g.UserId != game.UserId))
+            if (WebGames.All(g => g.Game.UserId != game.UserId))
             {
-                Games.Add(game);
+                var webGame = new WebGameRunner(
+                    game,
+                    hunterMovement,
+                    prayMovement,
+                    animalConfigurationService,
+                    gameUpdateInformer,
+                    mapManager);
 
-                game.Start();
-
-                Task.Run(() => RunGame(game));
+                WebGames.Add(webGame);
             }
         }
 
         public void RemoveGame(string userId)
         {
-            var gameToRemove = Games.FirstOrDefault(g => g.UserId == userId);
+            var gameToRemove = WebGames.FirstOrDefault(g => g.Game.UserId == userId);
 
             if (gameToRemove != null)
             {
-                gameToRemove.Stop();
+                gameToRemove.StopGame();
 
-                Games.Remove(gameToRemove);
+                WebGames.Remove(gameToRemove);
             }
         }
 
-        public void AddAnimal(string userId, Animal animal)
+        public void AddAnimal(string userId, Type animalType)
         {
-            var game = Games.FirstOrDefault(g => g.UserId == userId);
+            var game = WebGames.FirstOrDefault(g => g.Game.UserId == userId);
 
-            if (game != null)
-                game.Map.SetAnimal(animal);
-        }
-
-        private void RunGame(Game game)
-        {
-            object _lock = new object();
-            IAnimalGroupManager animalGroupManager = new AnimalGroupManager(animalCreationService);
-
-            while (game.IsRunning)
+            if (game != null) 
             {
-                game.Iteration++;
-
-                animalGroupManager.Reproduction(game.Map);
-
-                var animals = game.Map.Animals.ToList();
-
-                foreach (var animal in animals)
-                {
-                    animal.Move(game.Map);
-                }
-
-                lock (_lock)
-                {
-                    game.Map.RemoveDeadAnimals();
-                }
-
-                Task.Delay(1000).Wait();
+                game.AddAnimal(animalType);
             }
         }
+
+        
     }
 }

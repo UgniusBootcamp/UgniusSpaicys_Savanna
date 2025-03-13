@@ -87,14 +87,17 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<ISessionService, SessionService>();
 builder.Services.AddScoped<IGamesManager, GamesManager>();
+builder.Services.AddScoped<AnimalTypeMapper>();
 builder.Services.AddScoped<IAnimalCreationService, AnimalCreationService>();
 builder.Services.AddScoped<IAnimalFactory, AnimalFactory>();
+builder.Services.AddScoped<IAssemblyLoader, AssemblyLoader>();
 builder.Services.AddTransient<HunterMovement>();
 builder.Services.AddTransient<PrayMovement>();
 builder.Services.AddScoped<IAnimalConfigurationService, AnimalConfigurationService>();
 builder.Services.AddScoped<IAnimalConfigReader, JsonAnimalConfigurationReader>();
 builder.Services.AddScoped<IGameCreationService, GameCreationService>();
 builder.Services.AddScoped<IMapManager, MapManager>();
+builder.Services.AddScoped<IGameUpdateInformer, GameUpdateInformer>();
 builder.Services.AddScoped<DbSeeder>();
 builder.Services.AddSignalR();
 

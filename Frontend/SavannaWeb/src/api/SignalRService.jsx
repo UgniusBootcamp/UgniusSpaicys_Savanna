@@ -35,18 +35,22 @@ class SignalRService {
     }
   }
 
-  onGameDataReceived(callback) {
-    if (this.connection) {
-      this.connection.on('ReceiveGameData', callback);
-    }
-  }
-
   async invokeCreateGame(gameCreateDto) {
     if (this.connection) {
       try {
         await this.connection.invoke('CreateGame', gameCreateDto);
       } catch (err) {
         console.error('Error invoking CreateGame method:', err);
+      }
+    }
+  }
+
+  async invokeCreateAnimal(animalTypeId) {
+    if (this.connection) {
+      try {
+        await this.connection.invoke('CreateAnimal', animalTypeId);
+      } catch (err) {
+        console.error('Error invoking CreateAnimal method:', err);
       }
     }
   }

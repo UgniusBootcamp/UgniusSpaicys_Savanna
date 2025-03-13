@@ -4,8 +4,8 @@ import Button from '../common/Button';
 
 const GameCreationForm = () => {
   const [formData, setFormData] = useState({
-    Height: 0,
-    Width: 0,
+    Height: 20,
+    Width: 20,
   });
 
   const handleChanges = (e) => {
@@ -28,10 +28,10 @@ const GameCreationForm = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center w-full">
-      <div className="w-full sm:w-96 border-2 rounded-lg bg-primary-50 border-primary-300 p-6 flex flex-col items-center text-black">
+    <div className="w-full flex justify-center items-center">
+      <div className="w-full sm:w-96 border-2 rounded-lg bg-primary-50 border-primary-300 p-6 flex flex-col items-center  text-black">
         <form onSubmit={handleSubmit}>
-          <h1>Create New Game</h1>
+          <h1 className="text-center pb-2">Create New Game</h1>
           <div className="w-full mb-4">
             <label
               htmlFor="Height"
@@ -45,6 +45,8 @@ const GameCreationForm = () => {
               onChange={handleChanges}
               value={formData.Height}
               type="number"
+              min={5}
+              max={40}
               required
               className="mt-1 p-2 w-full border border-primary-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-200"
               placeholder={'Enter Height'}

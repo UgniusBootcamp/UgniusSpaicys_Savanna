@@ -13,7 +13,7 @@ export const Spinner = ({ delay = 500 }) => {
   if (!show) return null;
 
   return (
-    <div className="flex justify-center items-center min-h-screen">
+    <div className="flex justify-center items-center ">
       <div
         className="text-primary-500 inline-block h-14 w-14 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear-infinite]"
         role="status"

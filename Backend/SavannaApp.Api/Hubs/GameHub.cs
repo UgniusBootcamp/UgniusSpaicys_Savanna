@@ -2,38 +2,40 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.SignalR;
 using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Services;
 using SavannaApp.Data.Dto.Game;
-using SavannaApp.Data.Entities;
+using SavannaApp.Data.Entities.Animals;
 
 namespace SavannaApp.Api.Hubs
 {
-    public class GameHub(IMapper mapper, IGamesManager gamesManager, IGameCreationService gameCreationService) : Hub
+    public class GameHub(IGamesManager gamesManager, IGameCreationService gameCreationService, AnimalTypeMapper animalTypeMapper) : Hub
     {
-        private static readonly Dictionary<string, string> _userConnections = new Dictionary<string, string>();
-
-        public async Task SendGameData(Game game)
-        {
-
-            if (_userConnections.TryGetValue(game.UserId, out var connectionId))
-            {
-                await Clients.Client(connectionId).SendAsync("ReceiveGameData", mapper.Map<GameReadDto>(game));
-            }
-            else
-            {
-                await Clients.Caller.SendAsync("ReceiveGameData", "User not connected");
-            }
-        }
-
         public Task CreateGame(GameCreateDto gameCreateDto)
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-            if (!string.IsNullOrEmpty(userId) && _userConnections.ContainsKey(userId))
+            if (!string.IsNullOrEmpty(userId) && ConnectionMapper.ConnectionExists(userId))
             {
                 var game = gameCreationService.CreateGame(userId, gameCreateDto);
                 gamesManager.AddGame(game);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        public Task CreateAnimal(int animalTypeId)
+        {
+            var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+            if (!string.IsNullOrEmpty(userId) && ConnectionMapper.ConnectionExists(userId))
+            {
+                var animalType = animalTypeMapper.GetType(animalTypeId);
+                if (animalType == null) return Task.CompletedTask;
+
+                gamesManager.AddAnimal(userId, animalType);
             }
 
             return Task.CompletedTask;
@@ -46,7 +48,7 @@ namespace SavannaApp.Api.Hubs
 
             if (!string.IsNullOrEmpty(userId))
             {
-                _userConnections[userId] = Context.ConnectionId;
+                ConnectionMapper.Add(userId, Context.ConnectionId);
             }
 
             return base.OnConnectedAsync();
@@ -56,9 +58,10 @@ namespace SavannaApp.Api.Hubs
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-            if (!string.IsNullOrEmpty(userId) && _userConnections.ContainsKey(userId))
+            if (!string.IsNullOrEmpty(userId) && ConnectionMapper.ConnectionExists(userId))
             {
-                _userConnections.Remove(userId);
+                ConnectionMapper.Remove(userId);
+                gamesManager.RemoveGame(userId);
             }
 
             return base.OnDisconnectedAsync(exception);
