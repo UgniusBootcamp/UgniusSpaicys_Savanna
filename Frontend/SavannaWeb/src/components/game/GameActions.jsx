@@ -1,25 +1,7 @@
-import { useEffect, useState } from 'react';
-import GameApi from '../../api/GameApi';
+import PropTypes from 'prop-types';
 import SignalRService from '../../api/SignalRService';
-import { Spinner } from '../common/Spinner';
 
-const GameActions = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [AnimalTypes, setAnimalTypes] = useState(null);
-
-  useEffect(() => {
-    const loadAnimalTypes = async () => {
-      setIsLoading(true);
-      const response = await GameApi.getAnimalTypes();
-      setAnimalTypes(response.data);
-      setIsLoading(false);
-    };
-
-    loadAnimalTypes();
-  }, []);
-
-  if (isLoading) return <Spinner />;
-
+const GameActions = ({ AnimalTypes }) => {
   const handleAnimalAdd = async (animalTypeId) => {
     await SignalRService.invokeCreateAnimal(animalTypeId);
   };
@@ -40,6 +22,10 @@ const GameActions = () => {
       </div>
     </div>
   );
+};
+
+GameActions.propTypes = {
+  AnimalTypes: PropTypes.array.isRequired,
 };
 
 export default GameActions;

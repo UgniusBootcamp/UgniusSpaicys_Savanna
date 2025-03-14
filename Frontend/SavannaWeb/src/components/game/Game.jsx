@@ -36,7 +36,7 @@ const Game = ({ map }) => {
           <div
             key={`${x}-${y}`}
             className={`flex items-center justify-center font-semibold  ${
-              animal ? 'bg-primary-300 rounded-sm' : ''
+              animal ? 'bg-primary-400 rounded-full' : ''
             }`}
             style={{ width: `${cellWidth}px`, height: `${cellHeight}px` }}
           >
@@ -52,7 +52,7 @@ const Game = ({ map }) => {
   return (
     <div
       ref={containerRef}
-      className="w-4/5 h-full border-2 border-primary-100 rounded-md overflow-hidden"
+      className="w-4/5 h-full border-4 border-primary-600 bg-primary-200/75 rounded-md overflow-hidden"
     >
       <div
         className="grid justify-center items-center"

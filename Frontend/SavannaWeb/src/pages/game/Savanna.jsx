@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import SignalRService from '../../api/SignalRService';
 import { Spinner } from '../../components/common/Spinner';
 import Game from '../../components/game/Game';
-import GameActions from '../../components/game/GameActions';
 import GameCreationForm from '../../components/game/GameCreationForm';
-import GameStats from '../../components/game/GameStats';
+import SavannaHeader from '../../components/game/SavannaHeader';
 import useErrorHandler from '../../hooks/useErrorHandler';
 
 const Savanna = () => {
@@ -49,10 +48,7 @@ const Savanna = () => {
 
   return (
     <div className="flex flex-col gap-3 w-full h-screen text-white">
-      <div className="rounded-md border-2 border-primary-100  w-full flex justify-between items-center gap-2">
-        <GameStats iteration={game.iteration} animalsCount={game.animalCount} />
-        <GameActions />
-      </div>
+      <SavannaHeader game={game} />
       <div className="h-2/3 w-full m-2 flex justify-center">
         <Game map={game.map} />
       </div>
