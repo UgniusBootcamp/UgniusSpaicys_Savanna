@@ -73,7 +73,7 @@ namespace SavannaApp.Data.Entities.Animals
             Features.Health += health;
         }
 
-        private void IncreaseAge()
+        protected void IncreaseAge()
         {
             if (!IsAlive) return;
 

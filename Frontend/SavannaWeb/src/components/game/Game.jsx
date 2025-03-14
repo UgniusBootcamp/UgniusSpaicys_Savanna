@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
-const Game = ({ map }) => {
+const Game = ({ selected, map, onSelect }) => {
   const { width, height, animals } = map;
   const containerRef = useRef(null);
   const [cellHeight, setCellHeight] = useState(32);
@@ -26,6 +26,11 @@ const Game = ({ map }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, [width, height]);
 
+  const handleSelect = (newSelected) => {
+    if (!newSelected) return;
+    onSelect(newSelected);
+  };
+
   const renderCells = () => {
     const cells = [];
 
@@ -34,10 +39,15 @@ const Game = ({ map }) => {
         const animal = animals.find((a) => a.x === x && a.y === y);
         cells.push(
           <div
+            onClick={animal ? () => handleSelect(animal) : null}
             key={`${x}-${y}`}
-            className={`flex items-center justify-center font-semibold  ${
-              animal ? 'bg-primary-400 rounded-full' : ''
-            }`}
+            className={`flex items-center justify-center font-semibold ${
+              animal ? 'bg-primary-400 rounded-full cursor-pointer' : ''
+            } ${
+              animal && animal.id === selected?.id
+                ? 'border-2 text-primary-900'
+                : ''
+            } `}
             style={{ width: `${cellWidth}px`, height: `${cellHeight}px` }}
           >
             {animal ? animal.name : ''}
@@ -68,7 +78,9 @@ const Game = ({ map }) => {
 };
 
 Game.propTypes = {
+  selected: PropTypes.object,
   map: PropTypes.object.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default Game;

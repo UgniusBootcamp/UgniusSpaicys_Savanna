@@ -25,13 +25,11 @@ namespace SavannaApp.Data.Helpers.Mapper
             //Animal
             CreateMap<Animal, AnimalReadDto>()
                 .ForMember(dest => dest.X, opt => opt.MapFrom(src => src.Position.X))
-                .ForMember(dest => dest.Y, opt => opt.MapFrom(src => src.Position.Y));
-
-            CreateMap<Animal, AnimalDetailReadDto>()
+                .ForMember(dest => dest.Y, opt => opt.MapFrom(src => src.Position.Y))
                 .ForMember(dest => dest.Species, opt => opt.MapFrom(src => src.GetType().Name));
 
             //Animal Features
-            CreateMap<AnimalFeatures, AnimalFeatures>();
+            CreateMap<AnimalFeatures, AnimalFeaturesReadDto>();
 
             //Game
             CreateMap<Game, GameReadDto>()
