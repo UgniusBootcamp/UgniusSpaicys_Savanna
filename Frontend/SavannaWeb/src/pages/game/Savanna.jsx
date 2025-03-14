@@ -5,7 +5,6 @@ import { Spinner } from '../../components/common/Spinner';
 import Game from '../../components/game/Game';
 import GameActions from '../../components/game/GameActions';
 import GameCreationForm from '../../components/game/GameCreationForm';
-import GameLoader from '../../components/game/GameLoader';
 import GameStats from '../../components/game/GameStats';
 import useErrorHandler from '../../hooks/useErrorHandler';
 
@@ -38,7 +37,6 @@ const Savanna = () => {
 
   useEffect(() => {
     const handleGameDataReceived = (gameData) => {
-      console.log(gameData);
       setGame(gameData);
     };
 
@@ -50,18 +48,13 @@ const Savanna = () => {
   if (!game) return <GameCreationForm />;
 
   return (
-    <div className="grid grid-cols-7 grid-rows-7 gap-3 w-full h-full text-white">
-      <div className="col-span-7 bg-primary-400 rounded-md  w-full flex justify-center items-center">
+    <div className="flex flex-col gap-3 w-full h-screen text-white">
+      <div className="rounded-md border-2 border-primary-100  w-full flex justify-between items-center gap-2">
         <GameStats iteration={game.iteration} animalsCount={game.animalCount} />
-      </div>
-      <div className="col-span-5 row-start-2 bg-primary-400 rounded-md flex justify-center items-center">
         <GameActions />
       </div>
-      <div className="col-span-5 row-span-5 col-start-1 row-start-3">
-        <Game />
-      </div>
-      <div className="col-span-2 row-span-6 col-start-6 row-start-2 bg-primary-400 rounded-md flex justify-center items-center">
-        <GameLoader />
+      <div className="h-2/3 w-full m-2 flex justify-center">
+        <Game map={game.map} />
       </div>
     </div>
   );
