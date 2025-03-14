@@ -1,6 +1,7 @@
 import * as signalR from '@microsoft/signalr';
 import { useEffect, useState } from 'react';
 import SignalRService from '../../api/SignalRService';
+import ExitModal from '../../components/common/ExitModal';
 import { Spinner } from '../../components/common/Spinner';
 import Game from '../../components/game/Game';
 import GameCreationForm from '../../components/game/GameCreationForm';
@@ -13,6 +14,7 @@ const Savanna = () => {
   const [connectionEstablished, setConnectionEstablished] = useState(false);
   const errorHandler = useErrorHandler();
 
+  ExitModal();
   useEffect(() => {
     const connectToGameHub = async () => {
       try {
