@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import SignalRService from '../../api/SignalRService';
+import gameActionsConstants from '../../constants/gameActionsConstants';
 
 const GameActions = ({ AnimalTypes }) => {
   const handleAnimalAdd = async (animalTypeId) => {
@@ -8,7 +9,9 @@ const GameActions = ({ AnimalTypes }) => {
 
   return (
     <div className="justify-center items-center w-full text-primary-800 p-2">
-      <h1 className="text-center mb-2 font-bold">Add Animal</h1>
+      <h1 className="text-center mb-2 font-bold">
+        {gameActionsConstants.addAnimal}
+      </h1>
       <div className="flex flex-wrap gap-2 justify-center">
         {AnimalTypes.map((animalType) => (
           <div
