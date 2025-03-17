@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SignalRService from '../../api/SignalRService';
+import gameCreationConstants from '../../constants/gameCreationConstants';
 import Button from '../common/Button';
 
 const GameCreationForm = () => {
@@ -32,14 +33,14 @@ const GameCreationForm = () => {
       <div className="w-full sm:w-96 rounded-lg bg-primary-300 p-6 flex flex-col items-center">
         <form onSubmit={handleSubmit}>
           <h2 className="text-2xl font-semibold text-primary-900 mb-6">
-            Create New Game
+            {gameCreationConstants.message}
           </h2>
           <div className="w-full mb-4">
             <label
               htmlFor="Height"
               className="block text-sm font-medium text-primary-950"
             >
-              Height
+              {gameCreationConstants.height}
             </label>
             <input
               id="Height"
@@ -60,7 +61,7 @@ const GameCreationForm = () => {
               htmlFor="Width"
               className="block text-sm font-medium text-primary-950"
             >
-              Width
+              {gameCreationConstants.width}
             </label>
             <input
               id="Width"
@@ -74,7 +75,7 @@ const GameCreationForm = () => {
             />
           </div>
           <Button className="w-full bg-primary-900 hover:bg-primary-700 mb-4">
-            {'Start Game'}
+            {gameCreationConstants.start}
           </Button>
         </form>
       </div>

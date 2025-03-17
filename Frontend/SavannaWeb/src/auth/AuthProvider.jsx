@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import accountApi from '../api/AccountApi';
+import errorConstants from '../constants/errorConstants';
 import TokenHandler from '../helpers/TokenHandler';
 import { AuthContext } from './AuthContext';
 
@@ -33,7 +34,7 @@ export const AuthProvider = ({ children }) => {
       parseToken(token);
       localStorage.setItem('accessToken', token);
     } catch (error) {
-      console.error('Failed to fetch access token');
+      console.error(errorConstants.accessTokenFetchFail);
       await logOut();
     }
   }, []);
@@ -53,7 +54,7 @@ export const AuthProvider = ({ children }) => {
       setUserName(userName);
       setIsLoggedIn(true);
     } catch (error) {
-      console.error('Failed to parse token');
+      console.error(errorConstants.accessTokenParseFail);
     }
   };
 
@@ -71,7 +72,7 @@ export const AuthProvider = ({ children }) => {
         try {
           await fetchAccessToken();
         } catch (error) {
-          console.error('Failed to fetch access token');
+          console.error(errorConstants.accessTokenFetchFail);
           await logOut();
         }
       }
@@ -94,7 +95,6 @@ export const AuthProvider = ({ children }) => {
         const token = response.data.accessToken;
         parseToken(token);
         localStorage.setItem('accessToken', token);
-        setSnackbarMessage('Login Successful!');
       } catch (error) {
         await logOut();
         throw error;

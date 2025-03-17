@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import GameApi from '../../api/GameApi';
+import switchConstants from '../../constants/switchConstants';
 import { Spinner } from '../common/Spinner';
 import ToggleSwitch from '../common/ToggleSwitch';
 import GameActions from './GameActions';
@@ -32,7 +33,7 @@ const SavannaHeader = ({ game, isIconOn, onCheck }) => {
       />
       <GameActions AnimalTypes={AnimalTypes} />
       <ToggleSwitch
-        label={'🦁'}
+        label={switchConstants.label}
         checked={isIconOn}
         onChange={(e) => onCheck(e.target.checked)}
       />

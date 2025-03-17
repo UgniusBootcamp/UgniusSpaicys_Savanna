@@ -16,15 +16,15 @@ const Header = () => {
 
     return (
       <ConfirmationModal
-        header="Log out"
-        message="Are you sure you want to logout?"
+        header={headerConstants.logout}
+        message={headerConstants.logoutMessage}
         isOpen={showConfirmation}
         onClose={() => setShowConfirmation(false)}
         onConfirm={() => {
           setShowConfirmation(false);
           logOut();
         }}
-        onConfirmMessage="Log out"
+        onConfirmMessage={headerConstants.logout}
       />
     );
   };
@@ -48,7 +48,9 @@ const Header = () => {
                   {headerConstants.logout}
                 </Button>
               ) : (
-                <Button onClick={() => navigate(routes.login)}>Login</Button>
+                <Button onClick={() => navigate(routes.login)}>
+                  {headerConstants.login}
+                </Button>
               )}
             </div>
           </div>

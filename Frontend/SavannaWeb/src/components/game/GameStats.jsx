@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import gameStatsConstants from '../../constants/gameStatsConstants';
 import { Spinner } from '../common/Spinner';
 
 const GameStats = ({ AnimalTypes, iteration, animalsCount }) => {
@@ -14,7 +15,9 @@ const GameStats = ({ AnimalTypes, iteration, animalsCount }) => {
 
   return (
     <div className="text-primary-800 flex flex-col justify-center items-center h-full w-full p-4">
-      <div className="text-lg font-bold">Iteration {iteration}</div>
+      <div className="text-lg font-bold">
+        {gameStatsConstants.iteration} {iteration}
+      </div>
       <div className="mt-2 flex flex-wrap justify-center items-center w-full gap-2">
         {mappedAnimals.map((animal) => (
           <div
