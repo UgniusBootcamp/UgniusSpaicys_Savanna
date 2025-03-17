@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 
-const Game = ({ selected, map, onSelect }) => {
+const Game = ({ selected, map, onSelect, isIconOn }) => {
   const { width, height, animals } = map;
   const containerRef = useRef(null);
   const [cellHeight, setCellHeight] = useState(32);
@@ -42,15 +42,19 @@ const Game = ({ selected, map, onSelect }) => {
             onClick={animal ? () => handleSelect(animal) : null}
             key={`${x}-${y}`}
             className={`flex items-center justify-center font-semibold ${
-              animal ? 'bg-primary-400 rounded-full cursor-pointer' : ''
+              animal
+                ? isIconOn
+                  ? 'text-3xl cursor-pointer'
+                  : 'bg-primary-400 rounded-full cursor-pointer'
+                : ''
             } ${
               animal && animal.id === selected?.id
-                ? 'border-2 text-primary-900'
+                ? 'border-2 text-primary-900 rounded-full'
                 : ''
             } `}
             style={{ width: `${cellWidth}px`, height: `${cellHeight}px` }}
           >
-            {animal ? animal.name : ''}
+            {animal ? (isIconOn ? animal.icon : animal.name) : ''}
           </div>,
         );
       }
@@ -81,6 +85,7 @@ Game.propTypes = {
   selected: PropTypes.object,
   map: PropTypes.object.isRequired,
   onSelect: PropTypes.func.isRequired,
+  isIconOn: PropTypes.func.isRequired,
 };
 
 export default Game;

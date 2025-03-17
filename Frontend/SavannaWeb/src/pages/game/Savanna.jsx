@@ -15,6 +15,7 @@ const Savanna = () => {
   const [connectionEstablished, setConnectionEstablished] = useState(false);
   const errorHandler = useErrorHandler();
   const [selected, setSelected] = useState(null);
+  const [isIconOn, setIsIconOn] = useState(false);
 
   ExitModal();
   useEffect(() => {
@@ -76,10 +77,15 @@ const Savanna = () => {
 
   return (
     <div className="flex flex-col gap-3 w-full h-screen text-white">
-      <SavannaHeader game={game} />
+      <SavannaHeader
+        game={game}
+        isIconOn={isIconOn}
+        onCheck={(value) => setIsIconOn(value)}
+      />
       <div className="h-2/3 w-full m-2 flex justify-center">
         <Game
           selected={selected}
+          isIconOn={isIconOn}
           map={game.map}
           onSelect={(selected) => setSelected(selected)}
         />

@@ -12,5 +12,6 @@ namespace SavannaApp.Animals
         public override string Name => config.Name;
 
         public override AnimalFeatures Features => _animalFeatures;
+        public override string? Icon => config.Icon;
     }
 }

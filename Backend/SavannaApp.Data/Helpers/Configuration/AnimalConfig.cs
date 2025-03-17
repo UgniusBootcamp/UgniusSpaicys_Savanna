@@ -9,5 +9,6 @@ namespace SavannaApp.Data.Helpers.Configuration
         public int Vision { get; set; }
         public double Health { get; set; }
         public char Key { get; set; }
+        public string? Icon { get; set; }
     }
 }

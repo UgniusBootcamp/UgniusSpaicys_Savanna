@@ -10,6 +10,6 @@ namespace SavannaApp.Animals
         public override ConsoleKey CreationKey => (ConsoleKey)config.Key;
         public override string Name => config.Name;
         public override AnimalFeatures Features => _animalFeatures;
-
+        public override string? Icon => config.Icon;
     }
 }

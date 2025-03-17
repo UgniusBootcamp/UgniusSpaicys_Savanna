@@ -1,5 +1,6 @@
 ﻿using SavannaApp.Business.Interfaces;
 using SavannaApp.Data.Entities;
+using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Helpers.MovementStrategies;
 using SavannaApp.Data.Interfaces;
 
@@ -37,9 +38,15 @@ namespace SavannaApp.Business.Services.Web
 
                 var animals = game.Map.Animals.ToList();
 
-                foreach (var animal in animals)
+                foreach (var prays in animals.Where(a => a is Pray))
                 {
-                    animal.Move(game.Map);
+                    prays.Move(game.Map);
+                }
+
+
+                foreach (var hunter in animals.Where(a => a is Hunter))
+                {
+                    hunter.Move(game.Map);
                 }
 
                 lock (_lock)

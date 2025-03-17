@@ -12,6 +12,7 @@ namespace SavannaApp.Data.Entities.Animals
         protected readonly IMovement RandomMovement = new RandomMovement();
 
         public abstract string Name { get; }
+        public abstract string? Icon { get; }
         public abstract AnimalFeatures Features { get; }
         public abstract ConsoleKey CreationKey { get; }
 
