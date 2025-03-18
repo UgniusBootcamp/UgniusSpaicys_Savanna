@@ -3,6 +3,8 @@ import {
   HubConnectionBuilder,
   LogLevel,
 } from '@microsoft/signalr';
+import endpointConstants from '../constants/endpointConstants';
+import errorConstants from '../constants/errorConstants';
 
 class SignalRService {
   constructor() {
@@ -25,7 +27,7 @@ class SignalRService {
     try {
       await this.connection.start();
     } catch (err) {
-      console.error('Error while starting SignalR connection:', err);
+      console.error(errorConstants.signalRConnectionFail, err);
     }
   }
 
@@ -38,9 +40,12 @@ class SignalRService {
   async invokeCreateGame(gameCreateDto) {
     if (this.connection) {
       try {
-        await this.connection.invoke('CreateGame', gameCreateDto);
+        await this.connection.invoke(
+          endpointConstants.createGame,
+          gameCreateDto,
+        );
       } catch (err) {
-        console.error('Error invoking CreateGame method:', err);
+        console.error(errorConstants.createGameInvokeFail, err);
       }
     }
   }
@@ -48,9 +53,12 @@ class SignalRService {
   async invokeCreateAnimal(animalTypeId) {
     if (this.connection) {
       try {
-        await this.connection.invoke('CreateAnimal', animalTypeId);
+        await this.connection.invoke(
+          endpointConstants.createAnimal,
+          animalTypeId,
+        );
       } catch (err) {
-        console.error('Error invoking CreateAnimal method:', err);
+        console.error(errorConstants.createAnimalInvokeFail, err);
       }
     }
   }

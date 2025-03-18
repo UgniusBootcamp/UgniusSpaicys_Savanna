@@ -9,5 +9,6 @@
         public const string SessionNotValid = "Session is not valid anymore";
         public const string AccessTokenRefreshed = "Access token refreshed";
         public const string LogoutSuccessful = "Logout successful";
+        public const string AnimalTypes = "Animal Types";
     }
 }

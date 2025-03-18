@@ -11,13 +11,13 @@ namespace SavannaApp.Api.Controllers
     [Route(EndpointConstants.Api + "[controller]")]
     public class GamesController(AnimalTypeMapper animalTypeMapper) : BaseController
     {
-        [HttpGet("AnimalTypes")]
+        [HttpGet(EndpointConstants.AnimalTypes)]
         [Authorize]
         public IActionResult GetAnimalTypes()
         {
             try
             {
-                return Ok(ApiResponse.OkResponse("Animal Types", animalTypeMapper.MapAnimalTypes()));
+                return Ok(ApiResponse.OkResponse(WebConstants.AnimalTypes, animalTypeMapper.MapAnimalTypes()));
             }
             catch (Exception ex) 
             {

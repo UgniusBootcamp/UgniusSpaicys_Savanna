@@ -1,8 +1,9 @@
+import endpointConstants from '../constants/endpointConstants';
 import api from './Api';
 
 const GameApi = {
   async getAnimalTypes() {
-    return api.get('/Games/AnimalTypes');
+    return api.get(endpointConstants.animalTypes);
   },
 };
 
