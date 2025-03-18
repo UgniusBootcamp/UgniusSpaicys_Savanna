@@ -15,14 +15,7 @@ namespace SavannaApp.Api.Controllers
         [Authorize]
         public IActionResult GetAnimalTypes()
         {
-            try
-            {
-                return Ok(ApiResponse.OkResponse(WebConstants.AnimalTypes, animalTypeMapper.MapAnimalTypes()));
-            }
-            catch (Exception ex) 
-            {
-                return HandleException(ex);
-            }
+            return Ok(ApiResponse.OkResponse(WebConstants.AnimalTypes, animalTypeMapper.MapAnimalTypes()));
         }
     }
 }

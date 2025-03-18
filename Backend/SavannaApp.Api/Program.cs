@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SavannaApp.Api.Hubs;
+using SavannaApp.Api.Infrastructure;
 using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Interfaces.Web;
 using SavannaApp.Business.Services;
@@ -76,6 +77,10 @@ builder.Services.Configure<ApiBehaviorOptions>(option =>
         return new BadRequestObjectResult(response);
     };
 });
+
+//Exception
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 //Repositories
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
@@ -183,6 +188,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler();
 
 app.MapControllers();
 
