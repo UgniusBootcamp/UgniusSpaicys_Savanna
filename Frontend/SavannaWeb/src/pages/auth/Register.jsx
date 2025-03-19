@@ -84,7 +84,7 @@ const Register = () => {
           )}
           <label
             htmlFor="userName"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-primary-950"
           >
             {loginConstants.username}
           </label>
@@ -95,7 +95,7 @@ const Register = () => {
             value={formData.userName}
             maxLength={255}
             onChange={handleChange}
-            className="mt-1 p-2 w-full border border-primary-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-200"
+            className="mt-1 p-2 w-full bg-primary-100 border border-primary-200 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-100 focus:border-primary-100 transition duration-200"
             placeholder={loginConstants.usernamePlaceholder}
           />
           {errors.userName && (
@@ -106,7 +106,7 @@ const Register = () => {
         <div className="w-full mb-4">
           <label
             htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-primary-950"
           >
             {loginConstants.password}
           </label>
@@ -118,11 +118,11 @@ const Register = () => {
             value={formData.password}
             onChange={handleChange}
             maxLength={100}
-            className="mt-1 p-2 w-full border border-primary-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-200"
+            className="mt-1 p-2 w-full bg-primary-100 border border-primary-200 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-100 focus:border-primary-100 transition duration-200"
             placeholder="Enter your password"
           />
           <div
-            className={`text-sm mt-1 text-primary-500 ${
+            className={`text-sm mt-1 text-primary-50 ${
               errors.password ? 'text-red-500' : ''
             }`}
           >
@@ -138,12 +138,6 @@ const Register = () => {
         </div>
 
         <div className="w-full mb-6">
-          <label
-            htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-700"
-          >
-            {loginConstants.confirmPassword}
-          </label>
           <input
             id="confirmPassword"
             name="confirmPassword"
@@ -151,8 +145,8 @@ const Register = () => {
             onChange={handleChange}
             maxLength={100}
             type="password"
-            className="mt-1 p-2 w-full border border-primary-300 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 transition duration-200"
-            placeholder="Enter your password"
+            className="mt-1 p-2 w-full bg-primary-100 border border-primary-200 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-100 focus:border-primary-100 transition duration-200"
+            placeholder={loginConstants.passwordConfirm}
           />
           {errors.confirmPassword && (
             <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
@@ -170,7 +164,7 @@ const Register = () => {
               className="underline text-primary-900 font-semibold hover:text-primary-700 cursor-pointer transition duration-300"
               onClick={() => navigate(routes.login)}
             >
-              {registerConstants.login}
+              {loginConstants.login}
             </a>
           </p>
         </div>

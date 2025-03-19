@@ -7,5 +7,7 @@
         public const string Logout = "Logout";
         public const string AccessToken = "AccessToken";
         public const string Api = "api/";
+        public const string AnimalTypes = "AnimalTypes";
+        public const string ReceiveGameData = "ReceiveGameData";
     }
 }

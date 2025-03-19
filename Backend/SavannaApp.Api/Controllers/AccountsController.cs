@@ -30,15 +30,8 @@ namespace SavannaApp.Api.Controllers
         [Route(EndpointConstants.Register)]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
-            try
-            {
-                var user = await accountService.RegisterAsync(registerDto);
-                return Created("", ApiResponse.CreatedResponse(WebConstants.UserRegister, user));
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex);
-            }
+            var user = await accountService.RegisterAsync(registerDto);
+            return Created("", ApiResponse.CreatedResponse(WebConstants.UserRegister, user));
         }
 
         /// <summary>
@@ -52,24 +45,17 @@ namespace SavannaApp.Api.Controllers
         [Route(EndpointConstants.Login)]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            try
-            {
-                var login = await accountService.LoginAsync(loginDto);
+            var login = await accountService.LoginAsync(loginDto);
 
-                var sessionId = Guid.NewGuid();
+            var sessionId = Guid.NewGuid();
 
-                var refreshToken = await accountService.CreateRefreshTokenAsync(sessionId, login.UserId);
+            var refreshToken = await accountService.CreateRefreshTokenAsync(sessionId, login.UserId);
 
-                await sessionService.CreateSessionAsync(sessionId, login.UserId, refreshToken, DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays));
+            await sessionService.CreateSessionAsync(sessionId, login.UserId, refreshToken, DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays));
 
-                UpdateCookie(refreshToken);
+            UpdateCookie(refreshToken);
 
-                return Ok(ApiResponse.OkResponse(WebConstants.LoginSuccessful, new { AccessToken = login.Token }));
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex);
-            }
+            return Ok(ApiResponse.OkResponse(WebConstants.LoginSuccessful, new { AccessToken = login.Token }));
         }
 
         /// <summary>
@@ -89,28 +75,21 @@ namespace SavannaApp.Api.Controllers
                 return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse(WebConstants.RefreshTokenNotFound));
             }
 
-            try
-            {
-                var login = await accountService.GetAccessTokenFromRefreshToken(refreshToken);
+            var login = await accountService.GetAccessTokenFromRefreshToken(refreshToken);
 
-                var sessionId = Guid.Parse(accountService.GetSessionIdFromRefreshToken(refreshToken));
+            var sessionId = Guid.Parse(accountService.GetSessionIdFromRefreshToken(refreshToken));
 
-                var sessionValid = await sessionService.IsSessionValidAsync(sessionId, refreshToken);
-                if (!sessionValid)
-                    return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse(WebConstants.SessionNotValid));
+            var sessionValid = await sessionService.IsSessionValidAsync(sessionId, refreshToken);
+            if (!sessionValid)
+                return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse(WebConstants.SessionNotValid));
 
-                var newRefreshToken = await accountService.CreateRefreshTokenAsync(sessionId, login.UserId);
+            var newRefreshToken = await accountService.CreateRefreshTokenAsync(sessionId, login.UserId);
 
-                UpdateCookie(newRefreshToken);
+            UpdateCookie(newRefreshToken);
 
-                await sessionService.ExtendSessionsAsync(sessionId, newRefreshToken, DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays));
+            await sessionService.ExtendSessionsAsync(sessionId, newRefreshToken, DateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenExpirationDays));
 
-                return Ok(ApiResponse.OkResponse(WebConstants.AccessTokenRefreshed, new { AccessToken = login.Token }));
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex);
-            }
+            return Ok(ApiResponse.OkResponse(WebConstants.AccessTokenRefreshed, new { AccessToken = login.Token }));
         }
 
         /// <summary>
@@ -130,32 +109,13 @@ namespace SavannaApp.Api.Controllers
             if (string.IsNullOrEmpty(refreshToken))
                 return UnprocessableEntity(ApiResponse.UnprocessableEntityResponse(WebConstants.RefreshTokenNotFound));
 
-            try
-            {
-                var sessionId = Guid.Parse(accountService.GetSessionIdFromRefreshToken(refreshToken));
+            var sessionId = Guid.Parse(accountService.GetSessionIdFromRefreshToken(refreshToken));
 
-                await sessionService.InvalidateSessionAsync(sessionId);
+            await sessionService.InvalidateSessionAsync(sessionId);
 
-                RemoveCookie(WebConstants.RefreshToken);
+            RemoveCookie(WebConstants.RefreshToken);
 
-                return Ok(ApiResponse.OkResponse(WebConstants.LogoutSuccessful));
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex);
-            }
-        }
-
-        /// <summary>
-        /// Test endpoint to see if auth is working
-        /// </summary>
-        /// <returns>test data</returns>
-        [HttpGet]
-        [Authorize]
-        public IActionResult GetData()
-        {
-            var testData = "Auth is working";
-            return Ok(ApiResponse.OkResponse("Auth test", new { testData }));
+            return Ok(ApiResponse.OkResponse(WebConstants.LogoutSuccessful));
         }
 
         /// <summary>

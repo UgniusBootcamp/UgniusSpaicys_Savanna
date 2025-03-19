@@ -32,7 +32,11 @@ namespace SavannaApp.Business.Services
                 {
                     var rebirth = animalCreationService.RebirthAnimal(kvp.Value.Animals, map);
 
-                    if (rebirth != null) map.SetAnimal(rebirth);
+                    if (rebirth != null) 
+                    {
+                        map.SetAnimal(rebirth);
+                        kvp.Value.IncreaseOffSprings();
+                    }
 
                     AnimalGroups.Remove(kvp.Key);
                 }

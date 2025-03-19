@@ -10,7 +10,6 @@ const apiClient = axios.create({
   },
 });
 
-// Add request interceptor to add JWT token
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('accessToken');

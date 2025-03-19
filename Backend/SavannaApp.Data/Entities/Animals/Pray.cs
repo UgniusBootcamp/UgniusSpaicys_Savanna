@@ -21,6 +21,8 @@ namespace SavannaApp.Data.Entities.Animals
             }
 
             DecreaseHealth(GameConstants.HealthDamageOnMove);
+
+            IncreaseAge();
         }
     }
 }

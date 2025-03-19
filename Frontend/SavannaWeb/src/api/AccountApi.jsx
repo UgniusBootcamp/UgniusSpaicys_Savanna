@@ -1,23 +1,20 @@
+import endpointConstants from '../constants/endpointConstants';
 import api from './Api';
 
 const AccountApi = {
   async login(loginData) {
-    return api.post('/Accounts/Login', loginData);
+    return api.post(endpointConstants.login, loginData);
   },
 
   async register(registerData) {
-    return api.post('/Accounts/Register', registerData);
+    return api.post(endpointConstants.register, registerData);
   },
 
   async accessToken() {
-    return api.post('/Accounts/AccessToken');
+    return api.post(endpointConstants.accessToken);
   },
   async logout() {
-    return api.post('/Accounts/Logout');
-  },
-
-  async test() {
-    return api.get('/Accounts');
+    return api.post(endpointConstants.logout);
   },
 };
 

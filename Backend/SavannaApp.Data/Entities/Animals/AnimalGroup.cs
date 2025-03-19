@@ -35,5 +35,10 @@
 
             return true;
         }
+
+        public void IncreaseOffSprings()
+        {
+            foreach (var a in Animals) a.IncreaseOffSprings();
+        }
     }
 }

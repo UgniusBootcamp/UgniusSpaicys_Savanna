@@ -12,6 +12,7 @@ namespace SavannaApp.Data.Entities.Animals
         protected readonly IMovement RandomMovement = new RandomMovement();
 
         public abstract string Name { get; }
+        public abstract string? Icon { get; }
         public abstract AnimalFeatures Features { get; }
         public abstract ConsoleKey CreationKey { get; }
 
@@ -45,6 +46,8 @@ namespace SavannaApp.Data.Entities.Animals
             RandomMovement.Move(this, map);
 
             DecreaseHealth(GameConstants.HealthDamageOnMove);
+
+            IncreaseAge();
         }
 
         /// <summary>
@@ -69,6 +72,20 @@ namespace SavannaApp.Data.Entities.Animals
             if (health < 0) return;
 
             Features.Health += health;
+        }
+
+        protected void IncreaseAge()
+        {
+            if (!IsAlive) return;
+
+            Features.Age++;
+        }
+
+        public void IncreaseOffSprings()
+        {
+            if (!IsAlive) return;
+
+            Features.Offsprings++;
         }
     }
 }
