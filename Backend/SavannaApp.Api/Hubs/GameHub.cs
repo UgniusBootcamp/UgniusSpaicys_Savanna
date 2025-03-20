@@ -26,6 +26,24 @@ namespace SavannaApp.Api.Hubs
             return Task.CompletedTask;
         }
 
+        public Task PauseGame()
+        {
+            var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+            if (!string.IsNullOrEmpty(userId) && gamesManager.GameExist(userId)) gamesManager.PauseGame(userId);
+
+            return Task.CompletedTask;
+        }
+
+        public Task ResumeGame() 
+        {
+            var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+            if (!string.IsNullOrEmpty(userId) && gamesManager.GameExist(userId)) gamesManager.ResumeGame(userId);
+
+            return Task.CompletedTask;
+        }
+
         public Task CreateAnimal(int animalTypeId)
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);

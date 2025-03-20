@@ -6,6 +6,7 @@ import { Spinner } from '../common/Spinner';
 import ToggleSwitch from '../common/ToggleSwitch';
 import GameActions from './GameActions';
 import GameStats from './GameStats';
+import PauseResumeButton from './PauseResumeButton';
 
 const SavannaHeader = ({ game, isIconOn, onCheck }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,7 @@ const SavannaHeader = ({ game, isIconOn, onCheck }) => {
         animalsCount={game.animalCount}
       />
       <GameActions AnimalTypes={AnimalTypes} />
+      <PauseResumeButton isRunning={game.isRunning} />
       <ToggleSwitch
         label={switchConstants.label}
         checked={isIconOn}

@@ -62,6 +62,26 @@ class SignalRService {
       }
     }
   }
+
+  async pauseGame() {
+    if (this.connection) {
+      try {
+        await this.connection.invoke(endpointConstants.pauseGame);
+      } catch (err) {
+        console.error(errorConstants.pauseGameFail);
+      }
+    }
+  }
+
+  async resumeGame() {
+    if (this.connection) {
+      try {
+        await this.connection.invoke(endpointConstants.resumeGame);
+      } catch (err) {
+        console.error(errorConstants.resumeGameFail);
+      }
+    }
+  }
 }
 
 export default new SignalRService();

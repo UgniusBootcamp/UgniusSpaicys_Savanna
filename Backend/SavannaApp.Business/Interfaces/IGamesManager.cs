@@ -7,5 +7,8 @@ namespace SavannaApp.Business.Interfaces
         void AddGame(Game game);
         void RemoveGame(string userId);
         void AddAnimal(string userId, Type animalType);
+        bool GameExist(string userId);
+        void PauseGame(string userId);
+        void ResumeGame(string userId);
     }
 }

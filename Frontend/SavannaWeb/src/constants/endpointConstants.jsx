@@ -6,6 +6,8 @@ const endpointConstants = {
   animalTypes: '/Games/AnimalTypes',
   createGame: 'CreateGame',
   createAnimal: 'CreateAnimal',
+  pauseGame: 'PauseGame',
+  resumeGame: 'ResumeGame',
 };
 
 export default endpointConstants;
