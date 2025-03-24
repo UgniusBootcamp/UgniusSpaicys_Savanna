@@ -12,10 +12,8 @@ const QuitGameButton = ({ onQuit }) => {
 
     return (
       <ConfirmationModal
-        header={'Quit Game'}
-        message={
-          'Are you sure you want to quit game? Progress will not be saved automatically.'
-        }
+        header={gameActionsConstants.quitGame}
+        message={gameActionsConstants.quitMessage}
         isOpen={showConfirmation}
         onClose={() => setShowConfirmation(false)}
         onConfirm={() => {
@@ -23,7 +21,7 @@ const QuitGameButton = ({ onQuit }) => {
           SignalRService.quitGame();
           onQuit();
         }}
-        onConfirmMessage={'Quit'}
+        onConfirmMessage={gameActionsConstants.quit}
       />
     );
   };

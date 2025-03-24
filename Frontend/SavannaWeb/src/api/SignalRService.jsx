@@ -85,7 +85,7 @@ class SignalRService {
   async saveGame() {
     if (this.connection) {
       try {
-        await this.connection.invoke('SaveGame');
+        await this.connection.invoke(endpointConstants.saveGame);
       } catch (err) {
         console.error(errorConstants.resumeGameFail);
       }
@@ -94,7 +94,7 @@ class SignalRService {
   async loadGame(gameId) {
     if (this.connection) {
       try {
-        await this.connection.invoke('LoadGame', gameId);
+        await this.connection.invoke(endpointConstants.loadGame, gameId);
       } catch {
         console.error(errorConstants.loadGameFail);
       }
@@ -103,7 +103,7 @@ class SignalRService {
   async quitGame() {
     if (this.connection) {
       try {
-        await this.connection.invoke('StopGame');
+        await this.connection.invoke(endpointConstants.stopGame);
       } catch {
         console.error(errorConstants.quitGameFail);
       }

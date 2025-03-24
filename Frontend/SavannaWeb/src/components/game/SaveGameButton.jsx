@@ -13,18 +13,16 @@ const SaveGameButton = () => {
 
     return (
       <ConfirmationModal
-        header={'Save Game'}
-        message={
-          'Are you sure you want to save game? Previous progress of this game will be overwritten.'
-        }
+        header={gameActionsConstants.saveGame}
+        message={gameActionsConstants.saveMessage}
         isOpen={showConfirmation}
         onClose={() => setShowConfirmation(false)}
         onConfirm={() => {
           setShowConfirmation(false);
           SignalRService.saveGame();
-          setSnackbarMessage('Game has been saved.');
+          setSnackbarMessage(gameActionsConstants.gameSaved);
         }}
-        onConfirmMessage={'Save'}
+        onConfirmMessage={gameActionsConstants.save}
       />
     );
   };

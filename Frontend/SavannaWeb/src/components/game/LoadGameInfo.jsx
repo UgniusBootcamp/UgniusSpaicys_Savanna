@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import SignalRService from '../../api/SignalRService';
+import gameCreationConstants from '../../constants/gameCreationConstants';
 import { useAuth } from '../../hooks/useAuth';
 
 const LoadGameInfo = ({ game }) => {
@@ -7,14 +8,14 @@ const LoadGameInfo = ({ game }) => {
 
   const handleGameLoad = async (gameId) => {
     await SignalRService.loadGame(gameId);
-    setSnackbarMessage('Game has been loaded successfully!');
+    setSnackbarMessage(gameCreationConstants.loadSuccessful);
   };
 
   return (
     <div className="flex flex-col bg-primary-200 rounded-xl p-3 shadow-sm space-y-3 w-fit text-sm w-full">
       <div className="flex flex-col">
         <span className="text-base  font-semibold text-primary-900">
-          Iteration {game.iteration}
+          {gameCreationConstants.iteration} {game.iteration}
         </span>{' '}
         <span>
           {new Date(game.lastModified).toLocaleString(undefined, {

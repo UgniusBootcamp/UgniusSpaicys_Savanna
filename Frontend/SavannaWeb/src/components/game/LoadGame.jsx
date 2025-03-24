@@ -3,6 +3,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import GameApi from '../../api/GameApi';
+import gameCreationConstants from '../../constants/gameCreationConstants';
 import useErrorHandler from '../../hooks/useErrorHandler';
 import { Spinner } from '../common/Spinner';
 import LoadGameInfo from './LoadGameInfo';
@@ -49,7 +50,7 @@ const LoadGame = () => {
           <div className="flex flex-col gap-4">
             <div className="flex flex-wrap gap-4 items-center scale-75">
               <DatePicker
-                label="Start Date"
+                label={gameCreationConstants.startDate}
                 value={startDate}
                 onChange={(newValue) => setStartDate(newValue)}
                 slotProps={{
@@ -63,7 +64,7 @@ const LoadGame = () => {
                 }}
               />
               <DatePicker
-                label="End Date"
+                label={gameCreationConstants.endDate}
                 value={endDate}
                 onChange={(newValue) => setEndDate(newValue)}
                 slotProps={{
@@ -83,7 +84,7 @@ const LoadGame = () => {
             ) : (
               <div>
                 {games.length === 0 ? (
-                  <p>No games found in selected date range.</p>
+                  <p>{gameCreationConstants.noGamesFound}</p>
                 ) : (
                   <div className="flex flex-col gap-2 flex-wrap">
                     {games.map((game) => (
