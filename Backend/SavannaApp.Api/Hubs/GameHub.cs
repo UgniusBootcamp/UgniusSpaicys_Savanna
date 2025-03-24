@@ -1,9 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
-using SavannaApp.Business.Interfaces;
 using SavannaApp.Business.Interfaces.Web;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Dto.Game;
@@ -36,6 +34,14 @@ namespace SavannaApp.Api.Hubs
 
             if (!string.IsNullOrEmpty(userId))
                 await gameHubService.SaveGame(userId);
+        }
+        public Task StopGame()
+        {
+            var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
+            if (!string.IsNullOrEmpty(userId))
+                gameHubService.RemoveGame(userId);
+
+            return Task.CompletedTask;
         }
 
         public Task PauseGame()

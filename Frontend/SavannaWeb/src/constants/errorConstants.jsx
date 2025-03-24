@@ -11,6 +11,7 @@ const errorConstants = {
   resumeGameFail: 'Game could not be resumed',
   pauseGameFail: 'Game could not be paused',
   loadGameFail: 'Game could not be loaded',
+  quitGameFail: 'Game could not be stopped',
 };
 
 export default errorConstants;

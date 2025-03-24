@@ -100,6 +100,15 @@ class SignalRService {
       }
     }
   }
+  async quitGame() {
+    if (this.connection) {
+      try {
+        await this.connection.invoke('StopGame');
+      } catch {
+        console.error(errorConstants.quitGameFail);
+      }
+    }
+  }
 }
 
 export default new SignalRService();

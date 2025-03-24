@@ -3,6 +3,7 @@ const gameActionsConstants = {
   pause: 'Pause',
   resume: 'Resume',
   save: 'Save',
+  quit: 'Quit',
 };
 
 export default gameActionsConstants;

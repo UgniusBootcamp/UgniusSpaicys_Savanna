@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 import SignalRService from '../../api/SignalRService';
+import { useAuth } from '../../hooks/useAuth';
 
 const LoadGameInfo = ({ game }) => {
+  const { setSnackbarMessage } = useAuth();
+
   const handleGameLoad = async (gameId) => {
     await SignalRService.loadGame(gameId);
+    setSnackbarMessage('Game has been loaded successfully!');
   };
 
   return (

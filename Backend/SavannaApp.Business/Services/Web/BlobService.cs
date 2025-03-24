@@ -84,7 +84,7 @@ namespace SavannaApp.Business.Services.Web
                 if (gameSave != null)
                 {
                     var mapped = mapper.Map<GameLoadInfoDto>(dtoMapper.MapGame(gameSave));
-                    mapped.LastModified = lastModified;
+                    mapped.LastModified = lastModified.Value.ToLocalTime();
                     games.Add(mapped);
                 }
             }

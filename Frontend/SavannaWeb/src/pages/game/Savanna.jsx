@@ -86,6 +86,10 @@ const Savanna = () => {
         game={game}
         isIconOn={isIconOn}
         onCheck={(value) => setIsIconOn(value)}
+        onQuit={() => {
+          setGame(null);
+          setSelected(null);
+        }}
       />
       <div className="h-2/3 w-full m-2 flex justify-center">
         <Game
