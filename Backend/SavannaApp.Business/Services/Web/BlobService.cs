@@ -26,7 +26,7 @@ namespace SavannaApp.Business.Services.Web
             var userContainer = _blobServiceClient.GetBlobContainerClient(game.UserId);
             await userContainer.CreateIfNotExistsAsync();
 
-            var blobClient = userContainer.GetBlobClient(String.Format("{0}{1}", game.Id.ToString(), ".json"));
+            var blobClient = userContainer.GetBlobClient(String.Format("{0}{1}", game.Id.ToString(), WebServiceConstants.Json));
 
             var gameSave = dtoMapper.MapGameSave(game);
 
@@ -49,7 +49,7 @@ namespace SavannaApp.Business.Services.Web
             var userContainer = _blobServiceClient.GetBlobContainerClient(userId);
             if (!await userContainer.ExistsAsync()) return null;
 
-            var blobClient = userContainer.GetBlobClient(String.Format("{0}{1}", gameId.ToString(), ".json"));
+            var blobClient = userContainer.GetBlobClient(String.Format("{0}{1}", gameId.ToString(), WebServiceConstants.Json));
 
             if(await blobClient.ExistsAsync())
             {

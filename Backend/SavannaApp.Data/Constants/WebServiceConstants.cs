@@ -13,5 +13,6 @@
         public const string ValidationError = "Validation error";
         public const string Unauthorized = "Unauthorized access";
         public const string Forbidden = "Forbidden access";
+        public const string Json = ".json";
     }
 }
