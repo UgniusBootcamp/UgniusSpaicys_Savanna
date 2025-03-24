@@ -10,6 +10,7 @@ const errorConstants = {
   createAnimalInvokeFail: 'Error invoking CreateAnimal method:',
   resumeGameFail: 'Game could not be resumed',
   pauseGameFail: 'Game could not be paused',
+  loadGameFail: 'Game could not be loaded',
 };
 
 export default errorConstants;

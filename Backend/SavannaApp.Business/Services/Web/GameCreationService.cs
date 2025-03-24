@@ -11,9 +11,11 @@ namespace SavannaApp.Business.Services.Web
         {
             return new Game
             {
+                Id = Guid.NewGuid().ToString(),
                 UserId = userId,
                 Map = new Map(gameCreateDto.Height, gameCreateDto.Width)
             };
         }
+
     }
 }

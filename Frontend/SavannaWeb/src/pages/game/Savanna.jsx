@@ -73,7 +73,12 @@ const Savanna = () => {
 
   if (!connectionEstablished) return <Spinner />;
 
-  if (!game) return <GameCreationForm />;
+  if (!game)
+    return (
+      <div className="w-full flex justify-center items-center">
+        <GameCreationForm />
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-3 w-full h-screen text-white">

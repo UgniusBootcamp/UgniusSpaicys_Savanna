@@ -82,6 +82,24 @@ class SignalRService {
       }
     }
   }
+  async saveGame() {
+    if (this.connection) {
+      try {
+        await this.connection.invoke('SaveGame');
+      } catch (err) {
+        console.error(errorConstants.resumeGameFail);
+      }
+    }
+  }
+  async loadGame(gameId) {
+    if (this.connection) {
+      try {
+        await this.connection.invoke('LoadGame', gameId);
+      } catch {
+        console.error(errorConstants.loadGameFail);
+      }
+    }
+  }
 }
 
 export default new SignalRService();

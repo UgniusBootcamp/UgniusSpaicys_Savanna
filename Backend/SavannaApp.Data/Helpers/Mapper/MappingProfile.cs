@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SavannaApp.Data.Dto.Account;
 using SavannaApp.Data.Dto.Game;
+using SavannaApp.Data.Dto.Game.Save;
 using SavannaApp.Data.Entities;
 using SavannaApp.Data.Entities.Animals;
 using SavannaApp.Data.Entities.Auth;
@@ -36,6 +37,9 @@ namespace SavannaApp.Data.Helpers.Mapper
                 .ForMember(dest => dest.AnimalCount, opt => opt.MapFrom(src => src.Map.Animals.GroupBy(animal => animal.GetType().Name)
                 .ToDictionary(group => group.Key, group => group.Count())));
 
+            CreateMap<Game, GameLoadInfoDto>()
+                .ForMember(dest => dest.AnimalCount, opt => opt.MapFrom(src => src.Map.Animals.GroupBy(animal => animal.GetType().Name)
+                .ToDictionary(group => group.Key, group => group.Count())));
         }
     }
 }

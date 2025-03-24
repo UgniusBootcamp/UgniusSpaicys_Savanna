@@ -61,6 +61,9 @@ builder.Services.AddSwaggerGen();
 //Mapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+//Azure blob
+builder.Services.Configure<AzureBlobServiceOptions>(builder.Configuration.GetSection("AzureBlob"));
+
 //Add JWT
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
 
@@ -104,6 +107,9 @@ builder.Services.AddScoped<IGameCreationService, GameCreationService>();
 builder.Services.AddScoped<IMapManager, MapManager>();
 builder.Services.AddScoped<IGameUpdateInformer, GameUpdateInformer>();
 builder.Services.AddScoped<DbSeeder>();
+builder.Services.AddScoped<IBlobService, BlobService>();
+builder.Services.AddScoped<IGameHubService, GameHubService>();
+builder.Services.AddScoped<IDtoMapper, DtoMapper>();
 builder.Services.AddSignalR();
 
 //Add Identity

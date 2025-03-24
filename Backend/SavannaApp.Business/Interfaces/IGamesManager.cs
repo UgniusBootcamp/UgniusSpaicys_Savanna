@@ -10,5 +10,6 @@ namespace SavannaApp.Business.Interfaces
         bool GameExist(string userId);
         void PauseGame(string userId);
         void ResumeGame(string userId);
+        Game? GetGame(string userId);
     }
 }

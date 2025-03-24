@@ -32,5 +32,10 @@ namespace SavannaApp.Business.Services
                 AnimalType = a.Value.Name
             });
         }
+
+        public int? GetAnimalId(Type type)
+        {
+            return AnimalTypesById.FirstOrDefault(kvp => kvp.Value == type).Key;
+        }
     }
 }

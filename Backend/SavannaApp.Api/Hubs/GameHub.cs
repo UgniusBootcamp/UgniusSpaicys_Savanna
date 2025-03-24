@@ -2,35 +2,48 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.SignalR;
 using SavannaApp.Business.Interfaces;
+using SavannaApp.Business.Interfaces.Web;
 using SavannaApp.Business.Services;
 using SavannaApp.Data.Dto.Game;
-using SavannaApp.Data.Entities.Animals;
 
 namespace SavannaApp.Api.Hubs
 {
-    public class GameHub(IGamesManager gamesManager, IGameCreationService gameCreationService, AnimalTypeMapper animalTypeMapper) : Hub
+    public class GameHub(IGameHubService gameHubService) : Hub
     {
         public Task CreateGame(GameCreateDto gameCreateDto)
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
             if (!string.IsNullOrEmpty(userId) && ConnectionMapper.ConnectionExists(userId))
-            {
-                var game = gameCreationService.CreateGame(userId, gameCreateDto);
-                gamesManager.AddGame(game);
-            }
+                gameHubService.CreateGame(userId, gameCreateDto);
 
             return Task.CompletedTask;
+        }
+
+        public async Task LoadGame(string gameId)
+        {
+            var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+            if (!string.IsNullOrEmpty(userId) && ConnectionMapper.ConnectionExists(userId))
+                await gameHubService.LoadGame(userId, gameId);
+        }
+
+        public async Task SaveGame()
+        {
+            var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
+
+            if (!string.IsNullOrEmpty(userId))
+                await gameHubService.SaveGame(userId);
         }
 
         public Task PauseGame()
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-            if (!string.IsNullOrEmpty(userId) && gamesManager.GameExist(userId)) gamesManager.PauseGame(userId);
+            if (!string.IsNullOrEmpty(userId))
+                gameHubService.PauseGame(userId);
 
             return Task.CompletedTask;
         }
@@ -39,7 +52,8 @@ namespace SavannaApp.Api.Hubs
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-            if (!string.IsNullOrEmpty(userId) && gamesManager.GameExist(userId)) gamesManager.ResumeGame(userId);
+            if (!string.IsNullOrEmpty(userId))
+                gameHubService.ResumeGame(userId);
 
             return Task.CompletedTask;
         }
@@ -48,13 +62,8 @@ namespace SavannaApp.Api.Hubs
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-            if (!string.IsNullOrEmpty(userId) && ConnectionMapper.ConnectionExists(userId))
-            {
-                var animalType = animalTypeMapper.GetType(animalTypeId);
-                if (animalType == null) return Task.CompletedTask;
-
-                gamesManager.AddAnimal(userId, animalType);
-            }
+            if (!string.IsNullOrEmpty(userId))
+                gameHubService.CreateAnimal(userId, animalTypeId);
 
             return Task.CompletedTask;
         }
@@ -65,9 +74,7 @@ namespace SavannaApp.Api.Hubs
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
             if (!string.IsNullOrEmpty(userId))
-            {
-                ConnectionMapper.Add(userId, Context.ConnectionId);
-            }
+                ConnectionMapper.Add(userId, Context!.ConnectionId);
 
             return base.OnConnectedAsync();
         }
@@ -76,10 +83,10 @@ namespace SavannaApp.Api.Hubs
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
-            if (!string.IsNullOrEmpty(userId) && ConnectionMapper.ConnectionExists(userId))
+            if (!string.IsNullOrEmpty(userId))
             {
                 ConnectionMapper.Remove(userId);
-                gamesManager.RemoveGame(userId);
+                gameHubService.RemoveGame(userId);
             }
 
             return base.OnDisconnectedAsync(exception);

@@ -37,6 +37,7 @@ namespace SavannaApp.Business.Services.Web
 
             if (gameToRemove != null)
             {
+                gameToRemove.StopGame();
                 WebGames.Remove(gameToRemove);
             }
         }
@@ -60,7 +61,7 @@ namespace SavannaApp.Business.Services.Web
         {
             var game = WebGames.FirstOrDefault(g => g.Game.UserId == userId);
 
-            if(game != null) game.StopGame();
+            if(game != null) game.PauseGame();
         }
 
         public void ResumeGame(string userId)
@@ -68,6 +69,15 @@ namespace SavannaApp.Business.Services.Web
             var game = WebGames.FirstOrDefault(g => g.Game.UserId == userId);
 
             if (game != null) game.ResumeGame();
+        }
+
+        public Game? GetGame(string userId)
+        {
+            var gameRunner = WebGames.FirstOrDefault(g => g.Game.UserId == userId);
+
+            if (gameRunner != null) return gameRunner.Game;
+
+            return null;
         }
     }
 }

@@ -76,10 +76,16 @@ namespace SavannaApp.Business.Services.Web
             if (animal != null) Game.Map.SetAnimal(animal);
         }
 
-        public void StopGame() 
+        public void PauseGame() 
         {
             Game.IsRunning = false;
             _gameUpdateInformer.NotifyGameUpdated(Game);
+        }
+
+        public void StopGame()
+        {
+            Game.IsRunning = true;
+            _isRunning = false;
         }
 
         public void ResumeGame() 
