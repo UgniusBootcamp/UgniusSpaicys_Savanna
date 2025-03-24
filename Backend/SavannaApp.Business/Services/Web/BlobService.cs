@@ -17,6 +17,10 @@ namespace SavannaApp.Business.Services.Web
     {
         private readonly BlobServiceClient _blobServiceClient = new(options.Value.Key);
 
+        /// <summary>
+        /// Method to save game to azure blob storage in json
+        /// </summary>
+        /// <param name="game">game to save</param>
         public async Task SaveGameAsync(Game game)
         {
             var userContainer = _blobServiceClient.GetBlobContainerClient(game.UserId);
@@ -35,6 +39,11 @@ namespace SavannaApp.Business.Services.Web
             await blobClient.UploadAsync(stream, overwrite: true);
         }
 
+        /// <summary>
+        /// Method to load game from azure blob storage
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="gameId">game id</param>
         public async Task<Game?> LoadGameAsync(string userId, string gameId)
         {
             var userContainer = _blobServiceClient.GetBlobContainerClient(userId);
@@ -57,6 +66,14 @@ namespace SavannaApp.Business.Services.Web
 
             return null;
         }
+
+        /// <summary>
+        /// Get previous user games
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="start">start date</param>
+        /// <param name="end">end date</param>
+        /// <returns>get previous games in date ranges</returns>
         public async Task<IEnumerable<GameLoadInfoDto>> GetUserGamesAsync(string userId, DateOnly start, DateOnly end)
         {
             var userContainer = _blobServiceClient.GetBlobContainerClient(userId);

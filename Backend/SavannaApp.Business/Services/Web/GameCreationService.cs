@@ -7,6 +7,12 @@ namespace SavannaApp.Business.Services.Web
 {
     public class GameCreationService : IGameCreationService
     {
+        /// <summary>
+        /// Method to create game
+        /// </summary>
+        /// <param name="userId">user id</param>
+        /// <param name="gameCreateDto">game create dto</param>
+        /// <returns>created game</returns>
         public Game CreateGame(string userId, GameCreateDto gameCreateDto)
         {
             return new Game

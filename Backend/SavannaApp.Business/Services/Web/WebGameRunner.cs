@@ -28,6 +28,10 @@ namespace SavannaApp.Business.Services.Web
             Task.Run(() => RunGame(Game));
         }
 
+        /// <summary>
+        /// Method to run new game
+        /// </summary>
+        /// <param name="game">game</param>
         private void RunGame(Game game)
         {
 
@@ -69,6 +73,10 @@ namespace SavannaApp.Business.Services.Web
             }
         }
 
+        /// <summary>
+        /// Method to add animal
+        /// </summary>
+        /// <param name="animalType">animal type to add</param>
         public void AddAnimal(Type animalType)
         {
             var animal = _animalCreationService.CreateAnimal(animalType, Game.Map);
@@ -76,18 +84,27 @@ namespace SavannaApp.Business.Services.Web
             if (animal != null) Game.Map.SetAnimal(animal);
         }
 
+        /// <summary>
+        /// Method to pause game
+        /// </summary>
         public void PauseGame() 
         {
             Game.IsRunning = false;
             _gameUpdateInformer.NotifyGameUpdated(Game);
         }
 
+        /// <summary>
+        /// Method to stop game
+        /// </summary>
         public void StopGame()
         {
             Game.IsRunning = true;
             _isRunning = false;
         }
 
+        /// <summary>
+        /// Method to resume game
+        /// </summary>
         public void ResumeGame() 
         {
             lock (_lock)

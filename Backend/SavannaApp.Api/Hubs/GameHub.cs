@@ -10,6 +10,11 @@ namespace SavannaApp.Api.Hubs
 {
     public class GameHub(IGameHubService gameHubService) : Hub
     {
+        /// <summary>
+        /// Endpoint for game creation
+        /// </summary>
+        /// <param name="gameCreateDto"></param>
+        [Authorize]
         public Task CreateGame(GameCreateDto gameCreateDto)
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
@@ -20,6 +25,11 @@ namespace SavannaApp.Api.Hubs
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Endpoint to load game
+        /// </summary>
+        /// <param name="gameId">gameId to load</param>
+        [Authorize]
         public async Task LoadGame(string gameId)
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
@@ -28,6 +38,10 @@ namespace SavannaApp.Api.Hubs
                 await gameHubService.LoadGame(userId, gameId);
         }
 
+        /// <summary>
+        /// Endpoint to save game
+        /// </summary>
+        [Authorize]
         public async Task SaveGame()
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
@@ -35,6 +49,11 @@ namespace SavannaApp.Api.Hubs
             if (!string.IsNullOrEmpty(userId))
                 await gameHubService.SaveGame(userId);
         }
+
+        /// <summary>
+        /// Endpoint to stop game
+        /// </summary>
+        [Authorize]
         public Task StopGame()
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
@@ -44,6 +63,10 @@ namespace SavannaApp.Api.Hubs
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Endpoint to pause game
+        /// </summary>
+        [Authorize]
         public Task PauseGame()
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
@@ -54,6 +77,10 @@ namespace SavannaApp.Api.Hubs
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Endpoint to resume game
+        /// </summary>
+        [Authorize]
         public Task ResumeGame() 
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
@@ -64,6 +91,11 @@ namespace SavannaApp.Api.Hubs
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Endpoint to create animali
+        /// </summary>
+        /// <param name="animalTypeId">animal type id</param>
+        [Authorize]
         public Task CreateAnimal(int animalTypeId)
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);
@@ -74,6 +106,9 @@ namespace SavannaApp.Api.Hubs
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Endpoint to connect to hub
+        /// </summary>
         [Authorize]
         public override Task OnConnectedAsync()
         {
@@ -85,6 +120,9 @@ namespace SavannaApp.Api.Hubs
             return base.OnConnectedAsync();
         }
 
+        /// <summary>
+        /// Endpoint to disconnect from hub
+        /// </summary>
         public override Task OnDisconnectedAsync(Exception? exception)
         {
             var userId = Context?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);

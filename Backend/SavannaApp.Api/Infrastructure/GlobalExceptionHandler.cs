@@ -6,6 +6,13 @@ namespace SavannaApp.Api.Infrastructure
 {
     public class GlobalExceptionHandler : IExceptionHandler
     {
+        /// <summary>
+        /// global exception handler
+        /// </summary>
+        /// <param name="httpContext">context</param>
+        /// <param name="exception">exception</param>
+        /// <param name="cancellationToken">cancelation token</param>
+        /// <returns>json response to appropriate exception</returns>
         public async ValueTask<bool> TryHandleAsync(
             HttpContext httpContext,
             Exception exception,

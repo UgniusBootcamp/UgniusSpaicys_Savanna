@@ -8,6 +8,11 @@ namespace SavannaApp.Business.Services
 {
     public class DtoMapper(AnimalTypeMapper animalTypeMapper, IAnimalFactory animalFactory) : IDtoMapper
     {
+        /// <summary>
+        /// Map game to game save dto
+        /// </summary>
+        /// <param name="game">game</param>
+        /// <returns>game save dto</returns>
         public GameSaveDto MapGameSave(Game game)
         {
             var gameSave = new GameSaveDto
@@ -30,6 +35,11 @@ namespace SavannaApp.Business.Services
             return gameSave;
         }
 
+        /// <summary>
+        /// Map game save dto to game
+        /// </summary>
+        /// <param name="gameSaveDto">game save dto</param>
+        /// <returns>game</returns>
         public Game MapGame(GameSaveDto gameSaveDto)
         {
             var game = new Game
@@ -49,6 +59,11 @@ namespace SavannaApp.Business.Services
             return game;
         }
 
+        /// <summary>
+        /// Map animal save dto to animal
+        /// </summary>
+        /// <param name="animal">animal save dto</param>
+        /// <returns>animal</returns>
         public Animal? MapAnimal(AnimalSaveDto animal)
         {
             var type = animalTypeMapper.GetType(animal.AnimalTypeId);
@@ -61,6 +76,11 @@ namespace SavannaApp.Business.Services
             return mapped;
         }
 
+        /// <summary>
+        /// Map animal to animal save dto
+        /// </summary>
+        /// <param name="animal">animal</param>
+        /// <returns>animal save dto</returns>
         public AnimalSaveDto? MapAnimalSave(Animal animal)
         {
             var mapped = new AnimalSaveDto

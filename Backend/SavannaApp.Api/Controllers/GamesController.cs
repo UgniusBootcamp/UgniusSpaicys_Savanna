@@ -14,6 +14,10 @@ namespace SavannaApp.Api.Controllers
     [Route(EndpointConstants.Api + "[controller]")]
     public class GamesController(AnimalTypeMapper animalTypeMapper, IBlobService blobService) : BaseController
     {
+        /// <summary>
+        /// Endpoint to get animal types
+        /// </summary>
+        /// <returns>animal types</returns>
         [HttpGet(EndpointConstants.AnimalTypes)]
         [Authorize]
         public IActionResult GetAnimalTypes()
@@ -21,6 +25,12 @@ namespace SavannaApp.Api.Controllers
             return Ok(ApiResponse.OkResponse(WebConstants.AnimalTypes, animalTypeMapper.MapAnimalTypes()));
         }
 
+        /// <summary>
+        /// Endpoint to get user previous games
+        /// </summary>
+        /// <param name="start">start date</param>
+        /// <param name="end">end date</param>
+        /// <returns>user games in range of dates</returns>
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetGames(DateOnly start, DateOnly end)
