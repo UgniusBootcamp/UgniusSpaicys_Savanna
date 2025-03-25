@@ -38,11 +38,11 @@ namespace SavannaApp.Api.Controllers
             var userId = HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
 
             if (string.IsNullOrEmpty(userId))
-                return Unauthorized(ApiResponse.UnauthorizedResponse("User ID is missing from the token"));
+                return Unauthorized(ApiResponse.UnauthorizedResponse(WebConstants.UserIdMissing));
 
             var games = await blobService.GetUserGamesAsync(userId, start, end);
 
-            return Ok(ApiResponse.OkResponse("User Games", games));
+            return Ok(ApiResponse.OkResponse(WebConstants.UserGames, games));
         }
     }
 }
