@@ -87,5 +87,14 @@ namespace SavannaApp.Data.Entities.Animals
 
             Features.Offsprings++;
         }
+
+        public void SetFeatures(AnimalFeatures features)
+        {
+            Features.Vision = features.Vision;
+            Features.Offsprings = features.Offsprings;
+            Features.Age = features.Age;
+            Features.Health = features.Health;
+            Features.Speed = features.Speed;
+        }
     }
 }

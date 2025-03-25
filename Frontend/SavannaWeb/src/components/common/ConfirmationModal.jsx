@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import PropTypes from 'prop-types';
 import * as React from 'react';
+import gameActionsConstants from '../../constants/gameActionsConstants';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
@@ -18,8 +19,8 @@ export default function ConfirmationModal({
   isOpen,
   onClose,
   onConfirm,
-  onCloseMessage = 'Cancel',
-  onConfirmMessage = 'Confirm',
+  onCloseMessage = gameActionsConstants.cancel,
+  onConfirmMessage = gameActionsConstants.confirm,
 }) {
   return (
     <Dialog

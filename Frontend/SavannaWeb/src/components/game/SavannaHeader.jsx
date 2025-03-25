@@ -6,8 +6,11 @@ import { Spinner } from '../common/Spinner';
 import ToggleSwitch from '../common/ToggleSwitch';
 import GameActions from './GameActions';
 import GameStats from './GameStats';
+import PauseResumeButton from './PauseResumeButton';
+import QuitGameButton from './QuitGameButton';
+import SaveGameButton from './SaveGameButton';
 
-const SavannaHeader = ({ game, isIconOn, onCheck }) => {
+const SavannaHeader = ({ game, isIconOn, onCheck, onQuit }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [AnimalTypes, setAnimalTypes] = useState(null);
 
@@ -32,6 +35,11 @@ const SavannaHeader = ({ game, isIconOn, onCheck }) => {
         animalsCount={game.animalCount}
       />
       <GameActions AnimalTypes={AnimalTypes} />
+      <div className="flex flex-col gap-2 py-2">
+        <PauseResumeButton isRunning={game.isRunning} />
+        {!game.isRunning && <SaveGameButton />}
+        {!game.isRunning && <QuitGameButton onQuit={onQuit} />}
+      </div>
       <ToggleSwitch
         label={switchConstants.label}
         checked={isIconOn}
@@ -45,6 +53,7 @@ SavannaHeader.propTypes = {
   game: PropTypes.object.isRequired,
   isIconOn: PropTypes.bool.isRequired,
   onCheck: PropTypes.func.isRequired,
+  onQuit: PropTypes.func.isRequired,
 };
 
 export default SavannaHeader;

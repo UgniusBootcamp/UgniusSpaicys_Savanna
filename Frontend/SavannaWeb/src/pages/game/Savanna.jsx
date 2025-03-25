@@ -73,7 +73,12 @@ const Savanna = () => {
 
   if (!connectionEstablished) return <Spinner />;
 
-  if (!game) return <GameCreationForm />;
+  if (!game)
+    return (
+      <div className="w-full flex justify-center items-center">
+        <GameCreationForm />
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-3 w-full h-screen text-white">
@@ -81,6 +86,10 @@ const Savanna = () => {
         game={game}
         isIconOn={isIconOn}
         onCheck={(value) => setIsIconOn(value)}
+        onQuit={() => {
+          setGame(null);
+          setSelected(null);
+        }}
       />
       <div className="h-2/3 w-full m-2 flex justify-center">
         <Game

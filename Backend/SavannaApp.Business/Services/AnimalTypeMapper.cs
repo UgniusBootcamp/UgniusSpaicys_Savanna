@@ -17,6 +17,11 @@ namespace SavannaApp.Business.Services
             }
         }
 
+        /// <summary>
+        /// Get animal type by id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>animal type</returns>
         public Type? GetType(int id) 
         {
             if (AnimalTypesById.ContainsKey(id)) return AnimalTypesById[id];
@@ -24,6 +29,10 @@ namespace SavannaApp.Business.Services
             return null;
         }
 
+        /// <summary>
+        /// Get animal types with ids
+        /// </summary>
+        /// <returns>animal types with ids</returns>
         public IEnumerable<AnimalTypeReadDto> MapAnimalTypes()
         {
             return AnimalTypesById.Select(a => new AnimalTypeReadDto
@@ -31,6 +40,16 @@ namespace SavannaApp.Business.Services
                 Id = a.Key,
                 AnimalType = a.Value.Name
             });
+        }
+
+        /// <summary>
+        /// Get animal id by its type
+        /// </summary>
+        /// <param name="type">animal type</param>
+        /// <returns>animal type id</returns>
+        public int? GetAnimalId(Type type)
+        {
+            return AnimalTypesById.FirstOrDefault(kvp => kvp.Value == type).Key;
         }
     }
 }

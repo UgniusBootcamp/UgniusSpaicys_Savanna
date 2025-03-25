@@ -10,5 +10,7 @@
         public const string AccessTokenRefreshed = "Access token refreshed";
         public const string LogoutSuccessful = "Logout successful";
         public const string AnimalTypes = "Animal Types";
+        public const string UserGames = "User Games";
+        public const string UserIdMissing = "User ID is missing from the token";
     }
 }

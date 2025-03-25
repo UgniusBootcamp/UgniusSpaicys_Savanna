@@ -10,6 +10,11 @@ namespace SavannaApp.Api.Hubs
 {
     public class GameUpdateInformer(IHubContext<GameHub> context, IMapper mapper) : IGameUpdateInformer
     {
+        /// <summary>
+        /// Method to notify user with game update
+        /// </summary>
+        /// <param name="game">game</param>
+        /// <returns>user informed with updated game</returns>
         public async Task NotifyGameUpdated(Game game)
         {
             var connectionId = ConnectionMapper.GetConnectionId(game.UserId);
